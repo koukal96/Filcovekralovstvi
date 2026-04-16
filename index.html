@@ -9,232 +9,651 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- DEFINICE BAREV PŘÍRODY --- */
         :root {
             --moss-dark: #2C351B;
             --moss-green: #4A5D23;
             --leaf: #6b8238;
             --canvas: #F9F7F2;
+            --felt-grey: #E5E1D8;
             --burnt-orange: #D48B59;
-            --soft-yellow: #FFF9E6;
+            --earth: #5D4037;
             --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
-        /* --- ZÁKLADNÍ STYL --- */
+        /* --- ZÁKLADNÍ RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
         body { 
             font-family: 'Montserrat', sans-serif; 
             color: var(--moss-dark); 
             background-color: var(--canvas); 
-            line-height: 1.6;
+            line-height: 1.8; 
             overflow-x: hidden;
-        }
-        h1, h2, h3 { font-family: 'Lora', serif; }
-
-        /* --- HRAVÉ POZADÍ (TEXTURA FILCU) --- */
-        body::before {
-            content: "";
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/felt.png');
-            opacity: 0.3; pointer-events: none; z-index: -1;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
         }
 
-        /* --- OPRAVENÁ NAVIGACE --- */
+        h1, h2, h3, h4, .logo { font-family: 'Lora', serif; font-weight: 700; }
+        p { font-weight: 400; color: #444; }
+
+        /* --- HRAVÉ DEKORACE (Včelky, lístky atd.) --- */
+        .deco-element {
+            position: absolute;
+            font-size: 2rem;
+            z-index: 5;
+            opacity: 0.85;
+            animation: floatPlayful 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .deco-bee { top: 10%; right: 5%; animation-delay: 0s; font-size: 2.5rem; }
+        .deco-ladybug { bottom: 15%; left: 8%; animation-delay: 1s; font-size: 2rem; }
+        .deco-leaf { top: 40%; left: 3%; animation-delay: 2s; color: var(--moss-green); }
+        .deco-bird { bottom: 5%; right: 10%; animation-delay: 0.5s; font-size: 2.5rem; }
+        
+        @keyframes floatPlayful {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(8deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* --- NAVIGACE --- */
         header { 
-            background: rgba(255,255,255,0.98); 
+            background: var(--glass); 
+            backdrop-filter: blur(15px);
             position: fixed; width: 100%; top: 0; z-index: 1000; 
-            border-bottom: 3px solid var(--burnt-orange);
+            border-bottom: 2px solid rgba(212, 139, 89, 0.3);
+            transition: 0.5s;
         }
         .nav-container { 
-            max-width: 1200px; margin: 0 auto; padding: 10px 15px; 
+            max-width: 1400px; margin: 0 auto; padding: 12px 25px; 
             display: flex; justify-content: space-between; align-items: center; 
         }
-        .logo-box { display: flex; flex-direction: column; text-decoration: none; }
-        .logo-top { font-size: 1.2rem; color: var(--moss-green); font-weight: 700; letter-spacing: 1px; }
-        .logo-bottom { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--burnt-orange); font-weight: 800; }
+        .logo-wrap { display: flex; flex-direction: column; cursor: pointer; text-decoration: none; }
+        .logo-main { font-size: 1.5rem; color: var(--moss-green); letter-spacing: 1px; }
+        .logo-sub { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--burnt-orange); font-weight: 800; }
 
-        /* --- HERO SEKCE (S LESEM) --- */
+        .nav-menu { display: flex; list-style: none; gap: 30px; }
+        .nav-menu a { 
+            font-weight: 600; text-transform: uppercase; font-size: 0.85rem; 
+            color: var(--moss-dark); position: relative; padding: 5px 0; text-decoration: none;
+        }
+        .nav-menu a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; 
+            height: 3px; background: var(--burnt-orange); transition: 0.3s; border-radius: 5px;
+        }
+        .nav-menu a:hover::after { width: 100%; }
+        
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-right a { color: var(--moss-green); transition: 0.3s; text-decoration: none; }
+        .nav-right i { font-size: 1.4rem; cursor: pointer; }
+        .nav-right a:hover i { color: var(--burnt-orange); transform: scale(1.15) rotate(-5deg); }
+
+        .burger { display: none; cursor: pointer; font-size: 1.8rem; color: var(--moss-green); }
+
+        /* --- HERO SEKCE --- */
         .hero { 
-            height: 85vh; position: relative; display: flex; align-items: center; 
-            justify-content: center; text-align: center; color: white; padding: 20px;
-            margin-top: 60px; background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
-            url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80') center/cover;
+            height: 100vh; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; text-align: center;
         }
-        .hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; opacity: 0.9; }
-
-        /* --- TLAČÍTKA (PĚKNĚ POD SEBE NA MOBILU) --- */
-        .btn-stack { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 300px; margin: 0 auto; }
-        .btn { 
-            padding: 16px 25px; border-radius: 50px; font-weight: 700; 
-            text-transform: uppercase; font-size: 0.9rem; text-decoration: none; transition: 0.3s;
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(44,53,27,0.6), rgba(44,53,27,0.3)), 
+                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071') center/cover;
+            z-index: -1; transform: scale(1.1); animation: pan 25s infinite alternate;
         }
-        .btn-main { background: var(--burnt-orange); color: white; box-shadow: 0 4px 15px rgba(212,139,89,0.4); }
-        .btn-sub { border: 2px solid white; color: white; }
+        @keyframes pan { from { transform: scale(1); } to { transform: scale(1.15); } }
 
-        /* --- SEKCE: AUTORSKÝ TEXTIL (DOPLNĚNO) --- */
-        .textil-section { 
-            padding: 60px 20px; text-align: center; background: white;
-            margin: 40px 20px; border-radius: 30px; border: 2px solid var(--burnt-orange);
+        .hero-content { max-width: 900px; color: white; padding: 0 20px; z-index: 10; }
+        .hero h1 { 
+            font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.15; margin-bottom: 25px;
+            animation: slideUp 1.5s ease; text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
         }
-        .textil-section h2 { color: var(--moss-green); margin-bottom: 10px; }
-        .stitch-line { border-top: 2px dashed var(--burnt-orange); width: 100px; margin: 20px auto; }
+        .hero p { 
+            font-size: clamp(1.1rem, 3vw, 1.5rem); color: rgba(255,255,255,0.95); margin-bottom: 40px; 
+            animation: slideUp 2s ease; font-weight: 400; text-shadow: 1px 2px 5px rgba(0,0,0,0.5);
+        }
 
-        /* --- PROGRAMY (PŘEHLEDNÉ KARTY) --- */
-        .section-title { text-align: center; margin: 60px 20px 40px; }
-        .section-title h2 { font-size: 2rem; color: var(--moss-green); }
+        .cta-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; animation: fadeIn 3s ease; }
+        .btn-primary { 
+            padding: 16px 40px; background: var(--burnt-orange); color: white; border-radius: 50px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(212, 139, 89, 0.4); text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center; text-align: center;
+            white-space: normal; /* Oprava přetékajícího textu z fotky */
+            max-width: 100%; line-height: 1.3;
+        }
+        .btn-primary:hover { background: #b5754a; transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 35px rgba(212, 139, 89, 0.5); color: white; }
         
-        .card-container { display: flex; flex-direction: column; gap: 25px; padding: 0 20px; max-width: 1100px; margin: 0 auto; }
-        .card { 
-            background: white; border-radius: 20px; padding: 30px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); position: relative;
-            border-left: 8px solid var(--burnt-orange);
+        .btn-outline { 
+            padding: 16px 40px; border: 3px solid white; color: white; border-radius: 50px;
+            font-weight: 700; text-transform: uppercase; transition: 0.4s; text-decoration: none;
+            background: rgba(0,0,0,0.2); backdrop-filter: blur(5px);
+            white-space: normal; text-align: center; line-height: 1.3;
         }
-        .card i { font-size: 2.5rem; color: var(--moss-green); margin-bottom: 15px; }
+        .btn-outline:hover { background: white; color: var(--moss-dark); }
 
-        /* --- NÁSTĚNKA (ORIGINÁLNÍ VZHLED) --- */
-        .nastenka { 
-            background: #E5E1D8; padding: 40px 20px; margin: 40px 0;
-            display: grid; grid-template-columns: 1fr; gap: 20px;
+        /* --- OCENĚNÍ (INFINITE SCROLL) --- */
+        .awards-bar { background: var(--moss-dark); padding: 40px 0; overflow: hidden; position: relative; border-bottom: 5px solid var(--burnt-orange); }
+        .awards-scroll { display: flex; width: calc(350px * 12); animation: infiniteScroll 35s linear infinite; }
+        .award-card { 
+            width: 350px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            color: var(--felt-grey); cursor: pointer; transition: 0.3s; text-align: center;
         }
-        .paper { 
-            background: #fff; padding: 25px; transform: rotate(-1deg);
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.1); position: relative;
-        }
-        .paper:nth-child(even) { transform: rotate(1.5deg); }
-        .pin { position: absolute; top: -10px; left: 50%; color: #d9534f; font-size: 1.5rem; }
+        .award-card:hover { transform: scale(1.1); color: var(--burnt-orange); }
+        .award-card i { font-size: 2.2rem; color: var(--burnt-orange); }
+        .award-card span { font-family: 'Lora', serif; font-weight: 600; font-size: 1.1rem; }
 
-        /* --- PATIČKA (MAXIMÁLNÍ ČITELNOST) --- */
-        footer { background: var(--moss-dark); color: #f9f9f9; padding: 60px 20px; }
-        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: var(--burnt-orange); margin-bottom: 20px; font-size: 1.4rem; }
-        .footer-col p, .footer-col a { color: #f9f9f9 !important; text-decoration: none; margin-bottom: 15px; display: block; font-size: 1rem; }
-        .footer-col i { color: var(--burnt-orange); width: 25px; font-size: 1.2rem; }
+        @keyframes infiniteScroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-350px * 6)); } }
+
+        /* --- O MNĚ --- */
+        .section-padding { padding: 100px 20px; max-width: 1300px; margin: 0 auto; position: relative; }
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .about-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+        .about-frame { position: sticky; top: 120px; }
+        .about-frame img { 
+            width: 100%; border-radius: 20px; box-shadow: 20px 20px 0 var(--moss-green);
+            transition: 0.5s; border: 5px solid white;
+        }
+        .about-frame::before {
+            content: ''; position: absolute; top: -25px; left: -25px; width: 120px; height: 120px;
+            border-top: 6px solid var(--burnt-orange); border-left: 6px solid var(--burnt-orange); z-index: 1; border-radius: 20px 0 0 0;
+        }
+        .about-content h2 { font-size: 3rem; margin-bottom: 25px; line-height: 1.2; color: var(--moss-dark); }
+        .about-content h2 span { color: var(--burnt-orange); font-size: 1.1rem; display: block; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;}
+        .about-content h3 { color: var(--moss-green); font-size: 1.6rem; margin: 35px 0 15px 0; font-family: 'Lora', serif; }
+        .about-content p { margin-bottom: 20px; text-align: justify; }
         
-        .social-circle-row { display: flex; gap: 15px; margin-top: 20px; }
-        .social-circle { 
-            width: 50px; height: 50px; border: 2px solid var(--burnt-orange); 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: var(--burnt-orange) !important;
+        .quote-box { 
+            font-family: 'Lora', serif; font-size: 1.5rem; font-style: italic; 
+            border-left: 6px solid var(--burnt-orange); border-radius: 10px;
+            padding: 20px 30px; margin: 30px 0; color: var(--moss-green); line-height: 1.5;
+            background: rgba(212, 139, 89, 0.05); position: relative;
+        }
+        .quote-box::before { content: '„'; position: absolute; top: -10px; left: 10px; font-size: 4rem; color: var(--burnt-orange); opacity: 0.2; font-family: Arial; }
+
+        /* --- SPOLEČNÉ NÁZVY SEKCÍ --- */
+        .section-title { text-align: center; margin-bottom: 60px; position: relative; z-index: 2;}
+        .section-title h2 { font-size: 2.8rem; position: relative; display: inline-block; line-height: 1.2;}
+        /* Modifikace pro zalamování (MŠ, ZŠ a služby) */
+        .break-title { display: block; font-size: 2rem; color: var(--burnt-orange); margin-top: 5px; }
+        
+        .section-title h2::after { 
+            content: ''; position: absolute; bottom: -20px; left: 50%; 
+            width: 80px; height: 5px; background: var(--burnt-orange); 
+            transform: translateX(-50%); border-radius: 10px;
         }
 
-        /* --- WHATSAPP & ANIMACE --- */
-        .wa-button { 
-            position: fixed; bottom: 20px; right: 20px; background: #25D366; 
-            width: 60px; height: 60px; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; color: white; font-size: 2rem;
-            z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        /* --- E-SHOP (TVORBA) --- */
+        .shop-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; position: relative; z-index: 2;}
+        .art-card { 
+            background: var(--white); border-radius: 30px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
         }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        .floating-bee { position: absolute; top: -30px; right: 20px; font-size: 2rem; animation: float 3s ease-in-out infinite; }
+        .art-card:hover { transform: translateY(-10px); border-color: var(--burnt-orange); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .card-visual { 
+            height: 350px; background-size: cover; background-position: center; position: relative; 
+        }
+        .card-inner-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 53, 27, 0.6); display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.4s; backdrop-filter: blur(2px);
+        }
+        .art-card:hover .card-inner-overlay { opacity: 1; }
+        .card-body { padding: 30px; text-align: center; }
+        .card-body h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--moss-dark); }
+        .card-body p { font-size: 0.95rem; color: #555; }
 
-        /* --- DESKTOP ÚPRAVY --- */
-        @media (min-width: 768px) {
-            .btn-stack { flex-direction: row; max-width: 500px; }
-            .card-container { display: grid; grid-template-columns: 1fr 1fr; }
-            .footer-grid { grid-template-columns: repeat(3, 1fr); }
-            .nastenka { grid-template-columns: 1fr 1fr; padding: 60px; }
+        /* --- PROGRAMY A SLUŽBY --- */
+        .schools-bg { 
+            background: var(--felt-grey); background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
+            padding: 80px 0; border-radius: 60px 60px 0 0; position: relative; border-top: 5px solid var(--moss-green);
+        }
+        .program-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 20px; position: relative; z-index: 2;}
+        .program-card { 
+            background: white; padding: 40px; border-radius: 40px; border: 2px dashed rgba(74, 93, 35, 0.2);
+            position: relative; transition: 0.4s; text-align: center;
+        }
+        .program-card:hover { transform: translateY(-10px); border-color: var(--burnt-orange); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-style: solid; }
+        .program-card i.main-icon { font-size: 3.5rem; color: var(--moss-green); margin-bottom: 20px; transition: 0.3s; }
+        .program-card:hover i.main-icon { transform: scale(1.2) rotate(10deg); color: var(--burnt-orange); }
+        .program-card h3 { font-size: 1.8rem; color: var(--moss-dark); margin-bottom: 15px; }
+        
+        .program-tag { 
+            background: var(--burnt-orange); color: white; padding: 6px 15px; border-radius: 20px; 
+            font-size: 0.75rem; font-weight: 800; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(212, 139, 89, 0.4); letter-spacing: 1px;
+        }
+        .price-circle { 
+            width: 90px; height: 90px; background: var(--moss-dark); color: white; 
+            border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin: 20px auto 0 auto; border: 4px solid var(--felt-grey); font-weight: 800;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .features-list { list-style: none; margin-top: 20px; font-weight: 600; color: var(--moss-green); text-align: left; display: inline-block;}
+        .features-list li { margin-bottom: 8px; }
+
+        /* --- NÁSTĚNKA --- */
+        .board-bg { background: var(--canvas); position: relative; }
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; position: relative; z-index: 2;}
+        .note { 
+            background: #fff; padding: 40px; box-shadow: 10px 10px 30px rgba(0,0,0,0.08);
+            transform: rotate(-2deg); cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; border-radius: 5px 30px 5px 30px; border: 1px solid #eee;
+        }
+        .note:nth-child(even) { transform: rotate(2deg); background: #fafdf7; border-radius: 30px 5px 30px 5px; }
+        .note:hover { transform: rotate(0) scale(1.05) translateY(-10px); z-index: 50; box-shadow: 15px 20px 40px rgba(0,0,0,0.12); }
+        .note-pin { 
+            width: 25px; height: 25px; background: #e74c3c; border-radius: 50%; 
+            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+            box-shadow: inset -3px -3px 5px rgba(0,0,0,0.3), 2px 5px 5px rgba(0,0,0,0.2);
+        }
+        .note h3 { color: var(--burnt-orange); margin-bottom: 10px; font-family: 'Lora', serif; font-size: 1.6rem; margin-top: 10px;}
+
+        /* --- MODAL (OVERLAY) --- */
+        .modal { 
+            display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; 
+            background: rgba(28, 35, 12, 0.95); backdrop-filter: blur(8px);
+        }
+        .modal-content { 
+            background: white; margin: 5vh auto; padding: 50px; border-radius: 30px; 
+            max-width: 800px; position: relative; animation: modalIn 0.4s ease;
+            max-height: 90vh; overflow-y: auto; text-align: center;
+        }
+        @keyframes modalIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close-modal { 
+            position: absolute; top: 20px; right: 30px; font-size: 3rem; 
+            cursor: pointer; color: var(--moss-dark); transition: 0.3s; line-height: 1;
+        }
+        .close-modal:hover { color: var(--burnt-orange); transform: rotate(90deg); }
+        .modal-image { width: 100%; border-radius: 20px; margin-top: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+
+        /* --- KONTAKT & FOOTER --- */
+        footer { 
+            background: var(--moss-dark); 
+            color: var(--white); /* Oprava čitelnosti z fotek */
+            padding: 80px 20px 40px 20px; 
+            position: relative; 
+            overflow: hidden; 
+            border-top: 8px solid var(--moss-green);
+        }
+        /* Jemný vzor na pozadí patičky */
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; z-index: 0;
+        }
+        .footer-grid { 
+            max-width: 1300px; margin: 0 auto; display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px;
+            position: relative; z-index: 2;
+        }
+        .footer-col h4 { font-size: 1.4rem; margin-bottom: 20px; color: var(--burnt-orange); border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px;}
+        .footer-col p { margin-bottom: 12px; color: var(--felt-grey); font-weight: 300;}
+        
+        .footer-col a.contact-link { color: var(--white); text-decoration: none; transition: 0.3s; font-weight: 600;}
+        .footer-col a.contact-link:hover { color: var(--burnt-orange); padding-left: 5px;}
+
+        .social-links { display: flex; gap: 15px; margin-top: 20px; }
+        .social-links a { 
+            width: 45px; height: 45px; background: rgba(255,255,255,0.1); 
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            font-size: 1.2rem; color: white; text-decoration: none; transition: 0.3s;
+        }
+        .social-links a:hover { background: var(--burnt-orange); transform: translateY(-5px) scale(1.1); }
+
+        /* --- PLOVOUCÍ WHATSAPP --- */
+        .wa-float { 
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
+            background: #25D366; color: white; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 2.2rem; z-index: 9000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); animation: pulse 2s infinite; text-decoration: none;
+            transition: 0.3s;
+        }
+        .wa-float:hover { animation: none; transform: scale(1.15) rotate(-5deg); background: #20b858; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* --- RESPONSIVITA --- */
+        @media (max-width: 1024px) {
+            .about-split { grid-template-columns: 1fr; gap: 40px; }
+            .about-frame { position: relative; top: 0; max-width: 600px; margin: 0 auto;}
+            .about-frame::before { top: -15px; left: -15px; width: 80px; height: 80px;}
+            .hero h1 { font-size: 3.2rem; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { 
+                display: none; position: absolute; top: 75px; left: 0; width: 100%; 
+                background: rgba(255, 255, 255, 0.98); flex-direction: column; padding: 30px 20px; text-align: center;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-bottom: 3px solid var(--burnt-orange);
+            }
+            .nav-menu.active { display: flex; }
+            .nav-menu a { font-size: 1.1rem; padding: 10px 0;}
+            .burger { display: block; }
+            
+            .section-padding { padding: 60px 15px; }
+            .wa-float { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 2rem; }
+            
+            /* Úprava nadpisů na mobilech pro zalamování pod sebe */
+            .section-title h2 { font-size: 2.2rem; }
+            .break-title { font-size: 1.6rem; }
+            
+            /* Tlačítka na mobilu nesmí přetékat */
+            .btn-primary, .btn-outline { font-size: 0.9rem; padding: 14px 25px; width: 100%; }
+            .cta-group { flex-direction: column; width: 100%; }
+            
+            /* Skrytí některých dekorací na mobilu kvůli místu */
+            .deco-leaf, .deco-bird { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo-box">
-                <span class="logo-top">FILCOVÉ KRÁLOVSTVÍ</span>
-                <span class="logo-bottom">Eva Nevrlá</span>
+            <a href="#" class="logo-wrap" onclick="window.scrollTo(0,0)">
+                <span class="logo-main">FILCOVÉ KRÁLOVSTVÍ</span>
+                <span class="logo-sub">Eva Nevrlá</span>
             </a>
-            <div style="display: flex; gap: 15px; color: var(--moss-green); font-size: 1.2rem;">
-                <i class="fas fa-shopping-basket"></i>
-                <i class="fas fa-bars"></i>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#o-mne">Příběh</a></li>
+                <li><a href="#eshop">Tvorba</a></li>
+                <li><a href="#skoly">Pro školy a služby</a></li>
+                <li><a href="#nastenka">Nástěnka</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.filcovekralovstvi.cz" target="_blank" title="Přejít do e-shopu" style="color: var(--burnt-orange);"><i class="fas fa-shopping-basket"></i></a>
+                <div class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
             </div>
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="uvod">
+        <div class="hero-bg"></div>
         <div class="hero-content">
-            <h1>Umění, které ožívá v dětských dlaních.</h1>
-            <p>Spojujeme precizní vědecký detail s něhou uměleckého řemesla. Ručně malované pomůcky z Hané.</p>
-            <div class="btn-stack">
-                <a href="#galerie" class="btn btn-main">Prozkoumat galerii</a>
-                <a href="#skoly" class="btn btn-sub">Programy pro školy</a>
+            <h1>Umění, které ožívá<br>v dětských dlaních.</h1>
+            <p>Ručně malované edukativní pomůcky z filcu, které spojují precizní vědecký detail s něhou uměleckého řemesla a láskou k přírodě.</p>
+            <div class="cta-group">
+                <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary"><i class="fas fa-shopping-basket" style="margin-right: 10px;"></i> Prozkoumat galerii</a>
+                <a href="#skoly" class="btn-outline">Programy pro školy</a>
             </div>
         </div>
     </section>
 
-    <section class="textil-section">
-        <i class="fas fa-cut" style="color: var(--burnt-orange); font-size: 1.5rem;"></i>
-        <h2>Autorský textil</h2>
-        <p>Příroda jako součást vašeho každodenního stylu a šatníku. Originální kousky s duší.</p>
-        <div class="stitch-line"></div>
-        <a href="#" class="btn btn-main" style="display: inline-block;">Vstoupit do království</a>
+    <div class="deco-element deco-bee">🐝</div>
+    <div class="deco-element deco-ladybug">🐞</div>
+
+    <div class="awards-bar">
+        <div class="awards-scroll">
+            <div class="award-card" onclick="openModal('Certifikát', 'Regionální produkt Haná', 'Značka garantující místní původ a kvalitu zpracování z Olomouckého kraje.', 'https://via.placeholder.com/600x800?text=Haná+Produkt')">
+                <i class="fas fa-award"></i><span>Regionální produkt Haná</span>
+            </div>
+            <div class="award-card" onclick="openModal('Ocenění', 'Cena hejtmana OK', 'Za společenskou odpovědnost a významný přínos v oblasti enviromentální výchovy dětí a mládeže.', 'https://via.placeholder.com/600x800?text=Hejtman+Cena')">
+                <i class="fas fa-medal"></i><span>Cena hejtmana kraje</span>
+            </div>
+            <div class="award-card" onclick="openModal('Soutěž', 'Živnostník roku 2025', '3. místo v prestižním hodnocení podnikatelů Olomouckého kraje.', 'https://via.placeholder.com/600x800?text=Živnostník+Roku')">
+                <i class="fas fa-trophy"></i><span>3. místo Živnostník roku 2025</span>
+            </div>
+            <div class="award-card" onclick="openModal('Kvalita', 'Mistr uměleckého řemesla', 'Uznání za unikátní techniku malby na textil a pedagogický přesah.', 'https://via.placeholder.com/600x800?text=Mistr+Remesla')">
+                <i class="fas fa-paint-brush"></i><span>Mistr řemesla</span>
+            </div>
+            <div class="award-card" onclick="openModal('Ekologie', 'Enviro-přínos', 'Pomůcky, které učí děti milovat přírodu bez kompromisů.', 'https://via.placeholder.com/600x800?text=Eko+Cena')">
+                <i class="fas fa-leaf"></i><span>Eko-vzdělávání</span>
+            </div>
+            <div class="award-card" onclick="openModal('Tradice', 'Rodinné stříbro', 'Udržování tradic a poctivého šití s moderním designem.', 'https://via.placeholder.com/600x800?text=Tradice')">
+                <i class="fas fa-heart"></i><span>Tradice s láskou</span>
+            </div>
+            <div class="award-card"><i class="fas fa-award"></i><span>Regionální produkt Haná</span></div>
+            <div class="award-card"><i class="fas fa-medal"></i><span>Cena hejtmana kraje</span></div>
+            <div class="award-card"><i class="fas fa-trophy"></i><span>3. místo Živnostník roku 2025</span></div>
+            <div class="award-card"><i class="fas fa-paint-brush"></i><span>Mistr řemesla</span></div>
+        </div>
+    </div>
+
+    <section class="section-padding reveal" id="o-mne">
+        <div class="about-split">
+            <div class="about-frame">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?q=80&w=2070" alt="Výtvarnice Eva Nevrlá">
+            </div>
+            <div class="about-content">
+                <h2><span>Když se filc stane plátnem:</span>Poslání Evy Nevrlé z Hané …</h2>
+                <p>Deset let poctivé, detailní a láskyplné práce. Přesně tak dlouho se umělkyně Eva Nevrlá z Mohelnice (Olomoucký kraj) věnuje tvorbě, která spojuje řemeslo a hluboký smysl pro přírodu. Její hlavní doménou je filc, který pod Evinýma rukama ožívá v podobě fascinujících vzdělávacích pomůcek.</p>
+                
+                <h3>Filc, jehla a štětec: Oceněné spojení</h3>
+                <p>Evina tvorba je jedinečná tím, že kombinuje tradiční techniky šití (ruční i strojové) s moderní a originální malbou na filc. Právě tento unikátní přístup, který filc povyšuje na plnohodnotné malířské plátno, vynesl Evě prestižní certifikát <strong>Regionální produkt Haná</strong>, <strong>Cenu hejtmana Olomouckého kraje za společenskou odpovědnost</strong>, a v roce 2025 <strong>3. místo živnostníka roku za Olomoucký kraj</strong>.</p>
+                
+                <p>Eva se specializuje na modely inspirované faunou, ať už jde o miniaturní hmyz, elegantní ptáky, nebo exotické papoušky. Každý kus je absolutní originál. Je to pečlivě ručně malovaný a šitý model, kde je kladen maximální důraz na reálnou anatomii a věrnou barevnost daného živočicha. Cílem není jen estetika, ale především edukativní přesnost.</p>
+
+                <h3>Poslání: Láska k přírodě jako největší dar …</h3>
+                <p>Klíčovým posláním Eviny práce je výchova k respektu a lásce k přírodě. Její laskavé a krásné pomůcky slouží k tomu, aby dětem přiblížily svět kolem nás, vedly je k smysluplnému vzdělávání a budovaly v nich vědomí o nutnosti ochrany přírody. Eva je pevně přesvědčena, že:</p>
+
+                <div class="quote-box">
+                    Ochrana a láska k přírodě je to nejvíc, co můžeme dětem předat.
+                </div>
+
+                <p>Modely ptáků a papoušků navíc v sobě nesou apel na laskavé vedení dětí, které je nutné pro budování citového vztahu k živým tvorům a k planetě.</p>
+
+                <h3>Přirozená krása i do šatníku …</h3>
+                <p>Aby Evinu lásku k přírodě mohla sdílet nejen s dětmi, ale i s dospělými, vzniká aktuálně i její vlastní kolekce textilu. Tyto produkty přenesou Eviny jedinečné motivy do každodenního života a nabídnou tak kousek přírody a ruční práce s duší, který vás bude provázet na každém kroku. Eva Nevrlá, Mohelnice, z Olomouckého kraje, je příkladem umělkyně, která svou tvorbou dělá svět krásnějším a smysluplnějším.</p>
+            </div>
+        </div>
     </section>
 
-    <div class="section-title" id="skoly">
-        <h2>Programy pro MŠ, ZŠ a služby</h2>
-    </div>
-    <div class="card-container">
-        <div class="card">
-            <i class="fas fa-bug"></i>
-            <h3>Hmyzí svět zblízka</h3>
-            <p>Interaktivní ukázky životních cyklů hmyzu na obřích filcových modelech. Edukace hrou pro nejmenší.</p>
+    <div class="deco-element deco-leaf"><i class="fas fa-leaf"></i></div>
+
+    <section class="section-padding reveal" id="eshop">
+        <div class="section-title">
+            <h2>Nahlédněte do mé tvorby</h2>
         </div>
-        <div class="card">
-            <i class="fas fa-feather-alt"></i>
-            <h3>Ptačí putování</h3>
-            <p>Poznávání našich ptáků podle peří a barev. Děti si vše mohou osahat a prozkoumat detaily.</p>
+        <div class="shop-container">
+            <div class="art-card">
+                <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?q=80&w=800');">
+                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit v e-shopu</a></div>
+                </div>
+                <div class="card-body"><h3>Hmyzí říše</h3><p>Od motýlů po brouky. Věrné modely pro malé entomology.</p></div>
+            </div>
+            <div class="art-card">
+                <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=800');">
+                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit v e-shopu</a></div>
+                </div>
+                <div class="card-body"><h3>Ptačí svět</h3><p>Ručně malovaná pírka a věrné siluety našich pěvců i exotů.</p></div>
+            </div>
+            <div class="art-card">
+                <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800');">
+                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit v e-shopu</a></div>
+                </div>
+                <div class="card-body"><h3>Autorský textil</h3><p>Příroda jako součást vašeho každodenního stylu a šatníku.</p></div>
+            </div>
         </div>
+        <div style="text-align: center; margin-top: 60px;">
+             <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="font-size: 1.1rem; padding: 20px 40px;"><i class="fas fa-shopping-basket" style="margin-right: 15px;"></i> VSTOUPIT DO FILCOVÉHO KRÁLOVSTVÍ</a>
+        </div>
+    </section>
+
+    <div class="deco-element deco-bird">🦋</div>
+
+    <div class="schools-bg" id="skoly">
+        <section class="section-padding reveal" style="padding-top: 0;">
+            <div class="section-title">
+                <h2>Programy pro MŠ, ZŠ <span class="break-title">a služby</span></h2>
+                <p style="margin-top: 25px; font-size: 1.1rem; color: #555;">Vzdělávání, které děti baví, rozvíjí fantazii a na které nezapomenou.</p>
+            </div>
+            <div class="program-wrap">
+                <div class="program-card">
+                    <span class="program-tag">NEJOBLÍBENĚJŠÍ</span>
+                    <i class="fas fa-bug main-icon"></i>
+                    <h3>Hmyzí svět zblízka</h3>
+                    <p>Fascinující svět bezobratlých. Životní cykly, stavba těla a důležitost hmyzu v přírodě. Program plný poznání a osahání reálných modelů.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Pro děti 3-10 let</li>
+                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Délka cca 45 minut</li>
+                    </ul>
+                    <div class="price-circle">od 2 400<span>Kč</span></div>
+                </div>
+                <div class="program-card">
+                    <i class="fas fa-dove main-icon"></i>
+                    <h3>Ptačí putování</h3>
+                    <p>Poznávání našich ptáků podle peří a barev. Děti si vše mohou osahat a prozkoumat detaily. Budování citového vztahu k přírodě.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Interaktivní výklad</li>
+                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Filcové modely do ruky</li>
+                    </ul>
+                    <div class="price-circle">od 2 400<span>Kč</span></div>
+                </div>
+                <div class="program-card">
+                    <i class="fas fa-paint-palette main-icon"></i>
+                    <h3>Služby na míru</h3>
+                    <p>Tvorba edukačních sad na zakázku pro ekocentra či školy. Kreativní workshopy šití a malování pro pedagogy i veřejnost.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Individuální přístup</li>
+                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Tvoření a radost</li>
+                    </ul>
+                    <div class="price-circle" style="font-size: 0.85rem; line-height: 1.2;">Dle<br>dohody</div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="section-title">
-        <h2>Nástěnka akcí a novinek</h2>
-    </div>
-    <div class="nastenka">
-        <div class="paper">
-            <i class="fas fa-thumbtack pin"></i>
-            <h3>Jarní tvoření v Mohelnici</h3>
-            <p>Přijďte si vyzkoušet malbu na textil už tuto sobotu v městském parku!</p>
-        </div>
-        <div class="paper">
-            <i class="fas fa-thumbtack pin"></i>
-            <h3>Nová kolekce „Louka“</h3>
-            <p>Právě jsme naskladnili nové sady s motivem lučních květin. Mrkněte na e-shop.</p>
-        </div>
-    </div>
+    <section class="board-bg">
+        <section class="section-padding reveal" id="nastenka">
+            <div class="section-title">
+                <h2>Nástěnka akcí <span class="break-title">a novinek</span></h2>
+            </div>
+            <div class="board-grid">
+                <div class="note" onclick="openModal('POZVÁNKA', 'Jarní tvoření v Mohelnici', 'Přijďte si ušít a namalovat vlastního broučka. Workshop v městském parku pro všechny generace.', 'https://via.placeholder.com/800x500?text=Workshop+Mohelnice')">
+                    <div class="note-pin"></div>
+                    <h3>Jarní workshop 🌿</h3>
+                    <p style="color: var(--moss-green); font-weight: 600;">12. května 2026</p>
+                    <p>Vezměte děti a přijďte za námi do parku. Vše potřebné budeme mít s sebou. Zastavte se na kus řeči a tvoření!</p>
+                </div>
+                <div class="note" onclick="openModal('AKTUÁLNĚ', 'Hanácké trhy Olomouc', 'Budeme na Horním náměstí! Přijďte se podívat na novinky z filcu a autorský textil.', 'https://via.placeholder.com/800x500?text=Trhy+Olomouc')">
+                    <div class="note-pin"></div>
+                    <h3>Trhy v Olomouci 🐞</h3>
+                    <p style="color: var(--moss-green); font-weight: 600;">1. června 2026</p>
+                    <p>Stánek plný přírody a radosti. Přivezeme spoustu novinek z exotické zvířecí říše i novou kolekci textilu.</p>
+                </div>
+                <div class="note" onclick="openModal('NOVINKA', 'Nová kolekce oblečení', 'Evina láska k přírodě se přesouvá i do šatníku. Představujeme autorský textil.', 'https://via.placeholder.com/800x500?text=Nová+Kolekce')">
+                    <div class="note-pin"></div>
+                    <h3>Autorský textil 👕</h3>
+                    <p style="color: var(--moss-green); font-weight: 600;">Již v prodeji</p>
+                    <p>Přírodní materiály a věrné malby na oblečení pro každodenní nošení. Mrkněte k nám do e-shopu na horké novinky.</p>
+                </div>
+            </div>
+        </section>
+    </section>
 
     <footer id="kontakt">
         <div class="footer-grid">
-            <div class="footer-col" style="position: relative;">
-                <div class="floating-bee">🐝</div>
-                <h3>Filcové království</h3>
-                <p>Tradice, řemeslo a láska k přírodě z Hané. Vytváříme pomůcky pro generaci, které na planetě záleží.</p>
-                <div class="social-circle-row">
-                    <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+            <div class="footer-col">
+                <span class="logo-main" style="color: white; display: block; margin-bottom: 5px;">FILCOVÉ KRÁLOVSTVÍ</span>
+                <span class="logo-sub" style="color: var(--burnt-orange); display: block; margin-bottom: 15px;">EVA NEVRLÁ 🐝</span>
+                <p>Tradice, řemeslo a láska k přírodě z Hané. Vytváříme pomůcky pro generaci, které na naší planetě záleží.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.filcovekralovstvi.cz" target="_blank" title="Do e-shopu" style="background: var(--burnt-orange);"><i class="fas fa-shopping-basket"></i></a>
                 </div>
             </div>
-            
             <div class="footer-col">
-                <h3>Kontaktujte nás</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Mohelnice, Olomoucký kraj</p>
-                <a href="tel:+420123456789"><i class="fas fa-phone"></i> +420 123 456 789</a>
-                <a href="mailto:info@filcovekralovstvi.cz"><i class="fas fa-envelope"></i> info@filcovekralovstvi.cz</a>
+                <h4>Kontaktujte nás</h4>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 12px; color: var(--burnt-orange);"></i> Mohelnice, Olomoucký kraj</p>
+                <p><i class="fas fa-phone" style="margin-right: 10px; color: var(--burnt-orange);"></i> <a href="tel:+420123456789" class="contact-link">+420 123 456 789</a></p>
+                <p><i class="fas fa-envelope" style="margin-right: 10px; color: var(--burnt-orange);"></i> <a href="mailto:info@filcovekralovstvi.cz" class="contact-link">info@filcovekralovstvi.cz</a></p>
             </div>
-
             <div class="footer-col">
-                <h3>E-shop a Otevírací doba</h3>
-                <p>Náš e-shop funguje nepřetržitě 24/7. Osobní setkání je možné dle předchozí domluvy.</p>
-                <a href="#" class="btn btn-main" style="display: inline-block; margin-top: 10px;">Vstoupit do e-shopu</a>
+                <h4>E-shop a Otevírací doba</h4>
+                <p>Osobní setkání je možné dle předchozí domluvy nebo na akcích (viz Nástěnka).</p>
+                <p style="color: white; font-weight: 600;">Náš e-shop funguje nepřetržitě 24/7.</p>
+                <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="margin-top: 15px; padding: 12px 30px; font-size: 0.9rem;">Vstoupit do e-shopu</a>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.8rem; opacity: 0.6;">
-            © 2026 Filcové království | Eva Nevrlá. Všechna práva vyhrazena.
+        <div style="text-align: center; margin-top: 60px; font-size: 0.85rem; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; position: relative; z-index: 2;">
+            &copy; 2026 Filcové království | Eva Nevrlá. Všechna práva vyhrazena.
         </div>
     </footer>
 
-    <a href="https://wa.me/420123456789" class="wa-button" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div id="mainModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalSub" style="color: var(--burnt-orange); font-weight: 800; letter-spacing: 3px; margin-bottom: 10px;"></div>
+            <h2 id="modalTitle" style="font-size: 2.5rem; margin-bottom: 20px; color: var(--moss-dark);"></h2>
+            <p id="modalDesc" style="font-size: 1.1rem; text-align: center; color: #555;"></p>
+            <img id="modalImg" src="" alt="Detail" class="modal-image">
+        </div>
+    </div>
 
+    <a href="https://wa.me/420123456789" class="wa-float" target="_blank" title="Napište mi na WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <script>
+        // Mobilní menu
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+
+        // Plynulé objevování prvků (Reveal animace)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 120;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Volání po načtení
+
+        // Navbar scroll efekt
+        window.onscroll = function() {
+            var nav = document.getElementById('navbar');
+            if (window.pageYOffset > 50) {
+                nav.style.padding = "8px 0";
+                nav.style.background = "rgba(255, 255, 255, 0.98)";
+                nav.style.boxShadow = "0 5px 20px rgba(0,0,0,0.08)";
+            } else {
+                nav.style.padding = "12px 0";
+                nav.style.background = "rgba(255, 255, 255, 0.9)";
+                nav.style.boxShadow = "none";
+            }
+            reveal();
+        };
+
+        // Funkce pro vyskakovací okno (Modal)
+        function openModal(sub, title, desc, img) {
+            document.getElementById('modalSub').innerText = sub;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalImg').src = img;
+            document.getElementById('mainModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Zamezí scrollování stránky na pozadí
+        }
+
+        function closeModal() {
+            document.getElementById('mainModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Povolí scrollování
+        }
+
+        // Zavření modalu při kliknutí mimo obsah
+        window.onclick = function(e) {
+            if (e.target == document.getElementById('mainModal')) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
