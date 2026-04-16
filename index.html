@@ -3,600 +3,524 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edukativní pomůcky | Eva Nevrlá</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Edukativní pomůcky | Eva Nevrlá - Autorská tvorba</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- ZÁKLADNÍ NASTAVENÍ A BARVY --- */
+        /* --- DEFINICE PROMĚNNÝCH (BARVY PŘÍRODY) --- */
         :root {
-            --green: #4A5D23; /* Mechová zelená */
-            --green-light: #6b8238;
-            --cream: #F9F6F0; /* Barva filcu */
-            --terracotta: #D48B59; /* Teplá akcentní barva */
-            --dark: #2C351B;
-            --text: #4a4a4a;
+            --moss-dark: #2C351B;
+            --moss-green: #4A5D23;
+            --leaf: #6b8238;
+            --canvas: #F9F7F2; /* Barva surového plátna */
+            --felt-grey: #E5E1D8;
+            --burnt-orange: #D48B59; /* Terakota / Oranžová z lišejníků */
+            --earth: #5D4037;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--text);
-            background-color: var(--cream);
-            line-height: 1.6;
+        /* --- ZÁKLADNÍ RESET A STRUKTURA --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--moss-dark); 
+            background-color: var(--canvas); 
+            line-height: 1.8; 
             overflow-x: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png'); /* Textura papíru */
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Lora', serif;
-            color: var(--dark);
+        h1, h2, h3, h4, .logo { font-family: 'Lora', serif; font-weight: 700; }
+        p { font-weight: 400; color: #444; }
+
+        /* --- NAVIGACE (MODERNÍ GLASSMORPHISM) --- */
+        header { 
+            background: var(--glass); 
+            backdrop-filter: blur(15px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; 
+            border-bottom: 1px solid rgba(74, 93, 35, 0.1);
+            transition: 0.5s;
+        }
+        .nav-container { 
+            max-width: 1400px; margin: 0 auto; padding: 15px 30px; 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+        .logo-wrap { display: flex; flex-direction: column; cursor: pointer; }
+        .logo-main { font-size: 1.6rem; color: var(--moss-green); letter-spacing: 1px; }
+        .logo-sub { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px; color: var(--burnt-orange); font-weight: 800; }
+
+        .nav-menu { display: flex; list-style: none; gap: 35px; }
+        .nav-menu a { 
+            font-weight: 600; text-transform: uppercase; font-size: 0.8rem; 
+            color: var(--moss-dark); position: relative; padding: 5px 0;
+        }
+        .nav-menu a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; 
+            height: 2px; background: var(--burnt-orange); transition: 0.3s;
+        }
+        .nav-menu a:hover::after { width: 100%; }
+        
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-right i { font-size: 1.3rem; color: var(--moss-green); cursor: pointer; transition: 0.3s; }
+        .nav-right i:hover { color: var(--burnt-orange); transform: scale(1.2); }
+
+        .burger { display: none; cursor: pointer; font-size: 1.8rem; color: var(--moss-green); }
+
+        /* --- HERO SEKCE (PRVNÍ DOJEM) --- */
+        .hero { 
+            height: 100vh; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071') center/cover;
+            z-index: -1; transform: scale(1.1); animation: pan 20s infinite alternate;
+        }
+        @keyframes pan { from { transform: scale(1); } to { transform: scale(1.15); } }
+
+        .hero-content { max-width: 900px; color: white; padding: 0 20px; z-index: 10; }
+        .hero h1 { 
+            font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 25px;
+            animation: slideUp 1.5s ease;
+        }
+        .hero p { 
+            font-size: clamp(1rem, 3vw, 1.5rem); color: rgba(255,255,255,0.9); margin-bottom: 40px; 
+            animation: slideUp 2s ease; font-weight: 300;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: color 0.3s ease;
+        .cta-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; animation: fadeIn 3s ease; }
+        .btn-primary { 
+            padding: 18px 45px; background: var(--burnt-orange); color: white; border-radius: 50px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(212, 139, 89, 0.4);
+        }
+        .btn-primary:hover { background: #b5754a; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(212, 139, 89, 0.5); text-decoration: none; color: white; }
+        
+        .btn-outline { 
+            padding: 18px 45px; border: 2px solid white; color: white; border-radius: 50px;
+            font-weight: 700; text-transform: uppercase; transition: 0.4s;
+        }
+        .btn-outline:hover { background: white; color: var(--moss-dark); }
+
+        /* --- OCENĚNÍ (INFINITE SCROLL) --- */
+        .awards-bar { background: var(--moss-dark); padding: 50px 0; overflow: hidden; position: relative; border-bottom: 4px solid var(--burnt-orange); }
+        .awards-scroll { display: flex; width: calc(350px * 12); animation: infiniteScroll 30s linear infinite; }
+        .award-card { 
+            width: 350px; display: flex; flex-direction: column; align-items: center; gap: 10px;
+            color: white; cursor: pointer; transition: 0.3s;
+        }
+        .award-card:hover { transform: scale(1.1); color: var(--burnt-orange); }
+        .award-card i { font-size: 2.5rem; color: var(--burnt-orange); }
+        .award-card span { font-family: 'Lora', serif; font-weight: 600; font-size: 1.1rem; }
+
+        @keyframes infiniteScroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-350px * 6)); } }
+
+        /* --- O MNĚ (ARTISTIC LAYOUT) --- */
+        .section-padding { padding: 120px 20px; max-width: 1400px; margin: 0 auto; }
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .about-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+        .about-frame { position: relative; }
+        .about-frame img { 
+            width: 100%; border-radius: 10px; box-shadow: 30px 30px 0 var(--moss-green);
+            transition: 0.5s;
+        }
+        .about-frame::before {
+            content: ''; position: absolute; top: -20px; left: -20px; width: 100px; height: 100px;
+            border-top: 5px solid var(--burnt-orange); border-left: 5px solid var(--burnt-orange); z-index: 1;
+        }
+        .about-content h2 { font-size: 3.5rem; margin-bottom: 30px; line-height: 1.2; }
+        .about-content h2 span { color: var(--burnt-orange); font-size: 1.2rem; display: block; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px; }
+        
+        .quote-box { 
+            font-family: 'Lora', serif; font-size: 1.6rem; font-style: italic; border-left: 6px solid var(--burnt-orange);
+            padding-left: 30px; margin: 40px 0; color: var(--moss-green);
         }
 
-        /* --- NAVIGACE --- */
-        header {
-            background-color: rgba(249, 246, 240, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        /* --- E-SHOP (3D CARDS) --- */
+        .section-title { text-align: center; margin-bottom: 80px; }
+        .section-title h2 { font-size: 3rem; position: relative; display: inline-block; }
+        .section-title h2::after { content: ''; position: absolute; bottom: -15px; left: 50%; width: 60px; height: 4px; background: var(--burnt-orange); transform: translateX(-50%); }
+
+        .shop-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .art-card { 
+            background: var(--white); border-radius: 20px; overflow: hidden;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.05); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            perspective: 1000px;
+        }
+        .art-card:hover { transform: translateY(-15px) rotateX(5deg); box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .card-visual { 
+            height: 400px; background-size: cover; background-position: center; position: relative; 
+            transition: 0.5s;
+        }
+        .card-inner-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 53, 27, 0.7); display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.4s;
+        }
+        .art-card:hover .card-inner-overlay { opacity: 1; }
+        .card-body { padding: 30px; text-align: center; }
+        .card-body h3 { font-size: 1.6rem; margin-bottom: 10px; color: var(--moss-dark); }
+        .card-body p { font-size: 0.95rem; color: #666; }
+
+        /* --- PROGRAMY PRO ŠKOLY (HAND-DRAWN FEEL) --- */
+        .schools-bg { 
+            background: var(--felt-grey); background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
+            padding: 100px 0; border-radius: 50px 50px 0 0; 
+        }
+        .program-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 0 20px; }
+        .program-card { 
+            background: white; padding: 50px; border-radius: 40px 0 40px 0; border: 1px solid rgba(0,0,0,0.05);
+            position: relative; transition: 0.3s;
+        }
+        .program-card:hover { transform: scale(1.02); border-color: var(--burnt-orange); }
+        .program-card i { font-size: 3rem; color: var(--moss-green); margin-bottom: 25px; }
+        .program-card h3 { font-size: 2rem; color: var(--moss-green); margin-bottom: 20px; }
+        .program-tag { background: var(--burnt-orange); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; position: absolute; top: 30px; right: 30px; }
+        .price-circle { 
+            width: 100px; height: 100px; background: var(--moss-dark); color: white; 
+            border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: absolute; bottom: -30px; right: 30px; border: 4px solid var(--white); font-weight: 800;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* --- NÁSTĚNKA (STICKY NOTES DYNAMIKA) --- */
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .note { 
+            background: #fff; padding: 40px; box-shadow: 15px 15px 40px rgba(0,0,0,0.05);
+            transform: rotate(-1deg); cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; border-radius: 2px;
         }
+        .note:nth-child(even) { transform: rotate(1.5deg); background: #fafdf7; }
+        .note:hover { transform: rotate(0) scale(1.1); z-index: 50; box-shadow: 20px 20px 60px rgba(0,0,0,0.1); }
+        .note-pin { 
+            width: 30px; height: 30px; background: var(--burnt-orange); border-radius: 50%; 
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .note h3 { color: var(--burnt-orange); margin-bottom: 15px; }
 
-        .logo {
-            font-family: 'Lora', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--green);
+        /* --- MODAL (OVERLAY) --- */
+        .modal { 
+            display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; 
+            background: rgba(28, 35, 12, 0.98); backdrop-filter: blur(10px);
         }
+        .modal-content { 
+            background: white; margin: 5vh auto; padding: 60px; border-radius: 20px; 
+            max-width: 900px; position: relative; animation: modalIn 0.5s ease;
+            max-height: 90vh; overflow-y: auto; text-align: center;
+        }
+        @keyframes modalIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-modal { position: absolute; top: 20px; right: 30px; font-size: 3rem; cursor: pointer; color: var(--moss-dark); }
+        .modal-image { width: 100%; border-radius: 15px; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
+        /* --- KONTAKT & FOOTER --- */
+        footer { background: var(--moss-dark); color: white; padding: 100px 20px; position: relative; overflow: hidden; }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 10px;
+            background: linear-gradient(90deg, var(--burnt-orange), var(--moss-green), var(--burnt-orange));
         }
+        .footer-grid { 
+            max-width: 1400px; margin: 0 auto; display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 60px;
+        }
+        .footer-col h4 { font-size: 1.5rem; margin-bottom: 25px; color: var(--burnt-orange); }
+        .social-links { display: flex; gap: 20px; margin-top: 20px; }
+        .social-links a { 
+            width: 50px; height: 50px; background: rgba(255,255,255,0.1); 
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            font-size: 1.5rem; transition: 0.3s;
+        }
+        .social-links a:hover { background: var(--burnt-orange); transform: translateY(-5px); }
 
-        .nav-links a {
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
+        .wa-float { 
+            position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px; 
+            background: #25D366; color: white; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 2.5rem; z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
-        .nav-links a:hover {
-            color: var(--terracotta);
-        }
-
-        .nav-icons a {
-            margin-left: 15px;
-            font-size: 1.2rem;
-            color: var(--green);
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--green);
-        }
-
-        /* --- HERO SEKCE (ÚVOD) --- */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(44, 53, 27, 0.7), rgba(44, 53, 27, 0.7)), url('https://via.placeholder.com/1920x1080/4A5D23/FFF?text=Vaše+Krásná+Fotka+Zde') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
-            margin-top: 60px;
-        }
-
-        .hero h1 {
-            color: white;
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--terracotta);
-            color: white;
-            border-radius: 30px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #b5754a;
-            color: white;
-        }
-
-        /* --- OBECNÉ SEKCE --- */
-        section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: var(--terracotta);
-            margin: 15px auto 0;
-        }
-
-        /* --- O MNĚ --- */
-        .about-content {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text p {
-            margin-bottom: 15px;
-        }
-
-        .about-quote {
-            font-family: 'Lora', serif;
-            font-style: italic;
-            font-size: 1.3rem;
-            color: var(--green);
-            border-left: 4px solid var(--terracotta);
-            padding-left: 20px;
-            margin: 20px 0;
-        }
-
-        .about-image {
-            flex: 1;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        /* --- OCENĚNÍ --- */
-        .awards {
-            background-color: var(--green);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .awards-list {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            max-width: 1000px;
-            margin: 20px auto 0;
-        }
-
-        .award-item {
-            font-family: 'Lora', serif;
-            font-size: 1.1rem;
-        }
-
-        /* --- CO NABÍZÍM (E-SHOP) --- */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            group: hover;
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .product-hover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 250px;
-            background: rgba(74, 93, 35, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .product-card:hover .product-hover {
-            opacity: 1;
-        }
-
-        .product-hover i {
-            color: white;
-            font-size: 3rem;
-        }
-
-        /* --- PROGRAMY PRO MŠ A ZŠ --- */
-        .programs-bg {
-            background-color: white;
-            padding: 80px 0;
-        }
-
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .program-card {
-            background: var(--cream);
-            padding: 40px;
-            border-radius: 15px;
-            border-top: 5px solid var(--green);
-        }
-
-        .program-card h3 {
-            color: var(--terracotta);
-            margin-bottom: 20px;
-        }
-
-        .program-price {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--dark);
-            margin-top: 20px;
-            display: block;
-        }
-
-        /* --- SLUŽBY --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            text-align: center;
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            color: var(--terracotta);
-            margin-bottom: 20px;
-        }
-
-        /* --- NÁSTĚNKA --- */
-        .board-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .board-post {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--green);
-        }
-
-        .board-date {
-            font-size: 0.8rem;
-            color: #888;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* --- PATIČKA --- */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-            margin-top: 50px;
-        }
-
-        .footer-social {
-            margin: 20px 0;
-        }
-
-        .footer-social a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 10px;
-        }
-
-        .footer-social a:hover {
-            color: var(--terracotta);
-        }
-
-        /* --- PLOVOUCÍ WHATSAPP --- */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            transition: transform 0.3s;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            color: white;
-        }
+        /* --- ANIMACE --- */
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- RESPONSIVITA --- */
+        @media (max-width: 1024px) {
+            .about-split { grid-template-columns: 1fr; gap: 50px; }
+            .about-content h2 { font-size: 2.5rem; }
+            .hero h1 { font-size: 3.5rem; }
+        }
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background: var(--cream);
-                padding: 20px;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            .nav-menu { 
+                display: none; position: absolute; top: 80px; left: 0; width: 100%; 
+                background: var(--white); flex-direction: column; padding: 40px; text-align: center;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .about-content {
-                flex-direction: column;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
+            .nav-menu.active { display: flex; }
+            .burger { display: block; }
+            .section-padding { padding: 70px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">Edukativní pomůcky</a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#uvod">Úvod</a></li>
-                    <li><a href="#o-mne">O mně</a></li>
-                    <li><a href="#e-shop">E-shop</a></li>
-                    <li><a href="#programy">Programy</a></li>
-                    <li><a href="#sluzby">Služby</a></li>
-                    <li><a href="#nastenka">Nástěnka</a></li>
-                </ul>
-            </nav>
-            <div class="nav-icons">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="#e-shop"><i class="fas fa-shopping-cart"></i></a>
+            <div class="logo-wrap" onclick="window.scrollTo(0,0)">
+                <span class="logo-main">EVA NEVRLÁ</span>
+                <span class="logo-sub">ART & EDUCATION</span>
             </div>
-            <i class="fas fa-bars menu-toggle"></i>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#o-mne">Příběh</a></li>
+                <li><a href="#eshop">Tvorba</a></li>
+                <li><a href="#skoly">Pro školy</a></li>
+                <li><a href="#sluzby">Služby</a></li>
+                <li><a href="#nastenka">Nástěnka</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fas fa-shopping-bag"></i>
+                <div class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+            </div>
         </div>
     </header>
 
     <section class="hero" id="uvod">
-        <div>
-            <h1>Kde se filc stává plátnem a učení zážitkem.</h1>
-            <p>Unikátní ručně malované edukativní pomůcky s úctou k přírodě. Každý kus je originál stvořený pro rozvoj dětí.</p>
-            <a href="#e-shop" class="btn">Prozkoumat e-shop</a>
-        </div>
-    </section>
-
-    <section id="o-mne">
-        <h2 class="section-title">Výtvarnice Eva Nevrlá</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p class="about-quote">„Ochrana a láska k přírodě je to nejvíc, co můžeme dětem předat.“</p>
-                <p>Deset let poctivé, detailní a láskyplné práce. Přesně tak dlouho se umělkyně Eva Nevrlá z Mohelnice (Olomoucký kraj) věnuje tvorbě, která spojuje řemeslo a hluboký smysl pro přírodu. Její hlavní doménou je filc, který pod jejíma rukama ožívá v podobě fascinujících vzdělávacích pomůcek.</p>
-                <p>Evina tvorba je jedinečná tím, že kombinuje tradiční techniky šití s moderní a originální malbou na filc. Specializuje se na modely inspirované faunou, ať už jde o miniaturní hmyz, elegantní ptáky, nebo exotické papoušky. Cílem není jen estetika, ale především edukativní přesnost a láska k přírodě.</p>
-            </div>
-            <div class="about-image">
-                <img src="https://via.placeholder.com/600x400/4A5D23/FFF?text=Fotka+Evy+při+tvorbě" alt="Eva Nevrlá při tvorbě">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Umění, které ožívá v dětských dlaních.</h1>
+            <p>Ručně malované edukativní pomůcky z filcu, které spojují precizní vědecký detail s něhou uměleckého řemesla.</p>
+            <div class="cta-group">
+                <a href="#eshop" class="btn-primary">Prozkoumat galerii</a>
+                <a href="#skoly" class="btn-outline">Programy pro školy</a>
             </div>
         </div>
     </section>
 
-    <div class="awards">
-        <h3>Naše úspěchy</h3>
-        <div class="awards-list">
-            <div class="award-item"><i class="fas fa-star"></i> Regionální produkt Haná</div>
-            <div class="award-item"><i class="fas fa-award"></i> Cena hejtmana Olomouckého kraje</div>
-            <div class="award-item"><i class="fas fa-trophy"></i> 3. místo Živnostník roku 2025</div>
+    <div class="awards-bar">
+        <div class="awards-scroll">
+            <div class="award-card" onclick="openModal('Certifikát', 'Regionální produkt Haná', 'Značka garantující místní původ a kvalitu zpracování z Olomouckého kraje.', 'https://via.placeholder.com/600x800?text=Haná+Produkt')">
+                <i class="fas fa-award"></i><span>Regionální produkt Haná</span>
+            </div>
+            <div class="award-card" onclick="openModal('Ocenění', 'Cena hejtmana OK', 'Za významný přínos v oblasti enviromentální výchovy dětí a mládeže.', 'https://via.placeholder.com/600x800?text=Hejtman+Cena')">
+                <i class="fas fa-medal"></i><span>Cena hejtmana kraje</span>
+            </div>
+            <div class="award-card" onclick="openModal('Soutěž', 'Živnostník roku 2025', '3. místo v prestižním hodnocení podnikatelů Olomouckého kraje.', 'https://via.placeholder.com/600x800?text=Živnostník+Roku')">
+                <i class="fas fa-trophy"></i><span>3. místo Živnostník roku</span>
+            </div>
+            <div class="award-card" onclick="openModal('Kvalita', 'Mistr uměleckého řemesla', 'Uznání za unikátní techniku malby na textil a pedagogický přesah.', 'https://via.placeholder.com/600x800?text=Mistr+Remesla')">
+                <i class="fas fa-paint-brush"></i><span>Mistr řemesla</span>
+            </div>
+            <div class="award-card" onclick="openModal('Ekologie', 'Enviro-přínos roku', 'Pomůcky, které učí děti milovat přírodu bez kompromisů.', 'https://via.placeholder.com/600x800?text=Eko+Cena')">
+                <i class="fas fa-leaf"></i><span>Eko-vzdělávání</span>
+            </div>
+            <div class="award-card" onclick="openModal('Tradice', 'Rodinné stříbro', 'Udržování tradic a poctivého šití s moderním designem.', 'https://via.placeholder.com/600x800?text=Tradice')">
+                <i class="fas fa-heart"></i><span>Tradice s láskou</span>
+            </div>
+            <div class="award-card"><i class="fas fa-award"></i><span>Regionální produkt Haná</span></div>
+            <div class="award-card"><i class="fas fa-medal"></i><span>Cena hejtmana kraje</span></div>
+            <div class="award-card"><i class="fas fa-trophy"></i><span>3. místo Živnostník roku</span></div>
+            <div class="award-card"><i class="fas fa-paint-brush"></i><span>Mistr řemesla</span></div>
         </div>
     </div>
 
-    <section id="e-shop">
-        <h2 class="section-title">Co nabízím</h2>
-        <div class="products-grid">
-            <a href="#" class="product-card">
-                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Hmyzí+hrdinové" alt="Hmyz">
-                <div class="product-info"><h3>Hmyzí hrdinové</h3></div>
-                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
-            </a>
-            <a href="#" class="product-card">
-                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Ptačí+říše" alt="Ptáci">
-                <div class="product-info"><h3>Ptačí říše</h3></div>
-                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
-            </a>
-            <a href="#" class="product-card">
-                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Papoušci" alt="Papoušci">
-                <div class="product-info"><h3>Exotičtí papoušci</h3></div>
-                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
-            </a>
-            <a href="#" class="product-card">
-                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Autorský+textil" alt="Textil">
-                <div class="product-info"><h3>Autorský textil</h3></div>
-                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
-            </a>
-        </div>
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="#" class="btn">Vstoupit do E-shopu</a>
+    <section class="section-padding reveal" id="o-mne">
+        <div class="about-split">
+            <div class="about-frame">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?q=80&w=2070" alt="Eva Nevrlá při tvorbě">
+            </div>
+            <div class="about-content">
+                <h2><span>Poznejte můj příběh</span>Výtvarnice Eva Nevrlá</h2>
+                <p>Už deset let mění mohelnická dílna pohled dětí na svět přírody. Pod mýma rukama se obyčejný filc mění v modely, které dýchají životem.</p>
+                <div class="quote-box">
+                    „Mým cílem není jen vyrobit hračku. Chci vytvořit klíč, který dětem otevře dveře k úctě k přírodě.“
+                </div>
+                <p>Specializuji se na věrnou malbu hmyzu, ptáků i exotické fauny. Každý steh a každý tah štětcem je veden snahou o absolutní autentičnost. Díky spojení s pedagogy vytvářím pomůcky, které jsou vizuálně krásné, ale především funkční pro výuku.</p>
+            </div>
         </div>
     </section>
 
-    <div class="programs-bg" id="programy">
-        <h2 class="section-title">Zábavně vzdělávací programy pro MŠ a ZŠ</h2>
-        <div class="programs-grid">
-            <div class="program-card">
-                <h3><i class="fas fa-bug"></i> Hmyzí kamarádi</h3>
-                <p>Seznámení s životem hmyzu, stavbou těla, vývojová stádia, místo výskytu. Cvičení posloupnosti. Obohaceno o básničky, písničky, pohybové prvky s doprovodem kytary.</p>
-                <p><strong>Pro koho:</strong> Děti 3-10 let (max. 30 dětí)<br><strong>Délka:</strong> cca 40 min</p>
-                <span class="program-price">2 400 Kč + doprava</span>
+    <section class="section-padding reveal" id="eshop">
+        <div class="section-title">
+            <h2>Moje tvorba</h2>
+        </div>
+        <div class="shop-container">
+            <div class="art-card">
+                <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?q=80&w=800');">
+                    <div class="card-inner-overlay"><a href="#" class="btn-primary">Do e-shopu</a></div>
+                </div>
+                <div class="card-body"><h3>Hmyzí říše</h3><p>Od motýlů po brouky. Věrné modely pro malé entomology.</p></div>
             </div>
-            <div class="program-card">
-                <h3><i class="fas fa-dove"></i> Ptačí kamarádi</h3>
-                <p>Program provede vaše děti poutavým světem naší ptačí říše. Naučíme se poznávat běžné druhy ptáků na krmítku i v lese. Program plný autorských písniček a tance.</p>
-                <p><strong>Pro koho:</strong> Děti v MŠ a ZŠ (max. 30 dětí)<br><strong>Délka:</strong> cca 40 min</p>
-                <span class="program-price">2 400 Kč + doprava</span>
+            <div class="art-card">
+                <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=800');">
+                    <div class="card-inner-overlay"><a href="#" class="btn-primary">Do e-shopu</a></div>
+                </div>
+                <div class="card-body"><h3>Ptačí svět</h3><p>Ručně malovaná pírka a věrné siluety našich pěvců.</p></div>
+            </div>
+            <div class="art-card">
+                <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800');">
+                    <div class="card-inner-overlay"><a href="#" class="btn-primary">Do e-shopu</a></div>
+                </div>
+                <div class="card-body"><h3>Autorský textil</h3><p>Příroda jako součást vašeho každodenního stylu.</p></div>
             </div>
         </div>
+    </section>
+
+    <div class="schools-bg" id="skoly">
+        <section class="section-padding reveal">
+            <div class="section-title">
+                <h2>Programy pro MŠ a ZŠ</h2>
+                <p style="margin-top: 20px;">Vzdělávání, které děti baví a na které nezapomenou.</p>
+            </div>
+            <div class="program-wrap">
+                <div class="program-card">
+                    <span class="program-tag">NEJOBLÍBENĚJŠÍ</span>
+                    <i class="fas fa-bug"></i>
+                    <h3>Hmyzí hrdinové</h3>
+                    <p>Fascinující svět bezobratlých. Životní cykly, stavba těla a důležitost hmyzu v přírodě. Program plný písniček, tance a osahání reálných modelů.</p>
+                    <ul style="list-style: none; margin-top: 20px; font-weight: 600; color: var(--moss-green);">
+                        <li><i class="fas fa-check"></i> Pro děti 3-10 let</li>
+                        <li><i class="fas fa-check"></i> Délka cca 45 minut</li>
+                    </ul>
+                    <div class="price-circle">2 400<span>Kč</span></div>
+                </div>
+                <div class="program-card">
+                    <i class="fas fa-dove"></i>
+                    <h3>Ptačí kamarádi</h3>
+                    <p>Poznávání ptáků na krmítku i v lese. Jak ptáci létají, co jedí a proč zpívají. Autorské písničky doprovázené kytarou a rytmickými hrami.</p>
+                    <ul style="list-style: none; margin-top: 20px; font-weight: 600; color: var(--moss-green);">
+                        <li><i class="fas fa-check"></i> Interaktivní výklad</li>
+                        <li><i class="fas fa-check"></i> Max 30 dětí</li>
+                    </ul>
+                    <div class="price-circle">2 400<span>Kč</span></div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <section id="sluzby">
-        <h2 class="section-title">Další služby</h2>
-        <div class="services-grid">
-            <div>
-                <i class="fas fa-store service-icon"></i>
-                <h3>Prodejní stánek</h3>
-                <p>Doprovodný stánek s tématikou hmyzu, dekorací, textilu, včetně fotokoutku a dílniček.</p>
-            </div>
-            <div>
-                <i class="fas fa-cut service-icon"></i>
-                <h3>Kurzy šití z filcu</h3>
-                <p>Jako lektorka vás provedu kouzelným světem tohoto materiálu a naučím vás techniky šití.</p>
-            </div>
-            <div>
-                <i class="fas fa-paint-brush service-icon"></i>
-                <h3>Zakázková výroba</h3>
-                <p>Edukativní pomůcky pro muzea a entomologické rodinné sbírky na míru.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="nastenka">
-        <h2 class="section-title">Nástěnka & Aktuality</h2>
+    <section class="section-padding reveal" id="nastenka">
+        <div class="section-title"><h2>Nástěnka akcí</h2></div>
         <div class="board-grid">
-            <div class="board-post">
-                <span class="board-date">10. Května 2026</span>
-                <h3>Jarní trhy v Olomouci</h3>
-                <p>Přijďte se podívat na náš prodejní stánek. Čekají vás nové modely jarních motýlů a autorský textil!</p>
+            <div class="note" onclick="openModal('POZVÁNKA', 'Jarní tvoření v Mohelnici', 'Přijďte si ušít a namalovat vlastního broučka. Workshop v městském parku pro všechny generace.', 'https://via.placeholder.com/800x500?text=Workshop+Mohelnice')">
+                <div class="note-pin"></div>
+                <h3>Jarní workshop</h3>
+                <p><strong>12. května 2026</strong></p>
+                <p>Vezměte děti a přijďte za námi do parku. Vše potřebné budeme mít s sebou!</p>
             </div>
-            <div class="board-post">
-                <span class="board-date">1. Června 2026</span>
-                <h3>Nový kurz šití</h3>
-                <p>Otevíráme přihlášky na letní kurz šití z filcu pro začátečníky. Kapacita omezena, přihlaste se včas.</p>
+            <div class="note" onclick="openModal('AKTUÁLNĚ', 'Hanácké trhy Olomouc', 'Budeme na Horním náměstí! Přijďte se podívat na novinky z filcu a autorský textil.', 'https://via.placeholder.com/800x500?text=Trhy+Olomouc')">
+                <div class="note-pin"></div>
+                <h3>Trhy v Olomouci</h3>
+                <p><strong>1. června 2026</strong></p>
+                <p>Stánek plný přírody a radosti. Těšíme se na vás!</p>
             </div>
         </div>
     </section>
 
-    <footer>
-        <h2>Edukativní pomůcky Eva Nevrlá</h2>
-        <p>Mohelnice, Olomoucký kraj</p>
-        <div class="footer-social">
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+    <footer id="kontakt">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <span class="logo-main" style="color: white; display: block; margin-bottom: 10px;">EVA NEVRLÁ</span>
+                <p style="color: rgba(255,255,255,0.7);">Tradice, řemeslo a láska k přírodě z Mohelnice. Vytváříme pomůcky pro generaci, které na přírodě záleží.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Kontaktujte nás</h4>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Mohelnice, Olomoucký kraj</p>
+                <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +420 123 456 789</p>
+                <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@edukativnipomucky.cz</p>
+            </div>
+            <div class="footer-col">
+                <h4>Otevírací doba</h4>
+                <p>Dle domluvy nebo akcí na nástěnce. E-shop funguje 24/7.</p>
+                <a href="#eshop" class="btn-primary" style="margin-top: 20px; display: inline-block;">Přejít k nákupu</a>
+            </div>
         </div>
-        <p>Email: vas@email.cz | Tel: +420 123 456 789</p>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: #aaa;">&copy; 2026 Eva Nevrlá. Všechna práva vyhrazena.</p>
+        <div style="text-align: center; margin-top: 80px; font-size: 0.8rem; opacity: 0.5;">
+            &copy; 2026 Eva Nevrlá | Vytvořeno pro radost dětí a ochranu přírody.
+        </div>
     </footer>
 
-    <a href="https://wa.me/420123456789" class="whatsapp-float" target="_blank" title="Napište nám na WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/420123456789" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <div id="mainModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalSub" style="color: var(--burnt-orange); font-weight: 800; letter-spacing: 3px; margin-bottom: 10px;"></div>
+            <h2 id="modalTitle" style="font-size: 2.5rem; margin-bottom: 25px;"></h2>
+            <p id="modalDesc" style="font-size: 1.1rem; text-align: left;"></p>
+            <img id="modalImg" src="" alt="Detail" class="modal-image">
+        </div>
+    </div>
 
     <script>
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        // Hamburger Menu
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Zavření menu po kliku
+        document.querySelectorAll('.nav-menu a').forEach(item => {
+            item.addEventListener('click', () => document.getElementById('navMenu').classList.remove('active'));
         });
-        
-        // Skrytí menu po kliknutí na odkaz v mobilu
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav-links').classList.remove('active');
-            });
-        });
+
+        // Reveal Animation on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // Navbar scroll effect
+        window.onscroll = function() {
+            var nav = document.getElementById('navbar');
+            if (window.pageYOffset > 100) {
+                nav.style.padding = "5px 0";
+                nav.style.background = "rgba(255, 255, 255, 0.98)";
+            } else {
+                nav.style.padding = "15px 0";
+                nav.style.background = "rgba(255, 255, 255, 0.85)";
+            }
+        };
+
+        // Modal Logic
+        function openModal(sub, title, desc, img) {
+            document.getElementById('modalSub').innerText = sub;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalImg').src = img;
+            document.getElementById('mainModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('mainModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(e) {
+            if (e.target == document.getElementById('mainModal')) closeModal();
+        }
     </script>
 </body>
 </html>
+
