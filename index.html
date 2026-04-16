@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filcové království | Eva Nevrlá</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- ZÁKLADNÍ NASTAVENÍ A BARVY --- */
+        :root {
+            --primary: #D97365; /* Teplá cihlově-filcová barva */
+            --primary-hover: #BF5B4E;
+            --bg: #FDFBF7; /* Jemně krémové pozadí */
+            --text: #4A4A4A;
+            --light: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0,0,0,0.06);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Nunito', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+        }
+        
+        a { text-decoration: none; color: inherit; }
+
+        /* --- HLAVIČKA A NAVIGACE --- */
+        header { 
+            background: var(--light); 
+            padding: 1rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: var(--shadow); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        
+        nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+        nav a { font-weight: 600; transition: color 0.3s ease; }
+        nav a:hover { color: var(--primary); }
+        
+        .cart-btn { 
+            background: var(--primary); 
+            color: white; 
+            padding: 0.5rem 1.2rem; 
+            border-radius: 20px; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+        }
+        .cart-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* --- HERO SEKC (HLAVNÍ BANNER) --- */
+        .hero { 
+            text-align: center; 
+            padding: 8rem 2rem; 
+            background: linear-gradient(rgba(253, 251, 247, 0.8), rgba(253, 251, 247, 0.95)), 
+                        url('https://images.unsplash.com/photo-1584447128309-b66b7a4d1b63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover; 
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #2C2C2C; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2.5rem auto; color: #555; }
+        
+        .btn-main { 
+            display: inline-block; 
+            background: var(--primary); 
+            color: white; 
+            padding: 1rem 2.5rem; 
+            border-radius: 30px; 
+            font-weight: 800; 
+            font-size: 1.1rem; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(217, 115, 101, 0.3);
+        }
+        .btn-main:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 6px 20px rgba(217, 115, 101, 0.4); }
+
+        /* --- PRODUKTY --- */
+        .products { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; color: #2C2C2C; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2.5rem; 
+        }
+        
+        .card { 
+            background: var(--light); 
+            border-radius: var(--radius); 
+            overflow: hidden; 
+            box-shadow: var(--shadow); 
+            transition: all 0.3s ease; 
+            display: flex; 
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+        
+        .card-img { 
+            height: 250px; 
+            background-color: #eee; 
+            width: 100%; 
+            object-fit: cover; 
+        }
+        
+        .card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #2C2C2C; }
+        .card-desc { font-size: 0.95rem; color: #777; margin-bottom: 1.5rem; flex-grow: 1; }
+        .card-price { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; }
+        
+        .buy-btn { 
+            text-align: center; 
+            display: block; 
+            background: #F0F0F0; 
+            color: #333;
+            padding: 0.8rem; 
+            border-radius: var(--radius); 
+            font-weight: 800; 
+            transition: all 0.3s ease; 
+        }
+        .buy-btn:hover { background: var(--primary); color: white; }
+
+        /* --- ZÁPATÍ --- */
+        footer { background: #2C2C2C; color: rgba(255,255,255,0.8); text-align: center; padding: 3rem 1rem; margin-top: 4rem; }
+        footer p { margin-top: 1rem; font-size: 0.9rem; }
+        
+        /* --- RESPONZIVITA PRO MOBILY --- */
+        @media (max-width: 768px) {
+            nav ul { display: none; /* Pro reálný web by se zde přidalo hamburger menu */ }
+            .hero h1 { font-size: 2.2rem; }
+            .hero { padding: 5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Filcové království</div>
+        <nav>
+            <ul>
+                <li><a href="#">Sady a pomůcky</a></li>
+                <li><a href="#">Peněženky</a></li>
+                <li><a href="#">O mně</a></li>
+                <li><a href="#">Kontakt</a></li>
+                <li><a href="#" class="cart-btn">Košík (0)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Vzdělávací pomůcky z filcu</h1>
+        <p>Originální ruční tvorba Evy Nevrlé. Objevte hravé sady pro ZŠ, MŠ a domškoláky i praktické doplňky pro každý den.</p>
+        <a href="#produkty" class="btn-main">Prohlédnout nabídku</a>
+    </section>
+
+    <section id="produkty" class="products">
+        <h2 class="section-title">Nejnovější v království</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Sada ptáků" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Sada 26 našich ptáků</h3>
+                    <p class="card-desc">Oblíbená edukativní sada ušitá z kvalitního filcu. Ideální pro poznávání přírody s dětmi.</p>
+                    <div class="card-price">3 750 Kč</div>
+                    <a href="#" class="buy-btn">Vložit do košíku</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Peněženka" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Dámská velká peněženka</h3>
+                    <p class="card-desc">4 velké přihrádky pro bankovky, kapsa na zip pro mince a dostatek místa na karty. Elegance z filcu.</p>
+                    <div class="card-price">1 200 Kč</div>
+                    <a href="#" class="buy-btn">Vložit do košíku</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vzdělávací sady" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Velká reprodukce na filcu</h3>
+                    <p class="card-desc">Sada 16 ks + ZDARMA pracovní listy. Skvělá pomůcka pro pedagogy i rodiče.</p>
+                    <div class="card-price">3 400 Kč</div>
+                    <a href="#" class="buy-btn">Vložit do košíku</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Filcové království | Eva Nevrlá</h2>
+        <p>Vzdělávací pomůcky pro ZŠ, MŠ a rodiče domškoláků.</p>
+        <p>&copy; 2026 Filcové království. Všechna práva vyhrazena.</p>
+    </footer>
+
+</body>
+</html>
