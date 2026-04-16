@@ -3,138 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filcové království | Eva Nevrlá</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Filcové království | Eva Nevrlá | Prémiová ruční tvorba</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- ZÁKLADNÍ NASTAVENÍ A BARVY --- */
+        /* --- ZÁKLADNÍ NASTAVENÍ A LUXUSNÍ PALETA --- */
         :root {
-            --primary: #D97365; /* Teplá cihlově-filcová barva */
-            --primary-hover: #BF5B4E;
-            --bg: #FDFBF7; /* Jemně krémové pozadí */
-            --text: #4A4A4A;
-            --light: #FFFFFF;
-            --shadow: 0 4px 12px rgba(0,0,0,0.06);
-            --radius: 12px;
+            --primary-felt: #D97365; /* Teplá, sytá cihlová */
+            --primary-felt-hover: #BF5B4E;
+            --bg-cream: #FDFBF7; /* Jemné, teplé krémové pozadí */
+            --text-dark: #2C2C2C; /* Temně šedá pro lepší čitelnost */
+            --text-light: #555555;
+            --white: #FFFFFF;
+            --shadow-subtle: 0 4px 20px rgba(0,0,0,0.04);
+            --shadow-profi: 0 10px 40px rgba(0,0,0,0.08);
+            --transition: all 0.4s ease-in-out;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         
         body { 
-            font-family: 'Nunito', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            line-height: 1.6; 
+            font-family: var(--font-body); 
+            background-color: var(--bg-cream); 
+            color: var(--text-dark); 
+            line-height: 1.7; 
         }
         
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
 
-        /* --- HLAVIČKA A NAVIGACE --- */
+        /* --- STICKY HLAVIČKA --- */
         header { 
-            background: var(--light); 
-            padding: 1rem 5%; 
+            background: rgba(255, 255, 255, 0.98); 
+            padding: 1.2rem 8%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: var(--shadow); 
+            box-shadow: var(--shadow-subtle); 
             position: sticky; 
             top: 0; 
-            z-index: 100; 
+            z-index: 1000; 
+            backdrop-filter: blur(5px);
         }
         
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--primary-felt); letter-spacing: -1px; }
         
-        nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
-        nav a { font-weight: 600; transition: color 0.3s ease; }
-        nav a:hover { color: var(--primary); }
+        nav ul { display: flex; gap: 2.5rem; align-items: center; }
+        nav a { font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        nav a:hover { color: var(--primary-felt); }
         
         .cart-btn { 
-            background: var(--primary); 
-            color: white; 
-            padding: 0.5rem 1.2rem; 
-            border-radius: 20px; 
-            font-weight: 600; 
-            transition: all 0.3s ease; 
+            background: var(--primary-felt); 
+            color: white !important; 
+            padding: 0.6rem 1.5rem; 
+            border-radius: 30px; 
+            font-weight: 700; 
         }
-        .cart-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .cart-btn:hover { background: var(--primary-felt-hover); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(217, 115, 101, 0.3); }
 
         /* --- HERO SEKC (HLAVNÍ BANNER) --- */
         .hero { 
             text-align: center; 
-            padding: 8rem 2rem; 
-            background: linear-gradient(rgba(253, 251, 247, 0.8), rgba(253, 251, 247, 0.95)), 
-                        url('https://images.unsplash.com/photo-1584447128309-b66b7a4d1b63?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover; 
+            padding: 10rem 2rem; 
+            /* Zde můžeš použít texturu filcu pro pozadí */
+            background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.98)), 
+                        url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1920&auto=format&fit=crop') center/cover; 
         }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #2C2C2C; line-height: 1.2; }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2.5rem auto; color: #555; }
+        .hero h1 { font-family: var(--font-heading); font-size: 4rem; margin-bottom: 1rem; color: #1a1a1a; line-height: 1.1; }
+        .hero p { font-size: 1.25rem; max-width: 650px; margin: 0 auto 3rem auto; color: var(--text-light); font-weight: 400; }
         
         .btn-main { 
             display: inline-block; 
-            background: var(--primary); 
+            background: var(--primary-felt); 
             color: white; 
-            padding: 1rem 2.5rem; 
-            border-radius: 30px; 
-            font-weight: 800; 
+            padding: 1.1rem 3rem; 
+            border-radius: 40px; 
+            font-weight: 700; 
             font-size: 1.1rem; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 4px 15px rgba(217, 115, 101, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(217, 115, 101, 0.25);
         }
-        .btn-main:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 6px 20px rgba(217, 115, 101, 0.4); }
+        .btn-main:hover { transform: translateY(-4px); background: var(--primary-felt-hover); box-shadow: 0 12px 30px rgba(217, 115, 101, 0.35); }
 
         /* --- PRODUKTY --- */
-        .products { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; color: #2C2C2C; }
+        .products { padding: 6rem 8%; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-family: var(--font-heading); text-align: center; font-size: 3rem; margin-bottom: 4rem; color: #1a1a1a; }
         
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 2.5rem; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 3rem; 
         }
         
         .card { 
-            background: var(--light); 
-            border-radius: var(--radius); 
+            background: var(--white); 
+            border-radius: 16px; 
             overflow: hidden; 
-            box-shadow: var(--shadow); 
-            transition: all 0.3s ease; 
+            box-shadow: var(--shadow-subtle); 
             display: flex; 
             flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.01);
         }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+        .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-profi); }
         
         .card-img { 
-            height: 250px; 
-            background-color: #eee; 
+            height: 300px; 
             width: 100%; 
             object-fit: cover; 
+            transition: var(--transition);
         }
+        .card:hover .card-img { transform: scale(1.03); }
         
-        .card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #2C2C2C; }
-        .card-desc { font-size: 0.95rem; color: #777; margin-bottom: 1.5rem; flex-grow: 1; }
-        .card-price { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; }
+        .card-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 600; margin-bottom: 0.7rem; color: #1a1a1a; }
+        .card-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 2rem; flex-grow: 1; font-weight: 400; }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .card-price { font-size: 1.6rem; font-weight: 700; color: var(--primary-felt); }
         
         .buy-btn { 
             text-align: center; 
             display: block; 
-            background: #F0F0F0; 
+            background: #F4F4F4; 
             color: #333;
-            padding: 0.8rem; 
-            border-radius: var(--radius); 
-            font-weight: 800; 
-            transition: all 0.3s ease; 
+            padding: 0.9rem 1.8rem; 
+            border-radius: 30px; 
+            font-weight: 700; 
+            font-size: 0.9rem;
+            text-transform: uppercase;
         }
-        .buy-btn:hover { background: var(--primary); color: white; }
+        .buy-btn:hover { background: var(--primary-felt); color: white; transform: translateY(-2px); }
 
         /* --- ZÁPATÍ --- */
-        footer { background: #2C2C2C; color: rgba(255,255,255,0.8); text-align: center; padding: 3rem 1rem; margin-top: 4rem; }
-        footer p { margin-top: 1rem; font-size: 0.9rem; }
+        footer { background: #1a1a1a; color: rgba(255,255,255,0.7); text-align: center; padding: 4rem 2rem; margin-top: 5rem; }
+        footer h2 { font-family: var(--font-heading); color: white; font-size: 2.2rem; margin-bottom: 1rem; }
+        footer p { margin-top: 1rem; font-size: 0.9rem; font-weight: 400; }
         
         /* --- RESPONZIVITA PRO MOBILY --- */
         @media (max-width: 768px) {
-            nav ul { display: none; /* Pro reálný web by se zde přidalo hamburger menu */ }
-            .hero h1 { font-size: 2.2rem; }
-            .hero { padding: 5rem 1rem; }
+            header { padding: 1rem 5%; }
+            nav ul { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero { padding: 6rem 1rem; }
+            .section-title { font-size: 2.2rem; }
+            .grid { gap: 2rem; }
         }
     </style>
 </head>
@@ -144,9 +158,9 @@
         <div class="logo">Filcové království</div>
         <nav>
             <ul>
-                <li><a href="#">Sady a pomůcky</a></li>
-                <li><a href="#">Peněženky</a></li>
-                <li><a href="#">O mně</a></li>
+                <li><a href="#">Vzdělávací sady</a></li>
+                <li><a href="#">Doplňky</a></li>
+                <li><a href="#">O tvorbě</a></li>
                 <li><a href="#">Kontakt</a></li>
                 <li><a href="#" class="cart-btn">Košík (0)</a></li>
             </ul>
@@ -154,9 +168,9 @@
     </header>
 
     <section class="hero">
-        <h1>Vzdělávací pomůcky z filcu</h1>
-        <p>Originální ruční tvorba Evy Nevrlé. Objevte hravé sady pro ZŠ, MŠ a domškoláky i praktické doplňky pro každý den.</p>
-        <a href="#produkty" class="btn-main">Prohlédnout nabídku</a>
+        <h1>Autorské sady z filcu, které učí hrou</h1>
+        <p>Originální ruční tvorba Evy Nevrlé. Objevte prémiové vzdělávací pomůcky pro ZŠ, MŠ a domškoláky i stylové doplňky.</p>
+        <a href="#produkty" class="btn-main">Prohlédnout kolekci</a>
     </section>
 
     <section id="produkty" class="products">
@@ -164,40 +178,46 @@
         
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Sada ptáků" class="card-img">
+                <img src="PROVISORY_PHOTO_PTACI.jpg" alt="Sada ptáků - Filcové království" class="card-img">
                 <div class="card-content">
-                    <h3 class="card-title">Sada 26 našich ptáků</h3>
-                    <p class="card-desc">Oblíbená edukativní sada ušitá z kvalitního filcu. Ideální pro poznávání přírody s dětmi.</p>
-                    <div class="card-price">3 750 Kč</div>
-                    <a href="#" class="buy-btn">Vložit do košíku</a>
+                    <h3 class="card-title">Sada naší ptáci (26 ks)</h3>
+                    <p class="card-desc">Naše nejoblíbenější edukativní sada. Detailně propracovaní ptáčci z kvalitního vlněného filcu pro hravé poznávání přírody.</p>
+                    <div class="card-meta">
+                        <div class="card-price">3 750 Kč</div>
+                        <a href="#" class="buy-btn">Do košíku</a>
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Peněženka" class="card-img">
+                <img src="PROVISORY_PHOTO_PENEZENKA.jpg" alt="Dámská velká peněženka - Filcové království" class="card-img">
                 <div class="card-content">
                     <h3 class="card-title">Dámská velká peněženka</h3>
-                    <p class="card-desc">4 velké přihrádky pro bankovky, kapsa na zip pro mince a dostatek místa na karty. Elegance z filcu.</p>
-                    <div class="card-price">1 200 Kč</div>
-                    <a href="#" class="buy-btn">Vložit do košíku</a>
+                    <p class="card-desc">Elegance a praktičnost v jednom. Čtyři velké přihrádky, bezpečné kapsy na zip a dostatek místa na všechny karty.</p>
+                    <div class="card-meta">
+                        <div class="card-price">1 200 Kč</div>
+                        <a href="#" class="buy-btn">Do košíku</a>
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Vzdělávací sady" class="card-img">
+                <img src="PROVISORY_PHOTO_REPRODUKCE.jpg" alt="Vzdělávací pomůcka Reprodukce - Filcové království" class="card-img">
                 <div class="card-content">
-                    <h3 class="card-title">Velká reprodukce na filcu</h3>
-                    <p class="card-desc">Sada 16 ks + ZDARMA pracovní listy. Skvělá pomůcka pro pedagogy i rodiče.</p>
-                    <div class="card-price">3 400 Kč</div>
-                    <a href="#" class="buy-btn">Vložit do košíku</a>
+                    <h3 class="card-title">Vzdělávací pomůcka Reprodukce</h3>
+                    <p class="card-desc">Sada 16 ks velkých reprodukcí na filcu + pracovní listy ZDARMA. Ideální pomůcka pro pedagogy i rodiče.</p>
+                    <div class="card-meta">
+                        <div class="card-price">3 400 Kč</div>
+                        <a href="#" class="buy-btn">Do košíku</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <h2>Filcové království | Eva Nevrlá</h2>
-        <p>Vzdělávací pomůcky pro ZŠ, MŠ a rodiče domškoláků.</p>
+        <h2>Filcové království</h2>
+        <p>Eva Nevrlá | Autorská tvorba vzdělávacích pomůcek.</p>
         <p>&copy; 2026 Filcové království. Všechna práva vyhrazena.</p>
     </footer>
 
