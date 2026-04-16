@@ -3,222 +3,600 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edukativní pomůcky | Eva Nevrlá - Autorské vzdělávací sady</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>Edukativní pomůcky | Eva Nevrlá</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* --- ZÁKLADNÍ NASTAVENÍ A BARVY --- */
         :root {
-            --accent: #E67E22; /* Teplá oranžová z původního webu, ale v modernějším odstínu */
-            --primary: #2C3E50;
-            --bg-light: #F9FAFB;
-            --white: #FFFFFF;
-            --text: #4B5563;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
+            --green: #4A5D23; /* Mechová zelená */
+            --green-light: #6b8238;
+            --cream: #F9F6F0; /* Barva filcu */
+            --terracotta: #D48B59; /* Teplá akcentní barva */
+            --dark: #2C351B;
+            --text: #4a4a4a;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Quicksand', sans-serif; background: var(--bg-light); color: var(--text); line-height: 1.6; }
-        a { text-decoration: none; transition: 0.3s; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            background-color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Lora', serif;
+            color: var(--dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
 
         /* --- NAVIGACE --- */
         header {
-            background: var(--white);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
+            background-color: rgba(249, 246, 240, 0.95);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); font-weight: 700; }
-        .logo span { color: var(--accent); }
 
-        nav ul { display: flex; list-style: none; gap: 2rem; }
-        nav a { color: var(--primary); font-weight: 600; font-size: 0.95rem; }
-        nav a:hover { color: var(--accent); }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-        /* --- HERO SEKCE --- */
+        .logo {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--terracotta);
+        }
+
+        .nav-icons a {
+            margin-left: 15px;
+            font-size: 1.2rem;
+            color: var(--green);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green);
+        }
+
+        /* --- HERO SEKCE (ÚVOD) --- */
         .hero {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, #fff 0%, #fff5ed 100%);
+            height: 100vh;
+            background: linear-gradient(rgba(44, 53, 27, 0.7), rgba(44, 53, 27, 0.7)), url('https://via.placeholder.com/1920x1080/4A5D23/FFF?text=Vaše+Krásná+Fotka+Zde') center/cover;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            margin-top: 60px;
         }
-        .hero-text { flex: 1; }
-        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--primary); line-height: 1.2; margin-bottom: 1.5rem; }
-        .hero-text p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 500px; }
-        .cta-button { 
-            background: var(--accent); 
-            color: white; 
-            padding: 1rem 2.5rem; 
-            border-radius: 50px; 
-            font-weight: 700; 
+
+        .hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
             display: inline-block;
-            box-shadow: 0 4px 14px rgba(230, 126, 34, 0.4);
+            padding: 12px 30px;
+            background-color: var(--terracotta);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
         }
-        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(230, 126, 34, 0.6); }
 
-        /* --- KATEGORIE / VÝHODY --- */
-        .features { padding: 4rem 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center; }
-        .feature-item { background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); }
-        .feature-item i { font-size: 2rem; color: var(--accent); margin-bottom: 1rem; display: block; }
-
-        /* --- PRODUKTY --- */
-        .products { padding: 4rem 5%; }
-        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary); }
-        
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
-        .product-card { 
-            background: var(--white); 
-            border-radius: var(--radius); 
-            overflow: hidden; 
-            transition: 0.4s; 
-            border: 1px solid #eee;
+        .btn:hover {
+            background-color: #b5754a;
+            color: white;
         }
-        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
-        .product-img { width: 100%; height: 250px; background: #eee; object-fit: cover; }
-        .product-info { padding: 1.5rem; }
-        .product-tag { font-size: 0.75rem; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; display: block; }
-        .product-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary); }
-        .product-footer { display: flex; justify-content: space-between; align-items: center; }
-        .price { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
-        .add-to-cart { color: var(--accent); font-weight: 700; font-size: 0.9rem; border-bottom: 2px solid var(--accent); }
 
-        /* --- FOOTER --- */
-        footer { background: var(--primary); color: white; padding: 4rem 5% 2rem; margin-top: 4rem; }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
-        .footer-column h3 { margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; }
-        .footer-column ul { list-style: none; }
-        .footer-column ul li { margin-bottom: 0.8rem; opacity: 0.8; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; font-size: 0.9rem; opacity: 0.6; }
+        /* --- OBECNÉ SEKCE --- */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--terracotta);
+            margin: 15px auto 0;
+        }
+
+        /* --- O MNĚ --- */
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        .about-quote {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--green);
+            border-left: 4px solid var(--terracotta);
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- OCENĚNÍ --- */
+        .awards {
+            background-color: var(--green);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .awards-list {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 20px auto 0;
+        }
+
+        .award-item {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+        }
+
+        /* --- CO NABÍZÍM (E-SHOP) --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            group: hover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background: rgba(74, 93, 35, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover .product-hover {
+            opacity: 1;
+        }
+
+        .product-hover i {
+            color: white;
+            font-size: 3rem;
+        }
+
+        /* --- PROGRAMY PRO MŠ A ZŠ --- */
+        .programs-bg {
+            background-color: white;
+            padding: 80px 0;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .program-card {
+            background: var(--cream);
+            padding: 40px;
+            border-radius: 15px;
+            border-top: 5px solid var(--green);
+        }
+
+        .program-card h3 {
+            color: var(--terracotta);
+            margin-bottom: 20px;
+        }
+
+        .program-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-top: 20px;
+            display: block;
+        }
+
+        /* --- SLUŽBY --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--terracotta);
+            margin-bottom: 20px;
+        }
+
+        /* --- NÁSTĚNKA --- */
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .board-post {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--green);
+        }
+
+        .board-date {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- PATIČKA --- */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-social {
+            margin: 20px 0;
+        }
+
+        .footer-social a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+
+        .footer-social a:hover {
+            color: var(--terracotta);
+        }
+
+        /* --- PLOVOUCÍ WHATSAPP --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+
+        /* --- RESPONSIVITA --- */
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 1rem; }
-            .hero { flex-direction: column; text-align: center; padding: 3rem 5%; }
-            .hero-text h1 { font-size: 2.5rem; }
-            nav ul { gap: 1rem; font-size: 0.8rem; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--cream);
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">Edukativní<span>Pomůcky</span></div>
-        <nav>
-            <ul>
-                <li><a href="#">Domů</a></li>
-                <li><a href="#">Sady</a></li>
-                <li><a href="#">Peněženky</a></li>
-                <li><a href="#">O nás</a></li>
-                <li><a href="#">Kontakt</a></li>
-            </ul>
-        </nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Edukativní pomůcky</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#uvod">Úvod</a></li>
+                    <li><a href="#o-mne">O mně</a></li>
+                    <li><a href="#e-shop">E-shop</a></li>
+                    <li><a href="#programy">Programy</a></li>
+                    <li><a href="#sluzby">Služby</a></li>
+                    <li><a href="#nastenka">Nástěnka</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#e-shop"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+            <i class="fas fa-bars menu-toggle"></i>
+        </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Učíme děti objevovat svět hrou</h1>
-            <p>Ručně šité edukativní sady z filcu pro mateřské a základní školy, které vydrží generace.</p>
-            <a href="#produkty" class="cta-button">Prohlédnout pomůcky</a>
-        </div>
-        <div class="hero-img">
-            <img src="https://via.placeholder.com/500x400/E67E22/ffffff?text=Edukativní+Pomůcky" alt="Hero" style="border-radius: 20px; max-width: 100%;">
+    <section class="hero" id="uvod">
+        <div>
+            <h1>Kde se filc stává plátnem a učení zážitkem.</h1>
+            <p>Unikátní ručně malované edukativní pomůcky s úctou k přírodě. Každý kus je originál stvořený pro rozvoj dětí.</p>
+            <a href="#e-shop" class="btn">Prozkoumat e-shop</a>
         </div>
     </section>
 
-    <section class="features">
-        <div class="feature-item">
-            <i>🎨</i>
-            <h3>Ruční práce</h3>
-            <p>Každý kousek prochází našima rukama s maximální péčí.</p>
-        </div>
-        <div class="feature-item">
-            <i>📚</i>
-            <h3>Didaktická hodnota</h3>
-            <p>Vyvinuto ve spolupráci s pedagogy pro efektivní výuku.</p>
-        </div>
-        <div class="feature-item">
-            <i>🌱</i>
-            <h3>Kvalitní materiály</h3>
-            <p>Používáme odolný filc a nezávadné barvy.</p>
+    <section id="o-mne">
+        <h2 class="section-title">Výtvarnice Eva Nevrlá</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p class="about-quote">„Ochrana a láska k přírodě je to nejvíc, co můžeme dětem předat.“</p>
+                <p>Deset let poctivé, detailní a láskyplné práce. Přesně tak dlouho se umělkyně Eva Nevrlá z Mohelnice (Olomoucký kraj) věnuje tvorbě, která spojuje řemeslo a hluboký smysl pro přírodu. Její hlavní doménou je filc, který pod jejíma rukama ožívá v podobě fascinujících vzdělávacích pomůcek.</p>
+                <p>Evina tvorba je jedinečná tím, že kombinuje tradiční techniky šití s moderní a originální malbou na filc. Specializuje se na modely inspirované faunou, ať už jde o miniaturní hmyz, elegantní ptáky, nebo exotické papoušky. Cílem není jen estetika, ale především edukativní přesnost a láska k přírodě.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://via.placeholder.com/600x400/4A5D23/FFF?text=Fotka+Evy+při+tvorbě" alt="Eva Nevrlá při tvorbě">
+            </div>
         </div>
     </section>
 
-    <section id="produkty" class="products">
-        <h2 class="section-title">Naše nejoblíbenější sady</h2>
-        <div class="product-grid">
-            
-            <div class="product-card">
-                <img src="sada-ptaci.jpg" alt="Sada ptáků" class="product-img">
-                <div class="product-info">
-                    <span class="product-tag">Vzdělávání</span>
-                    <h3 class="product-name">Sada naší ptáci (26 ks)</h3>
-                    <div class="product-footer">
-                        <span class="price">3 750 Kč</span>
-                        <a href="#" class="add-to-cart">Detail produktu</a>
-                    </div>
-                </div>
-            </div>
+    <div class="awards">
+        <h3>Naše úspěchy</h3>
+        <div class="awards-list">
+            <div class="award-item"><i class="fas fa-star"></i> Regionální produkt Haná</div>
+            <div class="award-item"><i class="fas fa-award"></i> Cena hejtmana Olomouckého kraje</div>
+            <div class="award-item"><i class="fas fa-trophy"></i> 3. místo Živnostník roku 2025</div>
+        </div>
+    </div>
 
-            <div class="product-card">
-                <img src="reprodukce.jpg" alt="Reprodukce" class="product-img">
-                <div class="product-info">
-                    <span class="product-tag">ZŠ a MŠ</span>
-                    <h3 class="product-name">Vzdělávací reprodukce 16ks</h3>
-                    <div class="product-footer">
-                        <span class="price">3 400 Kč</span>
-                        <a href="#" class="add-to-cart">Detail produktu</a>
-                    </div>
-                </div>
-            </div>
+    <section id="e-shop">
+        <h2 class="section-title">Co nabízím</h2>
+        <div class="products-grid">
+            <a href="#" class="product-card">
+                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Hmyzí+hrdinové" alt="Hmyz">
+                <div class="product-info"><h3>Hmyzí hrdinové</h3></div>
+                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Ptačí+říše" alt="Ptáci">
+                <div class="product-info"><h3>Ptačí říše</h3></div>
+                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Papoušci" alt="Papoušci">
+                <div class="product-info"><h3>Exotičtí papoušci</h3></div>
+                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://via.placeholder.com/400x300/F9F6F0/4A5D23?text=Autorský+textil" alt="Textil">
+                <div class="product-info"><h3>Autorský textil</h3></div>
+                <div class="product-hover"><i class="fas fa-shopping-cart"></i></div>
+            </a>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="#" class="btn">Vstoupit do E-shopu</a>
+        </div>
+    </section>
 
-            <div class="product-card">
-                <img src="penezenka.jpg" alt="Peněženka" class="product-img">
-                <div class="product-info">
-                    <span class="product-tag">Doplňky</span>
-                    <h3 class="product-name">Dámská velká peněženka</h3>
-                    <div class="product-footer">
-                        <span class="price">1 200 Kč</span>
-                        <a href="#" class="add-to-cart">Detail produktu</a>
-                    </div>
-                </div>
+    <div class="programs-bg" id="programy">
+        <h2 class="section-title">Zábavně vzdělávací programy pro MŠ a ZŠ</h2>
+        <div class="programs-grid">
+            <div class="program-card">
+                <h3><i class="fas fa-bug"></i> Hmyzí kamarádi</h3>
+                <p>Seznámení s životem hmyzu, stavbou těla, vývojová stádia, místo výskytu. Cvičení posloupnosti. Obohaceno o básničky, písničky, pohybové prvky s doprovodem kytary.</p>
+                <p><strong>Pro koho:</strong> Děti 3-10 let (max. 30 dětí)<br><strong>Délka:</strong> cca 40 min</p>
+                <span class="program-price">2 400 Kč + doprava</span>
             </div>
+            <div class="program-card">
+                <h3><i class="fas fa-dove"></i> Ptačí kamarádi</h3>
+                <p>Program provede vaše děti poutavým světem naší ptačí říše. Naučíme se poznávat běžné druhy ptáků na krmítku i v lese. Program plný autorských písniček a tance.</p>
+                <p><strong>Pro koho:</strong> Děti v MŠ a ZŠ (max. 30 dětí)<br><strong>Délka:</strong> cca 40 min</p>
+                <span class="program-price">2 400 Kč + doprava</span>
+            </div>
+        </div>
+    </div>
 
+    <section id="sluzby">
+        <h2 class="section-title">Další služby</h2>
+        <div class="services-grid">
+            <div>
+                <i class="fas fa-store service-icon"></i>
+                <h3>Prodejní stánek</h3>
+                <p>Doprovodný stánek s tématikou hmyzu, dekorací, textilu, včetně fotokoutku a dílniček.</p>
+            </div>
+            <div>
+                <i class="fas fa-cut service-icon"></i>
+                <h3>Kurzy šití z filcu</h3>
+                <p>Jako lektorka vás provedu kouzelným světem tohoto materiálu a naučím vás techniky šití.</p>
+            </div>
+            <div>
+                <i class="fas fa-paint-brush service-icon"></i>
+                <h3>Zakázková výroba</h3>
+                <p>Edukativní pomůcky pro muzea a entomologické rodinné sbírky na míru.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="nastenka">
+        <h2 class="section-title">Nástěnka & Aktuality</h2>
+        <div class="board-grid">
+            <div class="board-post">
+                <span class="board-date">10. Května 2026</span>
+                <h3>Jarní trhy v Olomouci</h3>
+                <p>Přijďte se podívat na náš prodejní stánek. Čekají vás nové modely jarních motýlů a autorský textil!</p>
+            </div>
+            <div class="board-post">
+                <span class="board-date">1. Června 2026</span>
+                <h3>Nový kurz šití</h3>
+                <p>Otevíráme přihlášky na letní kurz šití z filcu pro začátečníky. Kapacita omezena, přihlaste se včas.</p>
+            </div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <div class="logo" style="color: white;">Edukativní<span>Pomůcky</span></div>
-                <p style="margin-top: 1rem;">Eva Nevrlá - Vaše partnerka ve světě kreativního vzdělávání.</p>
-            </div>
-            <div class="footer-column">
-                <h3>Odkazy</h3>
-                <ul>
-                    <li>Doprava a platba</li>
-                    <li>Obchodní podmínky</li>
-                    <li>Ochrana soukromí</li>
-                    <li>Kontakt</li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Kontakt</h3>
-                <ul>
-                    <li>📧 info@edukativnipomucky.cz</li>
-                    <li>📍 Česká republika</li>
-                    <li>📞 +420 XXX XXX XXX</li>
-                </ul>
-            </div>
+        <h2>Edukativní pomůcky Eva Nevrlá</h2>
+        <p>Mohelnice, Olomoucký kraj</p>
+        <div class="footer-social">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fas fa-shopping-cart"></i></a>
         </div>
-        <div class="footer-bottom">
-            &copy; 2026 Edukativní pomůcky | Eva Nevrlá. Všechna práva vyhrazena.
-        </div>
+        <p>Email: vas@email.cz | Tel: +420 123 456 789</p>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #aaa;">&copy; 2026 Eva Nevrlá. Všechna práva vyhrazena.</p>
     </footer>
 
+    <a href="https://wa.me/420123456789" class="whatsapp-float" target="_blank" title="Napište nám na WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Skrytí menu po kliknutí na odkaz v mobilu
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
