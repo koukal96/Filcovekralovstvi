@@ -5,24 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filcové království | Eva Nevrlá</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;600;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- DEFINICE BAREV PŘÍRODY --- */
+        /* --- DEFINICE BAREV A PROMĚNNÝCH --- */
         :root {
-            --moss-dark: #2C351B;
+            --moss-dark: #1f2613;
             --moss-green: #4A5D23;
-            --leaf: #6b8238;
-            --canvas: #F9F7F2;
-            --felt-grey: #E5E1D8;
-            --burnt-orange: #D48B59;
-            --earth: #5D4037;
+            --leaf-light: #8ba84a;
+            --canvas: #Faf8f3;
+            --felt-grey: #e8e5de;
+            --burnt-orange: #e07a3e;
+            --orange-glow: rgba(224, 122, 62, 0.4);
             --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.9);
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow-soft: 0 15px 40px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
 
-        /* --- ZÁKLADNÍ RESET --- */
+        /* --- ZÁKLADNÍ RESET A NASTAVENÍ --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         
@@ -38,318 +40,419 @@
         h1, h2, h3, h4, .logo { font-family: 'Lora', serif; font-weight: 700; }
         p { font-weight: 400; color: #444; }
 
-        /* --- HRAVÉ DEKORACE (Včelky, lístky atd.) --- */
+        /* --- LÉTAJÍCÍ VČELKA (PŘES CELÝ WEB) --- */
+        .flying-bee {
+            position: fixed;
+            top: 20%;
+            left: -100px;
+            font-size: 3.5rem;
+            z-index: 9999;
+            pointer-events: none; /* Kliknutí projde skrz */
+            animation: flyAcrossScreen 25s linear infinite;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+        }
+
+        @keyframes flyAcrossScreen {
+            0%   { transform: translate(0, 0) scaleX(-1) rotate(-10deg); }
+            20%  { transform: translate(25vw, -50px) scaleX(-1) rotate(10deg); }
+            40%  { transform: translate(50vw, 30px) scaleX(-1) rotate(-5deg); }
+            60%  { transform: translate(80vw, -20px) scaleX(-1) rotate(15deg); }
+            80%  { transform: translate(110vw, 40px) scaleX(-1) rotate(0deg); }
+            81%  { transform: translate(110vw, 40px) scaleX(1) rotate(0deg); } /* Otočení včelky */
+            100% { transform: translate(-100px, -30px) scaleX(1) rotate(10deg); }
+        }
+
+        /* --- LEVITUJÍCÍ DEKORACE NA POZADÍ --- */
         .deco-element {
             position: absolute;
-            font-size: 2rem;
-            z-index: 5;
-            opacity: 0.85;
-            animation: floatPlayful 4s ease-in-out infinite;
+            z-index: 1;
+            opacity: 0.7;
+            animation: floatPlayful 6s ease-in-out infinite;
             pointer-events: none;
         }
-        .deco-bee { top: 10%; right: 5%; animation-delay: 0s; font-size: 2.5rem; }
-        .deco-ladybug { bottom: 15%; left: 8%; animation-delay: 1s; font-size: 2rem; }
-        .deco-leaf { top: 40%; left: 3%; animation-delay: 2s; color: var(--moss-green); }
-        .deco-bird { bottom: 5%; right: 10%; animation-delay: 0.5s; font-size: 2.5rem; }
+        .leaf-1 { top: 15%; left: 5%; font-size: 2.5rem; color: var(--leaf-light); animation-delay: 0s; }
+        .leaf-2 { top: 60%; right: 5%; font-size: 3rem; color: var(--moss-green); animation-delay: 2s; transform: rotate(45deg); }
+        .bug-1 { bottom: 10%; left: 15%; font-size: 2rem; animation-delay: 1s; }
         
         @keyframes floatPlayful {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(8deg); }
-            100% { transform: translateY(0) rotate(0deg); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(15deg); }
         }
 
         /* --- NAVIGACE --- */
         header { 
             background: var(--glass); 
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             position: fixed; width: 100%; top: 0; z-index: 1000; 
-            border-bottom: 2px solid rgba(212, 139, 89, 0.3);
-            transition: 0.5s;
+            border-bottom: 2px solid rgba(224, 122, 62, 0.2);
+            transition: all 0.4s ease;
         }
+        header.scrolled { padding: 5px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
         .nav-container { 
-            max-width: 1400px; margin: 0 auto; padding: 12px 25px; 
+            max-width: 1400px; margin: 0 auto; padding: 15px 30px; 
             display: flex; justify-content: space-between; align-items: center; 
+            transition: 0.4s;
         }
         .logo-wrap { display: flex; flex-direction: column; cursor: pointer; text-decoration: none; }
-        .logo-main { font-size: 1.5rem; color: var(--moss-green); letter-spacing: 1px; }
-        .logo-sub { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--burnt-orange); font-weight: 800; }
+        .logo-main { font-size: 1.6rem; color: var(--moss-green); letter-spacing: 1px; }
+        .logo-sub { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 4px; color: var(--burnt-orange); font-weight: 900; }
 
-        .nav-menu { display: flex; list-style: none; gap: 30px; }
+        .nav-menu { display: flex; list-style: none; gap: 35px; }
         .nav-menu a { 
-            font-weight: 600; text-transform: uppercase; font-size: 0.85rem; 
+            font-weight: 700; text-transform: uppercase; font-size: 0.85rem; 
             color: var(--moss-dark); position: relative; padding: 5px 0; text-decoration: none;
+            transition: 0.3s;
         }
         .nav-menu a::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 0; 
-            height: 3px; background: var(--burnt-orange); transition: 0.3s; border-radius: 5px;
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 0; 
+            height: 3px; background: var(--burnt-orange); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 5px;
         }
+        .nav-menu a:hover { color: var(--burnt-orange); }
         .nav-menu a:hover::after { width: 100%; }
         
         .nav-right { display: flex; align-items: center; gap: 20px; }
-        .nav-right a { color: var(--moss-green); transition: 0.3s; text-decoration: none; }
-        .nav-right i { font-size: 1.4rem; cursor: pointer; }
-        .nav-right a:hover i { color: var(--burnt-orange); transform: scale(1.15) rotate(-5deg); }
+        .nav-right a { 
+            color: var(--moss-green); transition: 0.3s; text-decoration: none;
+            width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;
+            border-radius: 50%; background: rgba(74, 93, 35, 0.1);
+        }
+        .nav-right i { font-size: 1.2rem; }
+        .nav-right a:hover { background: var(--burnt-orange); color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 5px 15px var(--orange-glow); }
 
-        .burger { display: none; cursor: pointer; font-size: 1.8rem; color: var(--moss-green); }
+        .burger { display: none; cursor: pointer; font-size: 2rem; color: var(--moss-green); }
 
-        /* --- HERO SEKCE --- */
+        /* --- HERO SEKCE (SLIDER POZADÍ) --- */
         .hero { 
             height: 100vh; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center; text-align: center;
         }
-        .hero-bg {
+        
+        .hero-slider {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+        }
+        .slide {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(44,53,27,0.6), rgba(44,53,27,0.3)), 
-                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071') center/cover;
-            z-index: -1; transform: scale(1.1); animation: pan 25s infinite alternate;
+            background-size: cover; background-position: center;
+            opacity: 0; animation: crossfade 18s infinite;
+            transform: scale(1.05); /* Jemný zoom efekt */
         }
-        @keyframes pan { from { transform: scale(1); } to { transform: scale(1.15); } }
+        /* Zde si vyměníš URL za vlastní fotky */
+        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?q=80&w=2000'); animation-delay: 6s; }
+        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2000'); animation-delay: 12s; }
 
-        .hero-content { max-width: 900px; color: white; padding: 0 20px; z-index: 10; }
+        @keyframes crossfade {
+            0% { opacity: 0; transform: scale(1.05); }
+            10% { opacity: 1; transform: scale(1.1); }
+            33% { opacity: 1; transform: scale(1.15); }
+            43% { opacity: 0; transform: scale(1.2); }
+            100% { opacity: 0; }
+        }
+
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(31, 38, 19, 0.4), rgba(31, 38, 19, 0.7));
+            z-index: -1;
+        }
+
+        .hero-content { max-width: 1000px; color: white; padding: 0 20px; z-index: 10; }
+        .hero-tag {
+            display: inline-block; padding: 8px 25px; background: rgba(255,255,255,0.2); 
+            backdrop-filter: blur(10px); border-radius: 50px; font-weight: 800; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 25px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.4);
+            animation: slideDown 1s ease;
+        }
         .hero h1 { 
-            font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.15; margin-bottom: 25px;
-            animation: slideUp 1.5s ease; text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+            font-size: clamp(3rem, 7vw, 6rem); line-height: 1.1; margin-bottom: 25px;
+            animation: slideUp 1.2s ease; text-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
+        .hero h1 span { color: var(--burnt-orange); font-family: 'Caveat', cursive; font-size: 1.2em; display: inline-block; transform: rotate(-5deg); }
         .hero p { 
-            font-size: clamp(1.1rem, 3vw, 1.5rem); color: rgba(255,255,255,0.95); margin-bottom: 40px; 
-            animation: slideUp 2s ease; font-weight: 400; text-shadow: 1px 2px 5px rgba(0,0,0,0.5);
+            font-size: clamp(1.2rem, 3vw, 1.6rem); color: #f0f0f0; margin-bottom: 50px; 
+            animation: slideUp 1.6s ease; font-weight: 300; text-shadow: 0 5px 10px rgba(0,0,0,0.5);
+            max-width: 800px; margin-inline: auto;
         }
 
-        .cta-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; animation: fadeIn 3s ease; }
+        .cta-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; animation: slideUp 2s ease; }
         .btn-primary { 
-            padding: 16px 40px; background: var(--burnt-orange); color: white; border-radius: 50px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: 0.4s;
-            box-shadow: 0 10px 25px rgba(212, 139, 89, 0.4); text-decoration: none;
-            display: inline-flex; align-items: center; justify-content: center; text-align: center;
-            white-space: normal; /* Oprava přetékajícího textu z fotky */
-            max-width: 100%; line-height: 1.3;
+            padding: 18px 45px; background: linear-gradient(135deg, var(--burnt-orange), #d16b2e); color: white; border-radius: 50px;
+            font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: 0.4s;
+            box-shadow: 0 10px 30px var(--orange-glow); text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer;
         }
-        .btn-primary:hover { background: #b5754a; transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 35px rgba(212, 139, 89, 0.5); color: white; }
+        .btn-primary:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 20px 40px rgba(224, 122, 62, 0.6); }
+        .btn-primary i { margin-right: 12px; font-size: 1.2rem; transition: 0.3s; }
+        .btn-primary:hover i { transform: rotate(-15deg) scale(1.2); }
         
         .btn-outline { 
-            padding: 16px 40px; border: 3px solid white; color: white; border-radius: 50px;
-            font-weight: 700; text-transform: uppercase; transition: 0.4s; text-decoration: none;
-            background: rgba(0,0,0,0.2); backdrop-filter: blur(5px);
-            white-space: normal; text-align: center; line-height: 1.3;
+            padding: 18px 45px; border: 2px solid rgba(255,255,255,0.6); color: white; border-radius: 50px;
+            font-weight: 800; text-transform: uppercase; transition: 0.4s; text-decoration: none;
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); display: inline-flex; align-items: center;
         }
-        .btn-outline:hover { background: white; color: var(--moss-dark); }
+        .btn-outline:hover { background: white; color: var(--moss-dark); border-color: white; transform: translateY(-8px); }
 
-        /* --- OCENĚNÍ (INFINITE SCROLL) --- */
-        .awards-bar { background: var(--moss-dark); padding: 40px 0; overflow: hidden; position: relative; border-bottom: 5px solid var(--burnt-orange); }
-        .awards-scroll { display: flex; width: calc(350px * 12); animation: infiniteScroll 35s linear infinite; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- OCENĚNÍ (MODERNÍ TICKER) --- */
+        .awards-bar { background: linear-gradient(90deg, var(--moss-dark), #151a0d); padding: 30px 0; overflow: hidden; position: relative; border-bottom: 5px solid var(--burnt-orange); }
+        .awards-scroll { display: flex; width: calc(400px * 12); animation: infiniteScroll 40s linear infinite; }
+        .awards-scroll:hover { animation-play-state: paused; } /* Zastavení při najetí */
         .award-card { 
-            width: 350px; display: flex; flex-direction: column; align-items: center; gap: 8px;
-            color: var(--felt-grey); cursor: pointer; transition: 0.3s; text-align: center;
+            width: 400px; display: flex; align-items: center; justify-content: center; gap: 15px;
+            color: var(--felt-grey); cursor: pointer; transition: 0.3s;
         }
-        .award-card:hover { transform: scale(1.1); color: var(--burnt-orange); }
-        .award-card i { font-size: 2.2rem; color: var(--burnt-orange); }
-        .award-card span { font-family: 'Lora', serif; font-weight: 600; font-size: 1.1rem; }
+        .award-card:hover { transform: scale(1.05) translateY(-5px); color: white; }
+        .award-icon-wrap { 
+            width: 60px; height: 60px; background: rgba(255,255,255,0.05); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; border: 1px solid rgba(224, 122, 62, 0.3);
+            transition: 0.3s;
+        }
+        .award-card:hover .award-icon-wrap { background: var(--burnt-orange); border-color: var(--burnt-orange); box-shadow: 0 0 20px var(--orange-glow);}
+        .award-card i { font-size: 1.8rem; color: var(--burnt-orange); transition: 0.3s;}
+        .award-card:hover i { color: white; }
+        .award-card span { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;}
 
-        @keyframes infiniteScroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-350px * 6)); } }
+        @keyframes infiniteScroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-400px * 6)); } }
 
-        /* --- O MNĚ --- */
-        .section-padding { padding: 100px 20px; max-width: 1300px; margin: 0 auto; position: relative; }
-        .reveal { opacity: 0; transform: translateY(50px); transition: 1s all ease; }
+        /* --- SPOL. TŘÍDY --- */
+        .section-padding { padding: 120px 20px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;}
+        .reveal { opacity: 0; transform: translateY(60px); transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .section-title { text-align: center; margin-bottom: 80px; position: relative; }
+        .section-title h2 { font-size: 3.5rem; color: var(--moss-dark); display: inline-block; line-height: 1.2; position: relative; z-index: 1;}
+        .section-title h2::before {
+            content: ''; position: absolute; width: 60px; height: 60px; background: var(--orange-glow);
+            border-radius: 50%; top: -15px; left: -20px; z-index: -1; filter: blur(10px);
+        }
+        .break-title { display: block; font-size: 2.2rem; color: var(--burnt-orange); font-family: 'Caveat', cursive; transform: rotate(-2deg); margin-top: -10px;}
 
-        .about-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
-        .about-frame { position: sticky; top: 120px; }
+        /* --- O MNĚ (PŘÍBĚH) --- */
+        .about-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+        .about-frame { position: relative; }
+        .image-wrapper { position: relative; border-radius: 30px; overflow: hidden; box-shadow: var(--shadow-hover); }
         .about-frame img { 
-            width: 100%; border-radius: 20px; box-shadow: 20px 20px 0 var(--moss-green);
-            transition: 0.5s; border: 5px solid white;
+            width: 100%; display: block; transition: 0.7s ease;
         }
-        .about-frame::before {
-            content: ''; position: absolute; top: -25px; left: -25px; width: 120px; height: 120px;
-            border-top: 6px solid var(--burnt-orange); border-left: 6px solid var(--burnt-orange); z-index: 1; border-radius: 20px 0 0 0;
+        .image-wrapper:hover img { transform: scale(1.08); }
+        
+        .about-badge {
+            position: absolute; bottom: -30px; right: -30px; background: var(--burnt-orange); color: white;
+            width: 140px; height: 140px; border-radius: 50%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;
+            text-align: center; line-height: 1.2; box-shadow: 0 15px 30px rgba(224, 122, 62, 0.5);
+            border: 5px solid var(--canvas); z-index: 3; animation: floatPlayful 4s infinite alternate;
         }
-        .about-content h2 { font-size: 3rem; margin-bottom: 25px; line-height: 1.2; color: var(--moss-dark); }
-        .about-content h2 span { color: var(--burnt-orange); font-size: 1.1rem; display: block; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;}
-        .about-content h3 { color: var(--moss-green); font-size: 1.6rem; margin: 35px 0 15px 0; font-family: 'Lora', serif; }
-        .about-content p { margin-bottom: 20px; text-align: justify; }
+
+        .about-content h2 { font-size: 3rem; margin-bottom: 30px; line-height: 1.2; color: var(--moss-dark); }
+        .about-content h2 span { color: var(--burnt-orange); font-size: 1.2rem; display: block; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;}
+        .about-content h3 { color: var(--moss-green); font-size: 1.8rem; margin: 40px 0 20px 0; position: relative; padding-left: 20px; }
+        .about-content h3::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--burnt-orange); }
+        .about-content p { font-size: 1.1rem; margin-bottom: 20px; text-align: justify; color: #555;}
         
         .quote-box { 
-            font-family: 'Lora', serif; font-size: 1.5rem; font-style: italic; 
-            border-left: 6px solid var(--burnt-orange); border-radius: 10px;
-            padding: 20px 30px; margin: 30px 0; color: var(--moss-green); line-height: 1.5;
-            background: rgba(212, 139, 89, 0.05); position: relative;
+            font-family: 'Caveat', cursive; font-size: 2.5rem; 
+            padding: 40px; margin: 40px 0; color: white; line-height: 1.2;
+            background: linear-gradient(135deg, var(--moss-green), var(--moss-dark));
+            border-radius: 30px 0 30px 0; position: relative; text-align: center;
+            box-shadow: var(--shadow-soft);
         }
-        .quote-box::before { content: '„'; position: absolute; top: -10px; left: 10px; font-size: 4rem; color: var(--burnt-orange); opacity: 0.2; font-family: Arial; }
-
-        /* --- SPOLEČNÉ NÁZVY SEKCÍ --- */
-        .section-title { text-align: center; margin-bottom: 60px; position: relative; z-index: 2;}
-        .section-title h2 { font-size: 2.8rem; position: relative; display: inline-block; line-height: 1.2;}
-        /* Modifikace pro zalamování (MŠ, ZŠ a služby) */
-        .break-title { display: block; font-size: 2rem; color: var(--burnt-orange); margin-top: 5px; }
-        
-        .section-title h2::after { 
-            content: ''; position: absolute; bottom: -20px; left: 50%; 
-            width: 80px; height: 5px; background: var(--burnt-orange); 
-            transform: translateX(-50%); border-radius: 10px;
-        }
+        .quote-box::after { content: '„'; position: absolute; bottom: -30px; right: 20px; font-size: 8rem; color: rgba(255,255,255,0.1); font-family: serif; line-height: 1; }
 
         /* --- E-SHOP (TVORBA) --- */
-        .shop-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; position: relative; z-index: 2;}
+        .shop-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; }
         .art-card { 
-            background: var(--white); border-radius: 30px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
+            background: var(--white); border-radius: 40px; overflow: hidden;
+            box-shadow: var(--shadow-soft); transition: 0.5s;
+            position: relative; border: 2px solid transparent;
+            display: flex; flex-direction: column;
         }
-        .art-card:hover { transform: translateY(-10px); border-color: var(--burnt-orange); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .art-card:hover { transform: translateY(-15px); border-color: var(--burnt-orange); box-shadow: var(--shadow-hover); }
         .card-visual { 
-            height: 350px; background-size: cover; background-position: center; position: relative; 
+            height: 300px; background-size: cover; background-position: center; position: relative; 
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); transition: 0.5s;
         }
+        .art-card:hover .card-visual { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        
         .card-inner-overlay { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(44, 53, 27, 0.6); display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: 0.4s; backdrop-filter: blur(2px);
+            position: absolute; inset: 0; background: rgba(31, 38, 19, 0.7); 
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.4s; backdrop-filter: blur(3px);
         }
         .art-card:hover .card-inner-overlay { opacity: 1; }
-        .card-body { padding: 30px; text-align: center; }
-        .card-body h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--moss-dark); }
-        .card-body p { font-size: 0.95rem; color: #555; }
+        
+        .card-body { padding: 40px 30px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+        .card-body h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--moss-dark); }
+        .card-body p { font-size: 1.05rem; color: #666; }
 
-        /* --- PROGRAMY A SLUŽBY --- */
+        /* --- PROGRAMY (MŠ, ZŠ A SLUŽBY) S KULATÝMI CENAMI --- */
         .schools-bg { 
-            background: var(--felt-grey); background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
-            padding: 80px 0; border-radius: 60px 60px 0 0; position: relative; border-top: 5px solid var(--moss-green);
+            background: var(--felt-grey);
+            padding: 120px 0; position: relative; border-radius: 80px 80px 0 0;
+            margin-top: 50px; border-top: 10px solid var(--moss-green);
         }
-        .program-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 20px; position: relative; z-index: 2;}
+        /* Jemný pattern přes pozadí */
+        .schools-bg::before {
+            content: ''; position: absolute; inset: 0; opacity: 0.3;
+            background-image: radial-gradient(var(--moss-green) 1px, transparent 1px); background-size: 30px 30px;
+            border-radius: 80px 80px 0 0; pointer-events: none;
+        }
+
+        .program-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 60px; padding: 0 20px; }
         .program-card { 
-            background: white; padding: 40px; border-radius: 40px; border: 2px dashed rgba(74, 93, 35, 0.2);
-            position: relative; transition: 0.4s; text-align: center;
+            background: white; padding: 50px 40px; border-radius: 40px; 
+            box-shadow: var(--shadow-soft); position: relative; transition: 0.4s; text-align: center;
+            z-index: 2; border: 3px dashed rgba(74, 93, 35, 0.2);
         }
-        .program-card:hover { transform: translateY(-10px); border-color: var(--burnt-orange); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-style: solid; }
-        .program-card i.main-icon { font-size: 3.5rem; color: var(--moss-green); margin-bottom: 20px; transition: 0.3s; }
-        .program-card:hover i.main-icon { transform: scale(1.2) rotate(10deg); color: var(--burnt-orange); }
-        .program-card h3 { font-size: 1.8rem; color: var(--moss-dark); margin-bottom: 15px; }
+        .program-card:hover { transform: translateY(-15px); border-style: solid; border-color: var(--moss-green); box-shadow: var(--shadow-hover); }
+        
+        .icon-bubble {
+            width: 90px; height: 90px; background: rgba(74, 93, 35, 0.1); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 25px auto;
+            transition: 0.4s;
+        }
+        .program-card:hover .icon-bubble { background: var(--moss-green); transform: scale(1.1) rotate(15deg); }
+        .program-card i.main-icon { font-size: 3rem; color: var(--moss-green); transition: 0.4s; }
+        .program-card:hover i.main-icon { color: white; }
+        
+        .program-card h3 { font-size: 2rem; color: var(--moss-dark); margin-bottom: 20px; }
+        .program-card p { font-size: 1.05rem; margin-bottom: 25px; color: #555;}
         
         .program-tag { 
-            background: var(--burnt-orange); color: white; padding: 6px 15px; border-radius: 20px; 
-            font-size: 0.75rem; font-weight: 800; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            box-shadow: 0 5px 15px rgba(212, 139, 89, 0.4); letter-spacing: 1px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 8px 20px; border-radius: 30px; 
+            font-size: 0.85rem; font-weight: 800; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.4); letter-spacing: 1px; z-index: 10;
         }
-        .price-circle { 
-            width: 90px; height: 90px; background: var(--moss-dark); color: white; 
-            border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            margin: 20px auto 0 auto; border: 4px solid var(--felt-grey); font-weight: 800;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .features-list { list-style: none; margin-top: 20px; font-weight: 600; color: var(--moss-green); text-align: left; display: inline-block;}
-        .features-list li { margin-bottom: 8px; }
 
-        /* --- NÁSTĚNKA --- */
-        .board-bg { background: var(--canvas); position: relative; }
-        .board-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; position: relative; z-index: 2;}
+        /* TOTO JE TA KULATÁ CENA Z POŽADAVKU */
+        .price-round { 
+            position: absolute; bottom: -40px; right: -20px;
+            width: 120px; height: 120px; background: linear-gradient(135deg, var(--burnt-orange), #c25e24); 
+            color: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 1.6rem; border: 6px solid var(--felt-grey);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5; transform: rotate(10deg);
+        }
+        .price-round span { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; margin-top: -5px; }
+        .program-card:hover .price-round { transform: rotate(-5deg) scale(1.1); box-shadow: 0 20px 40px rgba(224, 122, 62, 0.5); border-color: white;}
+
+        .features-list { list-style: none; text-align: left; background: var(--canvas); padding: 25px; border-radius: 20px; margin-bottom: 20px;}
+        .features-list li { margin-bottom: 10px; font-weight: 600; color: var(--moss-dark); display: flex; align-items: center;}
+        .features-list i { color: var(--burnt-orange); margin-right: 15px; font-size: 1.2rem;}
+
+        /* --- NÁSTĚNKA (HRAVÉ LÍSTEČKY) --- */
+        .board-bg { background: var(--canvas); position: relative; padding-bottom: 100px;}
+        .board-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; position: relative; z-index: 2;}
         .note { 
-            background: #fff; padding: 40px; box-shadow: 10px 10px 30px rgba(0,0,0,0.08);
+            background: #fff; padding: 50px 40px; box-shadow: var(--shadow-soft);
             transform: rotate(-2deg); cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; border-radius: 5px 30px 5px 30px; border: 1px solid #eee;
+            position: relative; border-radius: 2px 20px 2px 30px; 
+            background-image: repeating-linear-gradient(transparent, transparent 29px, #e8f0fe 29px, #e8f0fe 30px); /* Linkovaný papír */
+            border-left: 4px solid var(--burnt-orange);
         }
-        .note:nth-child(even) { transform: rotate(2deg); background: #fafdf7; border-radius: 30px 5px 30px 5px; }
-        .note:hover { transform: rotate(0) scale(1.05) translateY(-10px); z-index: 50; box-shadow: 15px 20px 40px rgba(0,0,0,0.12); }
+        .note:nth-child(even) { transform: rotate(3deg); border-left-color: var(--moss-green); }
+        .note:nth-child(3n) { transform: rotate(-1deg); border-left-color: #e74c3c; }
+        
+        .note:hover { transform: rotate(0) scale(1.05) translateY(-15px); z-index: 50; box-shadow: var(--shadow-hover); }
         .note-pin { 
-            width: 25px; height: 25px; background: #e74c3c; border-radius: 50%; 
+            width: 30px; height: 30px; background: radial-gradient(circle at 30% 30%, #ff5e5e, #c0392b); border-radius: 50%; 
             position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            box-shadow: inset -3px -3px 5px rgba(0,0,0,0.3), 2px 5px 5px rgba(0,0,0,0.2);
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 5px 10px 10px rgba(0,0,0,0.2);
         }
-        .note h3 { color: var(--burnt-orange); margin-bottom: 10px; font-family: 'Lora', serif; font-size: 1.6rem; margin-top: 10px;}
+        .note h3 { color: var(--moss-dark); margin-bottom: 10px; font-size: 1.8rem; margin-top: 10px; background: white; display: inline-block; padding: 0 10px;}
+        .note p { font-size: 1.1rem; line-height: 30px; /* Zarovnání na linky */ }
 
-        /* --- MODAL (OVERLAY) --- */
-        .modal { 
-            display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; 
-            background: rgba(28, 35, 12, 0.95); backdrop-filter: blur(8px);
-        }
-        .modal-content { 
-            background: white; margin: 5vh auto; padding: 50px; border-radius: 30px; 
-            max-width: 800px; position: relative; animation: modalIn 0.4s ease;
-            max-height: 90vh; overflow-y: auto; text-align: center;
-        }
-        @keyframes modalIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .close-modal { 
-            position: absolute; top: 20px; right: 30px; font-size: 3rem; 
-            cursor: pointer; color: var(--moss-dark); transition: 0.3s; line-height: 1;
-        }
-        .close-modal:hover { color: var(--burnt-orange); transform: rotate(90deg); }
-        .modal-image { width: 100%; border-radius: 20px; margin-top: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
-
-        /* --- KONTAKT & FOOTER --- */
+        /* --- FOOTER --- */
         footer { 
-            background: var(--moss-dark); 
-            color: var(--white); /* Oprava čitelnosti z fotek */
-            padding: 80px 20px 40px 20px; 
-            position: relative; 
-            overflow: hidden; 
-            border-top: 8px solid var(--moss-green);
+            background: var(--moss-dark); color: var(--white); 
+            padding: 100px 20px 40px 20px; position: relative; border-top: 8px solid var(--burnt-orange);
         }
-        /* Jemný vzor na pozadí patičky */
         footer::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; z-index: 0;
+            content: ''; position: absolute; inset: 0; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.4; pointer-events: none;
         }
         .footer-grid { 
-            max-width: 1300px; margin: 0 auto; display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px;
-            position: relative; z-index: 2;
+            max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; position: relative; z-index: 2;
         }
-        .footer-col h4 { font-size: 1.4rem; margin-bottom: 20px; color: var(--burnt-orange); border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px;}
-        .footer-col p { margin-bottom: 12px; color: var(--felt-grey); font-weight: 300;}
+        .footer-col h4 { font-size: 1.5rem; margin-bottom: 25px; color: var(--burnt-orange); text-transform: uppercase; letter-spacing: 1px;}
+        .footer-col p { margin-bottom: 15px; color: #d0cabc; font-weight: 300; font-size: 1.05rem;}
         
-        .footer-col a.contact-link { color: var(--white); text-decoration: none; transition: 0.3s; font-weight: 600;}
-        .footer-col a.contact-link:hover { color: var(--burnt-orange); padding-left: 5px;}
+        .footer-col a.contact-link { color: var(--white); text-decoration: none; transition: 0.3s; font-weight: 600; border-bottom: 1px solid transparent;}
+        .footer-col a.contact-link:hover { color: var(--burnt-orange); border-color: var(--burnt-orange); padding-left: 10px;}
 
-        .social-links { display: flex; gap: 15px; margin-top: 20px; }
+        .social-links { display: flex; gap: 15px; margin-top: 30px; }
         .social-links a { 
-            width: 45px; height: 45px; background: rgba(255,255,255,0.1); 
+            width: 50px; height: 50px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center; border-radius: 50%;
-            font-size: 1.2rem; color: white; text-decoration: none; transition: 0.3s;
+            font-size: 1.4rem; color: white; text-decoration: none; transition: 0.4s;
         }
-        .social-links a:hover { background: var(--burnt-orange); transform: translateY(-5px) scale(1.1); }
+        .social-links a:hover { background: var(--burnt-orange); border-color: var(--burnt-orange); transform: translateY(-8px) rotate(360deg); box-shadow: 0 10px 20px var(--orange-glow); }
 
         /* --- PLOVOUCÍ WHATSAPP --- */
         .wa-float { 
-            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
+            position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px; 
             background: #25D366; color: white; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 2.2rem; z-index: 9000;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); animation: pulse 2s infinite; text-decoration: none;
-            transition: 0.3s;
+            align-items: center; justify-content: center; font-size: 2.8rem; z-index: 9000;
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); animation: pulseWa 2s infinite; text-decoration: none;
+            transition: 0.4s;
         }
-        .wa-float:hover { animation: none; transform: scale(1.15) rotate(-5deg); background: #20b858; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .wa-float:hover { animation: none; transform: scale(1.1) translateY(-10px); background: #20b858; }
+        @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); } 70% { box-shadow: 0 0 0 25px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* --- MODAL (OVERLAY) --- */
+        .modal { 
+            display: none; position: fixed; inset: 0; z-index: 9999; 
+            background: rgba(31, 38, 19, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+        }
+        .modal-content { 
+            background: white; margin: 5vh auto; padding: 60px; border-radius: 40px; 
+            max-width: 800px; position: relative; animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 90vh; overflow-y: auto; text-align: center; border: 5px solid rgba(224, 122, 62, 0.3);
+        }
+        @keyframes modalIn { from { transform: scale(0.7) translateY(100px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+        .close-modal { 
+            position: absolute; top: 25px; right: 35px; font-size: 3.5rem; 
+            cursor: pointer; color: var(--moss-dark); transition: 0.4s; line-height: 1;
+        }
+        .close-modal:hover { color: var(--burnt-orange); transform: rotate(90deg) scale(1.2); }
+        .modal-image { width: 100%; border-radius: 20px; margin-top: 30px; box-shadow: var(--shadow-soft); }
 
         /* --- RESPONSIVITA --- */
-        @media (max-width: 1024px) {
-            .about-split { grid-template-columns: 1fr; gap: 40px; }
-            .about-frame { position: relative; top: 0; max-width: 600px; margin: 0 auto;}
-            .about-frame::before { top: -15px; left: -15px; width: 80px; height: 80px;}
-            .hero h1 { font-size: 3.2rem; }
+        @media (max-width: 1100px) {
+            .about-split { grid-template-columns: 1fr; gap: 60px; }
+            .about-frame { max-width: 700px; margin: 0 auto;}
+            .hero h1 { font-size: 4rem; }
+            .flying-bee { display: none; } /* Vypnutí včelky na mobilech/tabletech pro čistotu */
         }
         @media (max-width: 768px) {
             .nav-menu { 
-                display: none; position: absolute; top: 75px; left: 0; width: 100%; 
+                display: none; position: absolute; top: 80px; left: 0; width: 100%; 
                 background: rgba(255, 255, 255, 0.98); flex-direction: column; padding: 30px 20px; text-align: center;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-bottom: 3px solid var(--burnt-orange);
+                box-shadow: var(--shadow-soft); border-bottom: 4px solid var(--burnt-orange);
             }
             .nav-menu.active { display: flex; }
-            .nav-menu a { font-size: 1.1rem; padding: 10px 0;}
+            .nav-menu a { font-size: 1.2rem; padding: 15px 0;}
             .burger { display: block; }
             
-            .section-padding { padding: 60px 15px; }
-            .wa-float { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 2rem; }
+            .section-padding { padding: 80px 15px; }
+            .wa-float { bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 2.5rem; }
             
-            /* Úprava nadpisů na mobilech pro zalamování pod sebe */
-            .section-title h2 { font-size: 2.2rem; }
-            .break-title { font-size: 1.6rem; }
+            .section-title h2 { font-size: 2.5rem; }
+            .break-title { font-size: 1.8rem; margin-top: 0; }
+            .quote-box { font-size: 1.8rem; padding: 30px; }
             
-            /* Tlačítka na mobilu nesmí přetékat */
-            .btn-primary, .btn-outline { font-size: 0.9rem; padding: 14px 25px; width: 100%; }
-            .cta-group { flex-direction: column; width: 100%; }
+            .btn-primary, .btn-outline { font-size: 1rem; padding: 16px 20px; width: 100%; }
+            .cta-group { flex-direction: column; width: 100%; gap: 15px;}
             
-            /* Skrytí některých dekorací na mobilu kvůli místu */
-            .deco-leaf, .deco-bird { display: none; }
+            .price-round { bottom: -20px; right: 10px; width: 100px; height: 100px; font-size: 1.3rem;}
         }
     </style>
 </head>
 <body>
+
+    <div class="flying-bee">🐝</div>
 
     <header id="navbar">
         <div class="nav-container">
@@ -369,58 +472,61 @@
             <div class="nav-right">
                 <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.filcovekralovstvi.cz" target="_blank" title="Přejít do e-shopu" style="color: var(--burnt-orange);"><i class="fas fa-shopping-basket"></i></a>
+                <a href="https://www.filcovekralovstvi.cz" target="_blank" title="Přejít do e-shopu" style="background: var(--burnt-orange); color: white;"><i class="fas fa-shopping-basket"></i></a>
                 <div class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
             </div>
         </div>
     </header>
 
     <section class="hero" id="uvod">
-        <div class="hero-bg"></div>
+        <div class="hero-slider">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        
         <div class="hero-content">
-            <h1>Umění, které ožívá<br>v dětských dlaních.</h1>
+            <div class="hero-tag">Originální ruční práce z Hané</div>
+            <h1>Umění, které ožívá<br><span>v dětských dlaních.</span></h1>
             <p>Ručně malované edukativní pomůcky z filcu, které spojují precizní vědecký detail s něhou uměleckého řemesla a láskou k přírodě.</p>
             <div class="cta-group">
-                <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary"><i class="fas fa-shopping-basket" style="margin-right: 10px;"></i> Prozkoumat galerii</a>
-                <a href="#skoly" class="btn-outline">Programy pro školy</a>
+                <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary"><i class="fas fa-shopping-basket"></i> Prozkoumat galerii</a>
+                <a href="#skoly" class="btn-outline"><i class="fas fa-seedling" style="margin-right: 10px;"></i> Programy pro školy</a>
             </div>
         </div>
     </section>
 
-    <div class="deco-element deco-bee">🐝</div>
-    <div class="deco-element deco-ladybug">🐞</div>
-
     <div class="awards-bar">
         <div class="awards-scroll">
             <div class="award-card" onclick="openModal('Certifikát', 'Regionální produkt Haná', 'Značka garantující místní původ a kvalitu zpracování z Olomouckého kraje.', 'https://via.placeholder.com/600x800?text=Haná+Produkt')">
-                <i class="fas fa-award"></i><span>Regionální produkt Haná</span>
+                <div class="award-icon-wrap"><i class="fas fa-award"></i></div><span>Produkt Haná</span>
             </div>
             <div class="award-card" onclick="openModal('Ocenění', 'Cena hejtmana OK', 'Za společenskou odpovědnost a významný přínos v oblasti enviromentální výchovy dětí a mládeže.', 'https://via.placeholder.com/600x800?text=Hejtman+Cena')">
-                <i class="fas fa-medal"></i><span>Cena hejtmana kraje</span>
+                <div class="award-icon-wrap"><i class="fas fa-medal"></i></div><span>Cena hejtmana</span>
             </div>
             <div class="award-card" onclick="openModal('Soutěž', 'Živnostník roku 2025', '3. místo v prestižním hodnocení podnikatelů Olomouckého kraje.', 'https://via.placeholder.com/600x800?text=Živnostník+Roku')">
-                <i class="fas fa-trophy"></i><span>3. místo Živnostník roku 2025</span>
+                <div class="award-icon-wrap"><i class="fas fa-trophy"></i></div><span>3. místo Živnostník 2025</span>
             </div>
             <div class="award-card" onclick="openModal('Kvalita', 'Mistr uměleckého řemesla', 'Uznání za unikátní techniku malby na textil a pedagogický přesah.', 'https://via.placeholder.com/600x800?text=Mistr+Remesla')">
-                <i class="fas fa-paint-brush"></i><span>Mistr řemesla</span>
+                <div class="award-icon-wrap"><i class="fas fa-paint-brush"></i></div><span>Mistr řemesla</span>
             </div>
-            <div class="award-card" onclick="openModal('Ekologie', 'Enviro-přínos', 'Pomůcky, které učí děti milovat přírodu bez kompromisů.', 'https://via.placeholder.com/600x800?text=Eko+Cena')">
-                <i class="fas fa-leaf"></i><span>Eko-vzdělávání</span>
-            </div>
-            <div class="award-card" onclick="openModal('Tradice', 'Rodinné stříbro', 'Udržování tradic a poctivého šití s moderním designem.', 'https://via.placeholder.com/600x800?text=Tradice')">
-                <i class="fas fa-heart"></i><span>Tradice s láskou</span>
-            </div>
-            <div class="award-card"><i class="fas fa-award"></i><span>Regionální produkt Haná</span></div>
-            <div class="award-card"><i class="fas fa-medal"></i><span>Cena hejtmana kraje</span></div>
-            <div class="award-card"><i class="fas fa-trophy"></i><span>3. místo Živnostník roku 2025</span></div>
-            <div class="award-card"><i class="fas fa-paint-brush"></i><span>Mistr řemesla</span></div>
+            <div class="award-card"><div class="award-icon-wrap"><i class="fas fa-award"></i></div><span>Produkt Haná</span></div>
+            <div class="award-card"><div class="award-icon-wrap"><i class="fas fa-medal"></i></div><span>Cena hejtmana</span></div>
+            <div class="award-card"><div class="award-icon-wrap"><i class="fas fa-trophy"></i></div><span>3. místo Živnostník 2025</span></div>
+            <div class="award-card"><div class="award-icon-wrap"><i class="fas fa-paint-brush"></i></div><span>Mistr řemesla</span></div>
         </div>
     </div>
+
+    <div class="deco-element leaf-1"><i class="fas fa-leaf"></i></div>
 
     <section class="section-padding reveal" id="o-mne">
         <div class="about-split">
             <div class="about-frame">
-                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?q=80&w=2070" alt="Výtvarnice Eva Nevrlá">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?q=80&w=2070" alt="Výtvarnice Eva Nevrlá">
+                </div>
+                <div class="about-badge">10 let<br><span style="font-size: 0.9rem; font-weight: 400; text-transform: uppercase;">Zkušeností</span></div>
             </div>
             <div class="about-content">
                 <h2><span>Když se filc stane plátnem:</span>Poslání Evy Nevrlé z Hané …</h2>
@@ -446,7 +552,7 @@
         </div>
     </section>
 
-    <div class="deco-element deco-leaf"><i class="fas fa-leaf"></i></div>
+    <div class="deco-element leaf-2"><i class="fas fa-leaf"></i></div>
 
     <section class="section-padding reveal" id="eshop">
         <div class="section-title">
@@ -455,67 +561,83 @@
         <div class="shop-container">
             <div class="art-card">
                 <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?q=80&w=800');">
-                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit v e-shopu</a></div>
+                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit modely</a></div>
                 </div>
-                <div class="card-body"><h3>Hmyzí říše</h3><p>Od motýlů po brouky. Věrné modely pro malé entomology.</p></div>
+                <div class="card-body">
+                    <h3>Hmyzí říše</h3>
+                    <p>Od motýlů po brouky. Věrné, detailně malované modely pro malé i velké entomology.</p>
+                </div>
             </div>
             <div class="art-card">
                 <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=800');">
-                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit v e-shopu</a></div>
+                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit modely</a></div>
                 </div>
-                <div class="card-body"><h3>Ptačí svět</h3><p>Ručně malovaná pírka a věrné siluety našich pěvců i exotů.</p></div>
+                <div class="card-body">
+                    <h3>Ptačí svět</h3>
+                    <p>Ručně malovaná pírka a věrné siluety našich pěvců i exotických papoušků.</p>
+                </div>
             </div>
             <div class="art-card">
                 <div class="card-visual" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800');">
-                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit v e-shopu</a></div>
+                    <div class="card-inner-overlay"><a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary">Koupit textil</a></div>
                 </div>
-                <div class="card-body"><h3>Autorský textil</h3><p>Příroda jako součást vašeho každodenního stylu a šatníku.</p></div>
+                <div class="card-body">
+                    <h3>Autorský textil</h3>
+                    <p>Příroda jako součást vašeho každodenního stylu. Ručně malované oblečení.</p>
+                </div>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 60px;">
-             <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="font-size: 1.1rem; padding: 20px 40px;"><i class="fas fa-shopping-basket" style="margin-right: 15px;"></i> VSTOUPIT DO FILCOVÉHO KRÁLOVSTVÍ</a>
+        <div style="text-align: center; margin-top: 80px;">
+             <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="font-size: 1.2rem; padding: 25px 50px; border-radius: 60px;">
+                 <i class="fas fa-magic" style="margin-right: 15px; font-size: 1.5rem;"></i> VSTOUPIT DO FILCOVÉHO KRÁLOVSTVÍ
+             </a>
         </div>
     </section>
 
-    <div class="deco-element deco-bird">🦋</div>
+    <div class="deco-element bug-1">🐞</div>
 
     <div class="schools-bg" id="skoly">
         <section class="section-padding reveal" style="padding-top: 0;">
             <div class="section-title">
                 <h2>Programy pro MŠ, ZŠ <span class="break-title">a služby</span></h2>
-                <p style="margin-top: 25px; font-size: 1.1rem; color: #555;">Vzdělávání, které děti baví, rozvíjí fantazii a na které nezapomenou.</p>
+                <p style="margin-top: 25px; font-size: 1.2rem; color: #444; font-weight: 600;">Vzdělávání, které děti baví, rozvíjí fantazii a na které nezapomenou.</p>
             </div>
             <div class="program-wrap">
                 <div class="program-card">
-                    <span class="program-tag">NEJOBLÍBENĚJŠÍ</span>
-                    <i class="fas fa-bug main-icon"></i>
+                    <span class="program-tag"><i class="fas fa-star"></i> NEJOBLÍBENĚJŠÍ</span>
+                    <div class="icon-bubble"><i class="fas fa-bug main-icon"></i></div>
                     <h3>Hmyzí svět zblízka</h3>
-                    <p>Fascinující svět bezobratlých. Životní cykly, stavba těla a důležitost hmyzu v přírodě. Program plný poznání a osahání reálných modelů.</p>
+                    <p>Fascinující svět bezobratlých. Životní cykly, stavba těla a důležitost hmyzu. Program plný poznání a osahání reálných modelů.</p>
                     <ul class="features-list">
-                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Pro děti 3-10 let</li>
-                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Délka cca 45 minut</li>
+                        <li><i class="fas fa-check-circle"></i> Vhodné pro děti 3-10 let</li>
+                        <li><i class="fas fa-check-circle"></i> Délka programu cca 45 minut</li>
+                        <li><i class="fas fa-check-circle"></i> Zapojení všech smyslů</li>
                     </ul>
-                    <div class="price-circle">od 2 400<span>Kč</span></div>
+                    <div class="price-round">2 400<span>Kč</span></div>
                 </div>
+                
                 <div class="program-card">
-                    <i class="fas fa-dove main-icon"></i>
+                    <div class="icon-bubble"><i class="fas fa-dove main-icon"></i></div>
                     <h3>Ptačí putování</h3>
                     <p>Poznávání našich ptáků podle peří a barev. Děti si vše mohou osahat a prozkoumat detaily. Budování citového vztahu k přírodě.</p>
                     <ul class="features-list">
-                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Interaktivní výklad</li>
-                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Filcové modely do ruky</li>
+                        <li><i class="fas fa-check-circle"></i> Interaktivní a hravý výklad</li>
+                        <li><i class="fas fa-check-circle"></i> Reálné filcové modely do ruky</li>
+                        <li><i class="fas fa-check-circle"></i> Láska k opeřencům</li>
                     </ul>
-                    <div class="price-circle">od 2 400<span>Kč</span></div>
+                    <div class="price-round">2 400<span>Kč</span></div>
                 </div>
+                
                 <div class="program-card">
-                    <i class="fas fa-paint-palette main-icon"></i>
+                    <div class="icon-bubble"><i class="fas fa-palette main-icon"></i></div>
                     <h3>Služby na míru</h3>
-                    <p>Tvorba edukačních sad na zakázku pro ekocentra či školy. Kreativní workshopy šití a malování pro pedagogy i veřejnost.</p>
+                    <p>Tvorba edukačních sad na zakázku pro ekocentra či školy. Kreativní workshopy šití a malování pro pedagogy i dospělé.</p>
                     <ul class="features-list">
-                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Individuální přístup</li>
-                        <li><i class="fas fa-check" style="margin-right: 10px; color: var(--burnt-orange);"></i> Tvoření a radost</li>
+                        <li><i class="fas fa-check-circle"></i> Naprosto individuální přístup</li>
+                        <li><i class="fas fa-check-circle"></i> Kreativní tvoření a radost</li>
+                        <li><i class="fas fa-check-circle"></i> Podpora rozvoje pedagogů</li>
                     </ul>
-                    <div class="price-circle" style="font-size: 0.85rem; line-height: 1.2;">Dle<br>dohody</div>
+                    <div class="price-round" style="background: linear-gradient(135deg, var(--moss-green), var(--moss-dark)); font-size: 1.2rem;">Dle<br><span>dohody</span></div>
                 </div>
             </div>
         </section>
@@ -530,19 +652,19 @@
                 <div class="note" onclick="openModal('POZVÁNKA', 'Jarní tvoření v Mohelnici', 'Přijďte si ušít a namalovat vlastního broučka. Workshop v městském parku pro všechny generace.', 'https://via.placeholder.com/800x500?text=Workshop+Mohelnice')">
                     <div class="note-pin"></div>
                     <h3>Jarní workshop 🌿</h3>
-                    <p style="color: var(--moss-green); font-weight: 600;">12. května 2026</p>
+                    <p style="color: var(--moss-green); font-weight: 800; font-size: 1.2rem; margin-bottom: 10px;">12. května 2026</p>
                     <p>Vezměte děti a přijďte za námi do parku. Vše potřebné budeme mít s sebou. Zastavte se na kus řeči a tvoření!</p>
                 </div>
                 <div class="note" onclick="openModal('AKTUÁLNĚ', 'Hanácké trhy Olomouc', 'Budeme na Horním náměstí! Přijďte se podívat na novinky z filcu a autorský textil.', 'https://via.placeholder.com/800x500?text=Trhy+Olomouc')">
                     <div class="note-pin"></div>
                     <h3>Trhy v Olomouci 🐞</h3>
-                    <p style="color: var(--moss-green); font-weight: 600;">1. června 2026</p>
-                    <p>Stánek plný přírody a radosti. Přivezeme spoustu novinek z exotické zvířecí říše i novou kolekci textilu.</p>
+                    <p style="color: var(--moss-green); font-weight: 800; font-size: 1.2rem; margin-bottom: 10px;">1. června 2026</p>
+                    <p>Stánek plný přírody a radosti. Přivezeme spoustu novinek z exotické zvířecí říše i zbrusu novou kolekci textilu.</p>
                 </div>
                 <div class="note" onclick="openModal('NOVINKA', 'Nová kolekce oblečení', 'Evina láska k přírodě se přesouvá i do šatníku. Představujeme autorský textil.', 'https://via.placeholder.com/800x500?text=Nová+Kolekce')">
                     <div class="note-pin"></div>
                     <h3>Autorský textil 👕</h3>
-                    <p style="color: var(--moss-green); font-weight: 600;">Již v prodeji</p>
+                    <p style="color: var(--burnt-orange); font-weight: 800; font-size: 1.2rem; margin-bottom: 10px;">Již v prodeji</p>
                     <p>Přírodní materiály a věrné malby na oblečení pro každodenní nošení. Mrkněte k nám do e-shopu na horké novinky.</p>
                 </div>
             </div>
@@ -552,29 +674,29 @@
     <footer id="kontakt">
         <div class="footer-grid">
             <div class="footer-col">
-                <span class="logo-main" style="color: white; display: block; margin-bottom: 5px;">FILCOVÉ KRÁLOVSTVÍ</span>
-                <span class="logo-sub" style="color: var(--burnt-orange); display: block; margin-bottom: 15px;">EVA NEVRLÁ 🐝</span>
-                <p>Tradice, řemeslo a láska k přírodě z Hané. Vytváříme pomůcky pro generaci, které na naší planetě záleží.</p>
+                <span class="logo-main" style="color: white; display: block; margin-bottom: 5px; font-size: 1.8rem;">FILCOVÉ KRÁLOVSTVÍ</span>
+                <span class="logo-sub" style="color: var(--burnt-orange); display: block; margin-bottom: 20px; font-size: 1rem;">EVA NEVRLÁ 🐝</span>
+                <p>Tradice, poctivé řemeslo a láska k přírodě přímo z Hané. Vytváříme edukativní pomůcky pro generaci, které na naší planetě záleží.</p>
                 <div class="social-links">
                     <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.filcovekralovstvi.cz" target="_blank" title="Do e-shopu" style="background: var(--burnt-orange);"><i class="fas fa-shopping-basket"></i></a>
+                    <a href="https://www.filcovekralovstvi.cz" target="_blank" title="Do e-shopu" style="background: var(--burnt-orange); border-color: var(--burnt-orange);"><i class="fas fa-shopping-basket"></i></a>
                 </div>
             </div>
             <div class="footer-col">
                 <h4>Kontaktujte nás</h4>
-                <p><i class="fas fa-map-marker-alt" style="margin-right: 12px; color: var(--burnt-orange);"></i> Mohelnice, Olomoucký kraj</p>
-                <p><i class="fas fa-phone" style="margin-right: 10px; color: var(--burnt-orange);"></i> <a href="tel:+420123456789" class="contact-link">+420 123 456 789</a></p>
-                <p><i class="fas fa-envelope" style="margin-right: 10px; color: var(--burnt-orange);"></i> <a href="mailto:info@filcovekralovstvi.cz" class="contact-link">info@filcovekralovstvi.cz</a></p>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 15px; color: var(--burnt-orange); font-size: 1.2rem;"></i> Mohelnice, Olomoucký kraj</p>
+                <p><i class="fas fa-phone" style="margin-right: 12px; color: var(--burnt-orange); font-size: 1.2rem;"></i> <a href="tel:+420123456789" class="contact-link">+420 123 456 789</a></p>
+                <p><i class="fas fa-envelope" style="margin-right: 12px; color: var(--burnt-orange); font-size: 1.2rem;"></i> <a href="mailto:info@filcovekralovstvi.cz" class="contact-link">info@filcovekralovstvi.cz</a></p>
             </div>
             <div class="footer-col">
                 <h4>E-shop a Otevírací doba</h4>
-                <p>Osobní setkání je možné dle předchozí domluvy nebo na akcích (viz Nástěnka).</p>
-                <p style="color: white; font-weight: 600;">Náš e-shop funguje nepřetržitě 24/7.</p>
-                <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="margin-top: 15px; padding: 12px 30px; font-size: 0.9rem;">Vstoupit do e-shopu</a>
+                <p>Osobní setkání je možné dle předchozí domluvy, nebo se můžeme potkat na našich akcích (viz Nástěnka).</p>
+                <p style="color: white; font-weight: 700; font-size: 1.1rem; margin-top: 15px;">Náš e-shop funguje nepřetržitě 24/7.</p>
+                <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="margin-top: 20px; padding: 15px 35px; font-size: 1rem;">Vstoupit do e-shopu</a>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 60px; font-size: 0.85rem; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; position: relative; z-index: 2;">
+        <div style="text-align: center; margin-top: 80px; font-size: 0.9rem; color: rgba(255,255,255,0.4); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; position: relative; z-index: 2;">
             &copy; 2026 Filcové království | Eva Nevrlá. Všechna práva vyhrazena.
         </div>
     </footer>
@@ -582,9 +704,9 @@
     <div id="mainModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modalSub" style="color: var(--burnt-orange); font-weight: 800; letter-spacing: 3px; margin-bottom: 10px;"></div>
-            <h2 id="modalTitle" style="font-size: 2.5rem; margin-bottom: 20px; color: var(--moss-dark);"></h2>
-            <p id="modalDesc" style="font-size: 1.1rem; text-align: center; color: #555;"></p>
+            <div id="modalSub" style="color: var(--burnt-orange); font-weight: 900; letter-spacing: 4px; margin-bottom: 15px; text-transform: uppercase;"></div>
+            <h2 id="modalTitle" style="font-size: 3rem; margin-bottom: 25px; color: var(--moss-dark); line-height: 1.1;"></h2>
+            <p id="modalDesc" style="font-size: 1.2rem; text-align: center; color: #555; line-height: 1.6;"></p>
             <img id="modalImg" src="" alt="Detail" class="modal-image">
         </div>
     </div>
@@ -603,7 +725,7 @@
             });
         });
 
-        // Plynulé objevování prvků (Reveal animace)
+        // Plynulé objevování prvků (Scroll Reveal Animace)
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -616,19 +738,15 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Volání po načtení
+        reveal(); // Volání ihned po načtení
 
-        // Navbar scroll efekt
+        // Navbar Scroll Efekt (zmenšení a přidání stínu)
         window.onscroll = function() {
             var nav = document.getElementById('navbar');
             if (window.pageYOffset > 50) {
-                nav.style.padding = "8px 0";
-                nav.style.background = "rgba(255, 255, 255, 0.98)";
-                nav.style.boxShadow = "0 5px 20px rgba(0,0,0,0.08)";
+                nav.classList.add('scrolled');
             } else {
-                nav.style.padding = "12px 0";
-                nav.style.background = "rgba(255, 255, 255, 0.9)";
-                nav.style.boxShadow = "none";
+                nav.classList.remove('scrolled');
             }
             reveal();
         };
@@ -639,12 +757,17 @@
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDesc').innerText = desc;
             document.getElementById('modalImg').src = img;
-            document.getElementById('mainModal').style.display = 'block';
+            
+            var modal = document.getElementById('mainModal');
+            modal.style.display = 'block';
+            setTimeout(() => { modal.style.opacity = '1'; }, 10);
+            
             document.body.style.overflow = 'hidden'; // Zamezí scrollování stránky na pozadí
         }
 
         function closeModal() {
-            document.getElementById('mainModal').style.display = 'none';
+            var modal = document.getElementById('mainModal');
+            modal.style.display = 'none';
             document.body.style.overflow = 'auto'; // Povolí scrollování
         }
 
