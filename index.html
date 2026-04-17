@@ -418,37 +418,87 @@
         }
         .close-modal:hover { color: var(--burnt-orange); transform: rotate(90deg) scale(1.2); }
         .modal-image { width: 100%; border-radius: 20px; margin-top: 30px; box-shadow: var(--shadow-soft); }
-
-        /* --- RESPONSIVITA --- */
+/* --- RESPONSIVITA (OPTIMALIZOVÁNO) --- */
         @media (max-width: 1100px) {
             .about-split { grid-template-columns: 1fr; gap: 60px; }
-            .about-frame { max-width: 700px; margin: 0 auto;}
-            .hero h1 { font-size: 4rem; }
-            .flying-bee { display: none; } /* Vypnutí včelky na mobilech/tabletech pro čistotu */
+            .about-frame { max-width: 700px; margin: 0 auto; }
+            .hero h1 { font-size: clamp(2.8rem, 6vw, 4rem); }
+            /* Včelu už nevypínáme, jen ji mírně zmenšíme pro tablety */
+            .flying-bee img { width: 60px !important; }
         }
+
         @media (max-width: 768px) {
+            /* Navigace */
             .nav-menu { 
-                display: none; position: absolute; top: 80px; left: 0; width: 100%; 
-                background: rgba(255, 255, 255, 0.98); flex-direction: column; padding: 30px 20px; text-align: center;
+                display: none; position: absolute; top: 70px; left: 0; width: 100%; 
+                background: rgba(255, 255, 255, 0.98); flex-direction: column; padding: 20px; text-align: center;
                 box-shadow: var(--shadow-soft); border-bottom: 4px solid var(--burnt-orange);
             }
             .nav-menu.active { display: flex; }
-            .nav-menu a { font-size: 1.2rem; padding: 15px 0;}
+            .nav-menu a { font-size: 1.2rem; padding: 15px 0; }
             .burger { display: block; }
             
-            .section-padding { padding: 80px 15px; }
-            .wa-float { bottom: 20px; right: 20px; width: 60px; height: 60px; font-size: 2.5rem; }
+            /* Obecné zmenšení mezer pro mobily */
+            .section-padding { padding: 60px 15px; }
+            .wa-float { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 2.2rem; }
             
-            .section-title h2 { font-size: 2.5rem; }
-            .break-title { font-size: 1.8rem; margin-top: 0; }
-            .quote-box { font-size: 1.8rem; padding: 30px; }
+            /* Nadpisy */
+            .section-title { margin-bottom: 50px; }
+            .section-title h2 { font-size: 2.2rem; }
+            .break-title { font-size: 1.5rem; margin-top: 0; }
+            .quote-box { font-size: 1.5rem; padding: 25px; margin: 20px 0; }
+            .about-content h2 { font-size: 2.2rem; }
             
-            .btn-primary, .btn-outline { font-size: 1rem; padding: 16px 20px; width: 100%; }
-            .cta-group { flex-direction: column; width: 100%; gap: 15px;}
+            /* Tlačítka v hrdinovi */
+            .btn-primary, .btn-outline { font-size: 1rem; padding: 15px 20px; width: 100%; text-align: center; }
+            .cta-group { flex-direction: column; width: 100%; gap: 15px; }
             
-            .price-round { bottom: -20px; right: 10px; width: 100px; height: 100px; font-size: 1.3rem;}
+            /* LÉTACÍ VČELA - ještě menší pro mobily */
+            .flying-bee img { width: 45px !important; }
+            
+            /* Pás s oceněním - zúžení karet, aby se vešly */
+            .award-card { width: 260px; padding: 0 10px; }
+            .awards-scroll { width: calc(260px * 12); animation: infiniteScrollMobile 30s linear infinite; }
+            @keyframes infiniteScrollMobile { 
+                0% { transform: translateX(0); } 
+                100% { transform: translateX(calc(-260px * 6)); } 
+            }
+            
+            /* E-SHOP Karty */
+            .card-visual { height: 220px; }
+            .card-body { padding: 30px 20px; }
+            .shop-container { gap: 30px; }
+            
+            /* PROGRAMY pro školy - zmenšení bublin a paddingu */
+            .program-wrap { gap: 40px; padding: 0; }
+            .program-card { padding: 40px 20px; } /* Zásadní oprava pro rozsypaný text */
+            .icon-bubble { width: 70px; height: 70px; margin-bottom: 15px; }
+            .program-card i.main-icon { font-size: 2.2rem; }
+            .program-card h3 { font-size: 1.6rem; }
+            .price-round { bottom: -20px; right: 5px; width: 90px; height: 90px; font-size: 1.3rem; border-width: 4px; }
+            
+            /* NÁSTĚNKA (Lístečky) */
+            .board-grid { gap: 30px; }
+            .note { padding: 30px 20px; border-radius: 2px 15px 2px 20px; } /* Zásadní oprava */
+            
+            /* PATA STRÁNKY */
+            .footer-grid { gap: 40px; }
+            footer { padding: 60px 15px 30px 15px; text-align: center; }
+            .social-links { justify-content: center; }
+            
+            /* VYSKAKOVACÍ OKNO (Modal) */
+            .modal-content { padding: 40px 20px; margin: 5vh 15px; width: auto; }
+            .close-modal { top: 5px; right: 15px; font-size: 2.5rem; }
+            #modalTitle { font-size: 1.8rem !important; margin-bottom: 15px !important; }
         }
-    </style>
+        
+        @media (max-width: 380px) {
+            /* Extra úprava pro ty úplně nejmenší displeje (např. iPhone SE) */
+            .hero h1 { font-size: 2.4rem; }
+            .about-badge { width: 100px; height: 100px; font-size: 1rem; bottom: -15px; right: -10px; }
+            .btn-primary { padding: 12px 15px; font-size: 0.9rem; }
+        }
+       
 </head>
 <body>
 
