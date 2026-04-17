@@ -3,12 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filcové království | Eva Nevrlá</title>
+    <a href="#" class="logo">
+    <img src=".png" alt="Filcové království.png" class="site-logo">
+</a>
     
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;600;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        .logo {
+    display: flex;
+    align-items: center;
+}
+
+.site-logo {
+    height: 60px; /* Tímto nastavíte, jak velké logo v liště bude */
+    width: auto;  /* Udrží správný poměr stran */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Jemné zvětšení loga, když na něj najedete myší */
+.site-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Úprava pro mobily - logo v liště trochu zmenšíme, aby se tam vešel burger menu */
+@media (max-width: 768px) {
+    .site-logo {
+        height: 45px; 
+    }
+}
         /* --- DEFINICE BAREV A PROMĚNNÝCH --- */
         :root {
             --moss-dark: #1f2613;
@@ -499,6 +524,29 @@
             .about-badge { width: 100px; height: 100px; font-size: 1rem; bottom: -15px; right: -10px; }
             .btn-primary { padding: 12px 15px; font-size: 0.9rem; }
         }
+        .logo {
+    display: flex;
+    align-items: center;
+}
+
+.site-logo {
+    height: 60px; /* Tímto nastavíte, jak velké logo v liště bude */
+    width: auto;  /* Udrží správný poměr stran */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Jemné zvětšení loga, když na něj najedete myší */
+.site-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Úprava pro mobily - logo v liště trochu zmenšíme, aby se tam vešel burger menu */
+@media (max-width: 768px) {
+    .site-logo {
+        height: 45px; 
+    }
+}
     </style>
 </head>
 <body>
