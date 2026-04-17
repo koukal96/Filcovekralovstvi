@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filcové království | Eva Nevrlá</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;600;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* --- DEFINICE BAREV A PROMĚNNÝCH --- */
         :root {
@@ -27,12 +27,12 @@
         /* --- ZÁKLADNÍ RESET A NASTAVENÍ --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
-        body { 
+
+        body {
             font-family: 'Montserrat', sans-serif;
-            color: var(--moss-dark); 
-            background-color: var(--canvas); 
-            line-height: 1.8; 
+            color: var(--moss-dark);
+            background-color: var(--canvas);
+            line-height: 1.8;
             overflow-x: hidden;
             background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
         }
@@ -47,7 +47,7 @@
             left: -100px;
             font-size: 3.5rem;
             z-index: 9999;
-            pointer-events: none; /* Kliknutí projde skrz */
+            pointer-events: none;
             animation: flyAcrossScreen 25s linear infinite;
             filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
         }
@@ -58,7 +58,7 @@
             40%  { transform: translate(50vw, 30px) scaleX(1) rotate(-5deg); }
             60%  { transform: translate(80vw, -20px) scaleX(1) rotate(15deg); }
             80%  { transform: translate(110vw, 40px) scaleX(1) rotate(0deg); }
-            81%  { transform: translate(110vw, 40px) scaleX(-1) rotate(0deg); } /* Otočení včelky */
+            81%  { transform: translate(110vw, 40px) scaleX(-1) rotate(0deg); }
             100% { transform: translate(-100px, -30px) scaleX(-1) rotate(10deg); }
         }
 
@@ -73,87 +73,75 @@
         .leaf-1 { top: 15%; left: 5%; font-size: 2.5rem; color: var(--leaf-light); animation-delay: 0s; }
         .leaf-2 { top: 60%; right: 5%; font-size: 3rem; color: var(--moss-green); animation-delay: 2s; transform: rotate(45deg); }
         .bug-1 { bottom: 10%; left: 15%; font-size: 2rem; animation-delay: 1s; }
-        
+
         @keyframes floatPlayful {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(15deg); }
         }
 
         /* --- NAVIGACE A LOGO --- */
-        header { 
+        header {
             background: var(--glass);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            position: fixed; width: 100%; top: 0; z-index: 1000; 
+            position: fixed; width: 100%; top: 0; z-index: 1000;
             border-bottom: 2px solid rgba(224, 122, 62, 0.2);
             transition: all 0.4s ease;
         }
         header.scrolled { padding: 5px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
-        .nav-container { 
+
+        .nav-container {
             max-width: 1400px;
-            margin: 0 auto; padding: 15px 30px; 
-            display: flex; justify-content: space-between; align-items: center; 
+            margin: 0 auto; padding: 15px 30px;
+            display: flex; justify-content: space-between; align-items: center;
             transition: 0.4s;
         }
-        
-        /* Nastavení hlavního loga v liště */
+
         .logo-wrap { display: flex; align-items: center; cursor: pointer; text-decoration: none; }
-        .site-logo {
-            height: 60px;
-            width: auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
+        .site-logo { height: 60px; width: auto; display: block; transition: transform 0.3s ease; }
         .site-logo:hover { transform: scale(1.05); }
 
         .nav-menu { display: flex; list-style: none; gap: 35px; }
-        .nav-menu a { 
-            font-weight: 700;
-            text-transform: uppercase; font-size: 0.85rem; 
+        .nav-menu a {
+            font-weight: 700; text-transform: uppercase; font-size: 0.85rem;
             color: var(--moss-dark); position: relative; padding: 5px 0; text-decoration: none;
             transition: 0.3s;
         }
         .nav-menu a::after {
-            content: '';
-            position: absolute; bottom: -2px; left: 0; width: 0; 
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 0;
             height: 3px; background: var(--burnt-orange); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 5px;
         }
         .nav-menu a:hover { color: var(--burnt-orange); }
         .nav-menu a:hover::after { width: 100%; }
-        
+
         .nav-right { display: flex; align-items: center; gap: 20px; }
-        .nav-right a { 
-            color: var(--moss-green);
-            transition: 0.3s; text-decoration: none;
+        .nav-right a {
+            color: var(--moss-green); transition: 0.3s; text-decoration: none;
             width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;
-            border-radius: 50%;
-            background: rgba(74, 93, 35, 0.1);
+            border-radius: 50%; background: rgba(74, 93, 35, 0.1);
         }
         .nav-right i { font-size: 1.2rem; }
-        .nav-right a:hover { background: var(--burnt-orange); color: white; transform: translateY(-3px) scale(1.1);
-        box-shadow: 0 5px 15px var(--orange-glow); }
+        .nav-right a:hover { background: var(--burnt-orange); color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 5px 15px var(--orange-glow); }
 
         .burger { display: none; cursor: pointer; font-size: 2rem; color: var(--moss-green); }
 
         /* --- HERO SEKCE (SLIDER POZADÍ) --- */
-        .hero { 
-            height: 100vh;
-            position: relative; overflow: hidden;
+        .hero {
+            height: 100vh; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center; text-align: center;
         }
-        
+
         .hero-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         .slide {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover; background-position: center;
-            opacity: 0; animation: crossfade 18s infinite;
-            transform: scale(1.05); /* Jemný zoom efekt */
+            opacity: 0; animation: crossfade 18s infinite; transform: scale(1.05);
         }
-        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2071'); animation-delay: 0s; }
-        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1551232864-3f0890e580d9?q=80&w=2000'); animation-delay: 6s; }
-        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2000'); animation-delay: 12s; }
+
+        /* Lokální obrázky do banneru */
+        .slide:nth-child(1) { background-image: url('slider-1.jpg'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('slider-2.jpg'); animation-delay: 6s; }
+        .slide:nth-child(3) { background-image: url('slider-3.jpg'); animation-delay: 12s; }
 
         @keyframes crossfade {
             0% { opacity: 0; transform: scale(1.05); }
@@ -164,38 +152,31 @@
         }
 
         .hero-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(31, 38, 19, 0.4), rgba(31, 38, 19, 0.7));
-            z-index: -1;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(31, 38, 19, 0.4), rgba(31, 38, 19, 0.7)); z-index: -1;
         }
 
         .hero-content { max-width: 1000px; color: white; padding: 0 20px; z-index: 10; }
         .hero-tag {
-            display: inline-block;
-            padding: 8px 25px; background: rgba(255,255,255,0.2); 
+            display: inline-block; padding: 8px 25px; background: rgba(255,255,255,0.2);
             backdrop-filter: blur(10px); border-radius: 50px; font-weight: 800; letter-spacing: 2px;
             text-transform: uppercase; margin-bottom: 25px; font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.4);
-            animation: slideDown 1s ease;
+            border: 1px solid rgba(255,255,255,0.4); animation: slideDown 1s ease;
         }
-        .hero h1 { 
-            font-size: clamp(3rem, 7vw, 6rem);
-            line-height: 1.1; margin-bottom: 25px;
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem); line-height: 1.1; margin-bottom: 25px;
             animation: slideUp 1.2s ease; text-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
         .hero h1 span { color: var(--burnt-orange); font-family: 'Caveat', cursive; font-size: 1.2em; display: inline-block; transform: rotate(-5deg); }
-        .hero p { 
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
-            color: #f0f0f0; margin-bottom: 50px; 
+        .hero p {
+            font-size: clamp(1.2rem, 3vw, 1.6rem); color: #f0f0f0; margin-bottom: 50px;
             animation: slideUp 1.6s ease; font-weight: 300; text-shadow: 0 5px 10px rgba(0,0,0,0.5);
             max-width: 800px; margin-inline: auto;
         }
 
         .cta-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; animation: slideUp 2s ease; }
-        .btn-primary { 
-            padding: 18px 45px;
-            background: linear-gradient(135deg, var(--burnt-orange), #d16b2e); color: white; border-radius: 50px;
+        .btn-primary {
+            padding: 18px 45px; background: linear-gradient(135deg, var(--burnt-orange), #d16b2e); color: white; border-radius: 50px;
             font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: 0.4s;
             box-shadow: 0 10px 30px var(--orange-glow); text-decoration: none;
             display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer;
@@ -203,34 +184,26 @@
         .btn-primary:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 20px 40px rgba(224, 122, 62, 0.6); }
         .btn-primary i { margin-right: 12px; font-size: 1.2rem; transition: 0.3s; }
         .btn-primary:hover i { transform: rotate(-15deg) scale(1.2); }
-        
-        .btn-outline { 
-            padding: 18px 45px;
-            border: 2px solid rgba(255,255,255,0.6); color: white; border-radius: 50px;
+
+        .btn-outline {
+            padding: 18px 45px; border: 2px solid rgba(255,255,255,0.6); color: white; border-radius: 50px;
             font-weight: 800; text-transform: uppercase; transition: 0.4s; text-decoration: none;
-            background: rgba(255,255,255,0.05); backdrop-filter: blur(5px);
-            display: inline-flex; align-items: center;
+            background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); display: inline-flex; align-items: center;
         }
         .btn-outline:hover { background: white; color: var(--moss-dark); border-color: white; transform: translateY(-8px); }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- OCENĚNÍ (MODERNÍ TICKER) --- */
+        /* --- OCENĚNÍ --- */
         .awards-bar { background: linear-gradient(90deg, var(--moss-dark), #151a0d); padding: 30px 0; overflow: hidden; position: relative; border-bottom: 5px solid var(--burnt-orange); }
         .awards-scroll { display: flex; width: calc(400px * 12); animation: infiniteScroll 40s linear infinite; }
-        .awards-scroll:hover { animation-play-state: paused; } /* Zastavení při najetí */
-        .award-card { 
-            width: 400px;
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            color: var(--felt-grey); cursor: pointer; transition: 0.3s;
-        }
+        .awards-scroll:hover { animation-play-state: paused; }
+        .award-card { width: 400px; display: flex; align-items: center; justify-content: center; gap: 15px; color: var(--felt-grey); cursor: pointer; transition: 0.3s; }
         .award-card:hover { transform: scale(1.05) translateY(-5px); color: white; }
-        .award-icon-wrap { 
-            width: 60px;
-            height: 60px; background: rgba(255,255,255,0.05); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; border: 1px solid rgba(224, 122, 62, 0.3);
-            transition: 0.3s;
+        .award-icon-wrap {
+            width: 60px; height: 60px; background: rgba(255,255,255,0.05); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; border: 1px solid rgba(224, 122, 62, 0.3); transition: 0.3s;
         }
         .award-card:hover .award-icon-wrap { background: var(--burnt-orange); border-color: var(--burnt-orange); box-shadow: 0 0 20px var(--orange-glow);}
         .award-card i { font-size: 1.8rem; color: var(--burnt-orange); transition: 0.3s;}
@@ -243,79 +216,78 @@
         .section-padding { padding: 120px 20px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;}
         .reveal { opacity: 0; transform: translateY(60px); transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        
+
         .section-title { text-align: center; margin-bottom: 80px; position: relative; }
         .section-title h2 { font-size: 3.5rem; color: var(--moss-dark); display: inline-block; line-height: 1.2; position: relative; z-index: 1;}
         .section-title h2::before {
-            content: '';
-            position: absolute; width: 60px; height: 60px; background: var(--orange-glow);
+            content: ''; position: absolute; width: 60px; height: 60px; background: var(--orange-glow);
             border-radius: 50%; top: -15px; left: -20px; z-index: -1; filter: blur(10px);
         }
         .break-title { display: block; font-size: 2.2rem; color: var(--burnt-orange); font-family: 'Caveat', cursive; transform: rotate(-2deg); margin-top: -10px;}
 
-        /* --- O MNĚ (PŘÍBĚH) --- */
-        .about-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+        /* --- O MNĚ --- */
+        /* ZDE JE ÚPRAVA ROZVRŽENÍ: fotka zabírá menší část (0.8fr) a text se roztáhl (1.5fr) */
+        .about-split { display: grid; grid-template-columns: 0.8fr 1.5fr; gap: 70px; align-items: center; }
         .about-frame { position: relative; }
         .image-wrapper { position: relative; border-radius: 30px; overflow: hidden; box-shadow: var(--shadow-hover); }
         .about-frame img { width: 100%; display: block; transition: 0.7s ease; }
         .image-wrapper:hover img { transform: scale(1.08); }
-        
+
         .about-badge {
-            position: absolute;
-            bottom: -30px; right: -30px; background: var(--burnt-orange); color: white;
+            position: absolute; bottom: -30px; right: -30px; background-color: var(--burnt-orange); color: white;
             width: 140px; height: 140px; border-radius: 50%; display: flex; flex-direction: column;
             align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;
             text-align: center; line-height: 1.2; box-shadow: 0 15px 30px rgba(224, 122, 62, 0.5);
             border: 5px solid var(--canvas); z-index: 3; animation: floatPlayful 4s infinite alternate;
+            background-size: cover; background-position: center; overflow: hidden;
         }
+        .badge-overlay {
+            position: absolute; inset: 0; background: rgba(224, 122, 62, 0.75); z-index: 1; /* Filtr přes fotku pro čitelnost */
+        }
+        .about-badge > span { position: relative; z-index: 2; } /* Text nad filtrem */
 
         .about-content h2 { font-size: 3rem; margin-bottom: 30px; line-height: 1.2; color: var(--moss-dark); }
         .about-content h2 span { color: var(--burnt-orange); font-size: 1.2rem; display: block; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; font-family: 'Montserrat', sans-serif;}
         .about-content h3 { color: var(--moss-green); font-size: 1.8rem; margin: 40px 0 20px 0; position: relative; padding-left: 20px; }
         .about-content h3::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--burnt-orange); }
-        .about-content p { font-size: 1.1rem; margin-bottom: 20px; text-align: justify; color: #555;}
-        
-        .quote-box { 
-            font-family: 'Caveat', cursive;
-            font-size: 2.5rem; 
+        .about-content p { font-size: 1.15rem; margin-bottom: 20px; text-align: left; color: #555; line-height: 1.8;}
+
+        .quote-box {
+            font-family: 'Caveat', cursive; font-size: 2.5rem;
             padding: 40px; margin: 40px 0; color: white; line-height: 1.2;
             background: linear-gradient(135deg, var(--moss-green), var(--moss-dark));
-            border-radius: 30px 0 30px 0;
-            position: relative; text-align: center;
-            box-shadow: var(--shadow-soft);
+            border-radius: 30px 0 30px 0; position: relative; text-align: center; box-shadow: var(--shadow-soft);
         }
         .quote-box::after { content: '„'; position: absolute; bottom: -30px; right: 20px; font-size: 8rem; color: rgba(255,255,255,0.1); font-family: serif; line-height: 1; }
 
-        /* --- E-SHOP (TVORBA) --- */
+        /* --- E-SHOP --- */
         .shop-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; }
-        .art-card { 
+        .art-card {
             background: var(--white); border-radius: 40px; overflow: hidden;
-            box-shadow: var(--shadow-soft); transition: 0.5s;
-            position: relative; border: 2px solid transparent;
+            box-shadow: var(--shadow-soft); transition: 0.5s; position: relative; border: 2px solid transparent;
             display: flex; flex-direction: column;
         }
         .art-card:hover { transform: translateY(-15px); border-color: var(--burnt-orange); box-shadow: var(--shadow-hover); }
-        .card-visual { 
-            height: 300px; background-size: cover; background-position: center; position: relative; 
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); transition: 0.5s;
+        .card-visual {
+            height: 300px; background-size: cover; background-position: center; position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); transition: all 0.5s ease;
         }
         .art-card:hover .card-visual { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-        
-        .card-inner-overlay { 
-            position: absolute; inset: 0; background: rgba(31, 38, 19, 0.7); 
+
+        .card-inner-overlay {
+            position: absolute; inset: 0; background: rgba(31, 38, 19, 0.7);
             display: flex; align-items: center; justify-content: center;
             opacity: 0; transition: 0.4s; backdrop-filter: blur(3px);
         }
         .art-card:hover .card-inner-overlay { opacity: 1; }
-        
+
         .card-body { padding: 40px 30px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
         .card-body h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--moss-dark); }
         .card-body p { font-size: 1.05rem; color: #666; }
 
-        /* --- PROGRAMY (MŠ, ZŠ A SLUŽBY) S KULATÝMI CENAMI --- */
-        .schools-bg { 
-            background: var(--felt-grey);
-            padding: 120px 0; position: relative; border-radius: 80px 80px 0 0;
+        /* --- PROGRAMY --- */
+        .schools-bg {
+            background: var(--felt-grey); padding: 120px 0; position: relative; border-radius: 80px 80px 0 0;
             margin-top: 50px; border-top: 10px solid var(--moss-green);
         }
         .schools-bg::before {
@@ -325,13 +297,13 @@
         }
 
         .program-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 60px; padding: 0 20px; }
-        .program-card { 
-            background: white; padding: 50px 40px; border-radius: 40px; 
+        .program-card {
+            background: white; padding: 50px 40px; border-radius: 40px;
             box-shadow: var(--shadow-soft); position: relative; transition: 0.4s; text-align: center;
             z-index: 2; border: 3px dashed rgba(74, 93, 35, 0.2);
         }
         .program-card:hover { transform: translateY(-15px); border-style: solid; border-color: var(--moss-green); box-shadow: var(--shadow-hover); }
-        
+
         .icon-bubble {
             width: 90px; height: 90px; background: rgba(74, 93, 35, 0.1); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 25px auto; transition: 0.4s;
@@ -339,25 +311,22 @@
         .program-card:hover .icon-bubble { background: var(--moss-green); transform: scale(1.1) rotate(15deg); }
         .program-card i.main-icon { font-size: 3rem; color: var(--moss-green); transition: 0.4s; }
         .program-card:hover i.main-icon { color: white; }
-        
+
         .program-card h3 { font-size: 2rem; color: var(--moss-dark); margin-bottom: 20px; }
         .program-card p { font-size: 1.05rem; margin-bottom: 25px; color: #555;}
-        
-        .program-tag { 
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white; padding: 8px 20px; border-radius: 30px; 
+
+        .program-tag {
+            background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 8px 20px; border-radius: 30px;
             font-size: 0.85rem; font-weight: 800; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
             box-shadow: 0 10px 20px rgba(231, 76, 60, 0.4); letter-spacing: 1px; z-index: 10;
         }
 
-        .price-round { 
+        .price-round {
             position: absolute; bottom: -40px; right: -20px;
-            width: 120px; height: 120px; background: linear-gradient(135deg, var(--burnt-orange), #c25e24); 
+            width: 120px; height: 120px; background: linear-gradient(135deg, var(--burnt-orange), #c25e24);
             color: white; border-radius: 50%; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            font-weight: 900; font-size: 1.6rem; border: 6px solid var(--felt-grey);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            align-items: center; justify-content: center; font-weight: 900; font-size: 1.6rem; border: 6px solid var(--felt-grey);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 5; transform: rotate(10deg);
         }
         .price-round span { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; margin-top: -5px; }
@@ -367,57 +336,49 @@
         .features-list li { margin-bottom: 10px; font-weight: 600; color: var(--moss-dark); display: flex; align-items: center;}
         .features-list i { color: var(--burnt-orange); margin-right: 15px; font-size: 1.2rem;}
 
-        /* --- NÁSTĚNKA (HRAVÉ LÍSTEČKY) --- */
+        /* --- NÁSTĚNKA --- */
         .board-bg { background: var(--canvas); position: relative; padding-bottom: 100px;}
         .board-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 50px; position: relative; z-index: 2;}
-        .note { 
+        .note {
             background: #fff; padding: 50px 40px; box-shadow: var(--shadow-soft);
             transform: rotate(-2deg); cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; border-radius: 2px 20px 2px 30px; 
+            position: relative; border-radius: 2px 20px 2px 30px;
             background-image: repeating-linear-gradient(transparent, transparent 29px, #e8f0fe 29px, #e8f0fe 30px);
             border-left: 4px solid var(--burnt-orange);
         }
         .note:nth-child(even) { transform: rotate(3deg); border-left-color: var(--moss-green); }
         .note:nth-child(3n) { transform: rotate(-1deg); border-left-color: #e74c3c; }
-        
+
         .note:hover { transform: rotate(0) scale(1.05) translateY(-15px); z-index: 50; box-shadow: var(--shadow-hover); }
-        .note-pin { 
-            width: 30px; height: 30px; background: radial-gradient(circle at 30% 30%, #ff5e5e, #c0392b); border-radius: 50%; 
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 5px 10px 10px rgba(0,0,0,0.2);
+        .note-pin {
+            width: 30px; height: 30px; background: radial-gradient(circle at 30% 30%, #ff5e5e, #c0392b); border-radius: 50%;
+            position: absolute; top: 15px; left: 50%; transform: translateX(-50%); box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 5px 10px 10px rgba(0,0,0,0.2);
         }
         .note h3 { color: var(--moss-dark); margin-bottom: 10px; font-size: 1.8rem; margin-top: 10px; background: white; display: inline-block; padding: 0 10px;}
         .note p { font-size: 1.1rem; line-height: 30px; }
 
-        /* --- FOOTER A LOGO V PATIČCE --- */
-        footer { 
-            background: var(--moss-dark); color: var(--white); 
+        /* --- FOOTER --- */
+        footer {
+            background: var(--moss-dark); color: var(--white);
             padding: 100px 20px 40px 20px; position: relative; border-top: 8px solid var(--burnt-orange);
         }
         footer::before {
             content: ''; position: absolute; inset: 0; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.4; pointer-events: none;
         }
-        .footer-grid { 
+        .footer-grid {
             max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 60px; position: relative; z-index: 2;
         }
-        
-        /* Styl pro logo v patičce */
-        .footer-logo {
-            height: 80px;
-            width: auto;
-            margin-bottom: 20px;
-            display: block;
-            filter: brightness(0) invert(1); /* Přebarví logo na bílo pro tmavou patičku */
-        }
-        
+
+        .footer-logo { height: 80px; width: auto; margin-bottom: 20px; display: block; filter: brightness(0) invert(1); }
+
         .footer-col h4 { font-size: 1.5rem; margin-bottom: 25px; color: var(--burnt-orange); text-transform: uppercase; letter-spacing: 1px;}
         .footer-col p { margin-bottom: 15px; color: #d0cabc; font-weight: 300; font-size: 1.05rem;}
-        
+
         .footer-col a.contact-link { color: var(--white); text-decoration: none; transition: 0.3s; font-weight: 600; border-bottom: 1px solid transparent;}
         .footer-col a.contact-link:hover { color: var(--burnt-orange); border-color: var(--burnt-orange); padding-left: 10px;}
 
         .social-links { display: flex; gap: 15px; margin-top: 30px; }
-        .social-links a { 
+        .social-links a {
             width: 50px; height: 50px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center; border-radius: 50%;
             font-size: 1.4rem; color: white; text-decoration: none; transition: 0.4s;
@@ -425,8 +386,8 @@
         .social-links a:hover { background: var(--burnt-orange); border-color: var(--burnt-orange); transform: translateY(-8px) rotate(360deg); box-shadow: 0 10px 20px var(--orange-glow); }
 
         /* --- PLOVOUCÍ WHATSAPP --- */
-        .wa-float { 
-            position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px; 
+        .wa-float {
+            position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px;
             background: #25D366; color: white; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; font-size: 2.8rem; z-index: 9000;
             box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); animation: pulseWa 2s infinite; text-decoration: none; transition: 0.4s;
@@ -434,100 +395,84 @@
         .wa-float:hover { animation: none; transform: scale(1.1) translateY(-10px); background: #20b858; }
         @keyframes pulseWa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); } 70% { box-shadow: 0 0 0 25px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
-        /* --- MODAL (OVERLAY) --- */
-        .modal { 
-            display: none; position: fixed; inset: 0; z-index: 9999; 
+        /* --- MODAL --- */
+        .modal {
+            display: none; position: fixed; inset: 0; z-index: 9999;
             background: rgba(31, 38, 19, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
         }
-        .modal-content { 
-            background: white; margin: 5vh auto; padding: 60px; border-radius: 40px; 
+        .modal-content {
+            background: white; margin: 5vh auto; padding: 60px; border-radius: 40px;
             max-width: 800px; position: relative; animation: modalIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             max-height: 90vh; overflow-y: auto; text-align: center; border: 5px solid rgba(224, 122, 62, 0.3);
         }
         @keyframes modalIn { from { transform: scale(0.7) translateY(100px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
-        .close-modal { 
-            position: absolute; top: 25px; right: 35px; font-size: 3.5rem; 
+        .close-modal {
+            position: absolute; top: 25px; right: 35px; font-size: 3.5rem;
             cursor: pointer; color: var(--moss-dark); transition: 0.4s; line-height: 1;
         }
         .close-modal:hover { color: var(--burnt-orange); transform: rotate(90deg) scale(1.2); }
-        .modal-image { width: 100%; border-radius: 20px; margin-top: 30px; box-shadow: var(--shadow-soft); }
+        .modal-image { width: 100%; border-radius: 20px; margin-top: 30px; box-shadow: var(--shadow-soft); transition: all 0.5s ease; }
 
-        /* --- RESPONSIVITA (OPTIMALIZOVÁNO PRO MOBILY A TABLETY) --- */
+        /* --- RESPONSIVITA --- */
         @media (max-width: 1100px) {
-            .about-split { grid-template-columns: 1fr; gap: 60px; }
-            .about-frame { max-width: 700px; margin: 0 auto; }
+            .about-split { grid-template-columns: 1fr; gap: 60px; } /* Na tabletech spadne fotka nad text a vše se roztáhne */
+            .about-frame { max-width: 600px; margin: 0 auto; }
             .hero h1 { font-size: clamp(2.8rem, 6vw, 4rem); }
-            /* Včelku na menších obrazovkách trochu zmenšíme, aby nepřekážela */
             .flying-bee img { width: 60px !important; }
         }
 
         @media (max-width: 768px) {
-            .nav-menu { 
-                display: none; position: absolute; top: 70px; left: 0; width: 100%; 
+            .nav-menu {
+                display: none; position: absolute; top: 70px; left: 0; width: 100%;
                 background: rgba(255, 255, 255, 0.98); flex-direction: column; padding: 20px; text-align: center;
                 box-shadow: var(--shadow-soft); border-bottom: 4px solid var(--burnt-orange);
             }
             .nav-menu.active { display: flex; }
             .nav-menu a { font-size: 1.2rem; padding: 15px 0; }
             .burger { display: block; }
-            
-            /* Úprava velikosti log pro mobily */
+
             .site-logo { height: 45px; }
             .footer-logo { height: 60px; margin: 0 auto 20px auto; }
-            
-            /* Obecné zmenšení mezer pro mobily */
             .section-padding { padding: 60px 15px; }
             .wa-float { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 2.2rem; }
-            
-            /* Nadpisy a texty */
+
             .section-title { margin-bottom: 50px; }
             .section-title h2 { font-size: 2.2rem; }
             .break-title { font-size: 1.5rem; margin-top: 0; }
             .quote-box { font-size: 1.5rem; padding: 25px; margin: 20px 0; }
             .about-content h2 { font-size: 2.2rem; }
-            
-            /* Tlačítka */
+
             .btn-primary, .btn-outline { font-size: 1rem; padding: 15px 20px; width: 100%; text-align: center; }
             .cta-group { flex-direction: column; width: 100%; gap: 15px; }
-            
-            /* Včelka je na mobilech ještě menší */
             .flying-bee img { width: 45px !important; }
-            
-            /* Ocenění (Rolovací lišta) */
+
             .award-card { width: 260px; padding: 0 10px; }
             .awards-scroll { width: calc(260px * 12); animation: infiniteScrollMobile 30s linear infinite; }
-            @keyframes infiniteScrollMobile { 
-                0% { transform: translateX(0); } 
-                100% { transform: translateX(calc(-260px * 6)); } 
-            }
-            
-            /* Karty obchodu a programů */
+            @keyframes infiniteScrollMobile { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-260px * 6)); } }
+
             .card-visual { height: 220px; }
             .card-body { padding: 30px 20px; }
             .shop-container { gap: 30px; }
-            
+
             .program-wrap { gap: 40px; padding: 0; }
-            .program-card { padding: 40px 20px; } 
+            .program-card { padding: 40px 20px; }
             .icon-bubble { width: 70px; height: 70px; margin-bottom: 15px; }
             .program-card i.main-icon { font-size: 2.2rem; }
             .program-card h3 { font-size: 1.6rem; }
             .price-round { bottom: -20px; right: 5px; width: 90px; height: 90px; font-size: 1.3rem; border-width: 4px; }
-            
-            /* Nástěnka */
+
             .board-grid { gap: 30px; }
-            .note { padding: 30px 20px; border-radius: 2px 15px 2px 20px; } 
-            
-            /* Footer */
+            .note { padding: 30px 20px; border-radius: 2px 15px 2px 20px; }
+
             .footer-grid { gap: 40px; }
             footer { padding: 60px 15px 30px 15px; text-align: center; }
             .social-links { justify-content: center; }
-            
-            /* Modal / Vyskakovací okno */
+
             .modal-content { padding: 40px 20px; margin: 5vh 15px; width: auto; }
             .close-modal { top: 5px; right: 15px; font-size: 2.5rem; }
             #modalTitle { font-size: 1.8rem !important; margin-bottom: 15px !important; }
         }
-        
+
         @media (max-width: 380px) {
             .hero h1 { font-size: 2.4rem; }
             .about-badge { width: 100px; height: 100px; font-size: 1rem; bottom: -15px; right: -10px; }
@@ -538,15 +483,15 @@
 <body>
 
     <div class="flying-bee">
-        <img src="tvoje-vcela-bez-pozadi.png" style="width: 80px;" alt="Včela">
+        <img data-images="vcela.png" style="width: 80px;" alt="Včela">
     </div>
 
     <header id="navbar">
         <div class="nav-container">
             <a href="#" class="logo-wrap" onclick="window.scrollTo(0,0)">
-                <img src="logo.png" alt="Filcové království" class="site-logo">
+                <img data-images="logo.png" alt="Filcové království" class="site-logo">
             </a>
-            
+
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#o-mne">Příběh</a></li>
                 <li><a href="#eshop">Tvorba</a></li>
@@ -571,7 +516,7 @@
             <div class="slide"></div>
         </div>
         <div class="hero-overlay"></div>
-        
+
         <div class="hero-content">
             <div class="hero-tag">Originální ruční práce z Hané</div>
             <h1>Umění, které ožívá<br><span>v dětských dlaních.</span></h1>
@@ -586,28 +531,26 @@
     <div class="awards-bar">
         <div class="awards-scroll">
             <div class="awards-scroll">
-    <div class="award-card" onclick="openModal('Certifikát', 'Regionální produkt Haná', 'Značka garantující místní původ a kvalitu zpracování z Olomouckého kraje.', 'hana-produkt.jpg')">
-        <div class="award-icon-wrap"><i class="fas fa-award"></i></div><span>Produkt Haná</span>
-    </div>
-
-    <div class="award-card" onclick="openModal('Ocenění', 'Cena hejtmana OK', 'Za společenskou odpovědnost a významný přínos v oblasti enviromentální výchovy dětí a mládeže.', 'cena-hejtmana.jpg')">
-        <div class="award-icon-wrap"><i class="fas fa-medal"></i></div><span>Cena hejtmana</span>
-    </div>
-
-    <div class="award-card" onclick="openModal('Soutěž', 'Živnostník roku 2025', '3. místo v prestižním hodnocení podnikatelů Olomouckého kraje.', 'zivnostnik-roku.png')">
-        <div class="award-icon-wrap"><i class="fas fa-trophy"></i></div><span>3. místo Živnostník 2025</span>
-    </div>
-
-    <div class="award-card" onclick="openModal('Certifikát', 'Regionální produkt Haná', 'Značka garantující místní původ a kvalitu zpracování z Olomouckého kraje.', 'hana-produkt.jpg')">
-        <div class="award-icon-wrap"><i class="fas fa-award"></i></div><span>Produkt Haná</span>
-    </div>
-    <div class="award-card" onclick="openModal('Ocenění', 'Cena hejtmana OK', 'Za společenskou odpovědnost a významný přínos.', 'cena-hejtmana.jpg')">
-        <div class="award-icon-wrap"><i class="fas fa-medal"></i></div><span>Cena hejtmana</span>
-    </div>
-    <div class="award-card" onclick="openModal('Soutěž', 'Živnostník roku 2025', '3. místo v prestižním hodnocení podnikatelů Olomouckého kraje.', 'zivnostnik-roku.jpg')">
-        <div class="award-icon-wrap"><i class="fas fa-trophy"></i></div><span>3. místo Živnostník 2025</span>
-    </div>
-</div>
+                <div class="award-card" onclick="openModal('Certifikát', 'Regionální produkt Haná', 'Značka garantující místní původ a kvalitu zpracování z Olomouckého kraje.', 'hana-produkt.jpg')">
+                    <div class="award-icon-wrap"><i class="fas fa-award"></i></div><span>Produkt Haná</span>
+                </div>
+                <div class="award-card" onclick="openModal('Ocenění', 'Cena hejtmana OK', 'Za společenskou odpovědnost a významný přínos v oblasti enviromentální výchovy dětí a mládeže.', 'cena-hejtmana.jpg')">
+                    <div class="award-icon-wrap"><i class="fas fa-medal"></i></div><span>Cena hejtmana</span>
+                </div>
+                <div class="award-card" onclick="openModal('Soutěž', 'Živnostník roku 2025', '3. místo v prestižním hodnocení podnikatelů Olomouckého kraje.', 'zivnostnik-roku.png')">
+                    <div class="award-icon-wrap"><i class="fas fa-trophy"></i></div><span>3. místo Živnostník 2025</span>
+                </div>
+                <div class="award-card" onclick="openModal('Certifikát', 'Regionální produkt Haná', 'Značka garantující místní původ a kvalitu zpracování z Olomouckého kraje.', 'hana-produkt.jpg')">
+                    <div class="award-icon-wrap"><i class="fas fa-award"></i></div><span>Produkt Haná</span>
+                </div>
+                <div class="award-card" onclick="openModal('Ocenění', 'Cena hejtmana OK', 'Za společenskou odpovědnost a významný přínos.', 'cena-hejtmana.jpg')">
+                    <div class="award-icon-wrap"><i class="fas fa-medal"></i></div><span>Cena hejtmana</span>
+                </div>
+                <div class="award-card" onclick="openModal('Soutěž', 'Živnostník roku 2025', '3. místo v prestižním hodnocení podnikatelů Olomouckého kraje.', 'zivnostnik-roku.jpg')">
+                    <div class="award-icon-wrap"><i class="fas fa-trophy"></i></div><span>3. místo Živnostník 2025</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="deco-element leaf-1"><i class="fas fa-leaf"></i></div>
@@ -616,30 +559,33 @@
         <div class="about-split">
             <div class="about-frame">
                 <div class="image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?q=80&w=2070" alt="Výtvarnice Eva Nevrlá">
+                    <img data-images="eva-nevrla-portret.jpg" alt="Výtvarnice Eva Nevrlá">
                 </div>
-                <div class="about-badge">10 let<br><span style="font-size: 0.9rem; font-weight: 400; text-transform: uppercase;">Zkušeností</span></div>
+                <div class="about-badge" data-images="odznak-10-let.jpg">
+                    <div class="badge-overlay"></div>
+                    <span>10 let<br><span style="font-size: 0.9rem; font-weight: 400; text-transform: uppercase;">Zkušeností</span></span>
+                </div>
             </div>
             <div class="about-content">
                 <h2><span>Když se filc stane plátnem:</span>Poslání Evy Nevrlé z Hané …</h2>
-                <p>Deset let poctivé, detailní a láskyplné práce. Přesně tak dlouho se umělkyně Eva Nevrlá z Mohelnice (Olomoucký kraj) věnuje tvorbě, která spojuje řemeslo a hluboký smysl pro přírodu. Její hlavní doménou je filc, který pod Evinýma rukama ožívá v podobě fascinujících vzdělávacích pomůcek.</p>
-                
+                <p>Už deset let pro vás s láskou a smyslem pro detail tvořím. Jmenuji se Eva Nevrlá, pocházím z hanácké Mohelnice a mou vášní je spojovat poctivé řemeslo s láskou k přírodě. V mých rukou ožívá filc a mění se ve fascinující vzdělávací pomůcky.</p>
+
                 <h3>Filc, jehla a štětec: Oceněné spojení</h3>
-                <p>Evina tvorba je jedinečná tím, že kombinuje tradiční techniky šití (ruční i strojové) s moderní a originální malbou na filc. Právě tento unikátní přístup, který filc povyšuje na plnohodnotné malířské plátno, vynesl Evě prestižní certifikát <strong>Regionální produkt Haná</strong>, <strong>Cenu hejtmana Olomouckého kraje za společenskou odpovědnost</strong>, a v roce 2025 <strong>3. místo živnostníka roku za Olomoucký kraj</strong>.</p>
-                
-                <p>Eva se specializuje na modely inspirované faunou, ať už jde o miniaturní hmyz, elegantní ptáky, nebo exotické papoušky. Každý kus je absolutní originál. Je to pečlivě ručně malovaný a šitý model, kde je kladen maximální důraz na reálnou anatomii a věrnou barevnost daného živočicha. Cílem není jen estetika, ale především edukativní přesnost.</p>
+                <p>Kombinuji tradiční šití (ruční i strojové) s originální malbou na filc. Tento unikátní přístup, který materiál povyšuje na plnohodnotné malířské plátno, mi vynesl prestižní certifikát <strong>Regionální produkt Haná</strong>, <strong>Cenu hejtmana Olomouckého kraje</strong> a v roce 2025 krásné <strong>3. místo v soutěži Živnostník roku</strong>.</p>
+
+                <p>Specializuji se na modely naší fauny – od miniaturního hmyzu, přes elegantní ptáky, až po exotické papoušky. Každý kus je naprostý originál. Kladu maximální důraz na reálnou anatomii a věrnou barevnost živočichů. Cílem totiž není jen estetika, ale především edukativní přesnost.</p>
 
                 <h3>Poslání: Láska k přírodě jako největší dar …</h3>
-                <p>Klíčovým posláním Eviny práce je výchova k respektu a lásce k přírodě. Její laskavé a krásné pomůcky slouží k tomu, aby dětem přiblížily svět kolem nás, vedly je k smysluplnému vzdělávání a budovaly v nich vědomí o nutnosti ochrany přírody. Eva je pevně přesvědčena, že:</p>
+                <p>Mým hlavním posláním je probouzet v dětech i dospělých respekt k naší planetě. Chci jim hravou formou přiblížit svět kolem nás a ukázat jim jeho křehkou krásu. Jsem pevně přesvědčena, že:</p>
 
                 <div class="quote-box">
                     Ochrana a láska k přírodě je to nejvíc, co můžeme dětem předat.
                 </div>
 
-                <p>Modely ptáků a papoušků navíc v sobě nesou apel na laskavé vedení dětí, které je nutné pro budování citového vztahu k živým tvorům a k planetě.</p>
+                <p>Mé modely v sobě nesou tichý apel na laskavé vedení dětí. Právě to je klíčové pro budování pevného citového vztahu k živým tvorům a celému ekosystému.</p>
 
                 <h3>Přirozená krása i do šatníku …</h3>
-                <p>Aby Evinu lásku k přírodě mohla sdílet nejen s dětmi, ale i s dospělými, vzniká aktuálně i její vlastní kolekce textilu. Tyto produkty přenesou Eviny jedinečné motivy do každodenního života a nabídnou tak kousek přírody a ruční práce s duší, který vás bude provázet na každém kroku. Eva Nevrlá, Mohelnice, z Olomouckého kraje, je příkladem umělkyně, která svou tvorbou dělá svět krásnějším a smysluplnějším.</p>
+                <p>Svou tvorbu nově rozšiřuji i o autorskou kolekci textilu. Díky tomu si můžete kousek přírody a ruční práce s duší vzít kamkoliv s sebou do každodenního života a dělat tak svět kolem sebe o trochu krásnějším.</p>
             </div>
         </div>
     </section>
@@ -651,36 +597,39 @@
             <h2>Nahlédněte do mé tvorby</h2>
         </div>
         <div class="shop-container">
-            <<div class="art-card">
-    <div class="card-visual" style="background-image: url('hmyz_koupit.jpg');">
-        <div class="card-inner-overlay">
-            <a href="https://www.filcovekralovstvi.cz/775192697/e-search?q=hmyz" target="_blank" class="btn-primary">Koupit hmyzí říše</a>
-        </div>
-    </div>
+            <div class="art-card">
+                <div class="card-visual" data-images="hmyz_koupit.jpg">
+                    <div class="card-inner-overlay">
+                        <a href="https://www.filcovekralovstvi.cz/775192697/e-search?q=hmyz" target="_blank" class="btn-primary">Koupit hmyzí říše</a>
+                    </div>
+                </div>
                 <div class="card-body">
                     <h3>Hmyzí říše</h3>
                     <p>Od motýlů po brouky. Věrné, detailně malované modely pro malé i velké entomology.</p>
                 </div>
             </div>
+
             <div class="art-card">
-    <div class="card-visual" style="background-image: url('ptaci_koupit.jpg');">
-        <div class="card-inner-overlay">
-            <a href="https://www.filcovekralovstvi.cz/775192697/e-search?q=pt%C3%A1ci" target="_blank" class="btn-primary">Koupit ptačí říše</a>
-        </div>
+                <div class="card-visual" data-images="ptaci_koupit.jpg">
+                    <div class="card-inner-overlay">
+                        <a href="https://www.filcovekralovstvi.cz/775192697/e-search?q=pt%C3%A1ci" target="_blank" class="btn-primary">Koupit ptačí říše</a>
+                    </div>
+                </div>
                 <div class="card-body">
                     <h3>Ptačí svět</h3>
                     <p>Ručně malovaná pírka a věrné siluety našich pěvců i exotických papoušků.</p>
                 </div>
              </div>
+
             <div class="art-card">
-    <div class="card-visual" style="background-image: url('textil_koupit.jpg');">
-        <div class="card-inner-overlay">
-            <a href="https://www.filcovekralovstvi.cz/textil-zastery-tasky" target="_blank" class="btn-primary">Koupit textil</a>
-        </div>
+                <div class="card-visual" data-images="textil_koupit.jpg">
+                    <div class="card-inner-overlay">
+                        <a href="https://www.filcovekralovstvi.cz/textil-zastery-tasky" target="_blank" class="btn-primary">Koupit textil</a>
+                    </div>
                 </div>
                 <div class="card-body">
                      <h3>Autorský textil</h3>
-                    <p>Příroda jako součást vašeho každodenního stylu. Ručně malované oblečení.</p>
+                     <p>Příroda jako součást vašeho každodenního stylu. Ručně malované oblečení.</p>
                 </div>
             </div>
         </div>
@@ -712,7 +661,7 @@
                     </ul>
                     <div class="price-round">2 400<span>Kč</span></div>
                 </div>
-                
+
                 <div class="program-card">
                     <div class="icon-bubble"><i class="fas fa-dove main-icon"></i></div>
                     <h3>Ptačí putování</h3>
@@ -724,7 +673,7 @@
                     </ul>
                     <div class="price-round">2 400<span>Kč</span></div>
                 </div>
-                
+
                 <div class="program-card">
                     <div class="icon-bubble"><i class="fas fa-palette main-icon"></i></div>
                     <h3>Služby na míru</h3>
@@ -746,19 +695,19 @@
                 <h2>Nástěnka akcí <span class="break-title">a novinek</span></h2>
             </div>
             <div class="board-grid">
-                <div class="note" onclick="openModal('POZVÁNKA', 'Jarní tvoření v Mohelnici', 'Přijďte si ušít a namalovat vlastního broučka. Workshop v městském parku pro všechny generace.', 'https://via.placeholder.com/800x500?text=Workshop+Mohelnice')">
+                <div class="note" onclick="openModal('POZVÁNKA', 'Jarní tvoření v Mohelnici', 'Přijďte si ušít a namalovat vlastního broučka. Workshop v městském parku pro všechny generace.', 'workshop-mohelnice.jpg')">
                     <div class="note-pin"></div>
                     <h3>Jarní workshop 🌿</h3>
                     <p style="color: var(--moss-green); font-weight: 800; font-size: 1.2rem; margin-bottom: 10px;">12. května 2026</p>
                     <p>Vezměte děti a přijďte za námi do parku. Vše potřebné budeme mít s sebou. Zastavte se na kus řeči a tvoření!</p>
                 </div>
-                <div class="note" onclick="openModal('AKTUÁLNĚ', 'Hanácké trhy Olomouc', 'Budeme na Horním náměstí! Přijďte se podívat na novinky z filcu a autorský textil.', 'https://via.placeholder.com/800x500?text=Trhy+Olomouc')">
+                <div class="note" onclick="openModal('AKTUÁLNĚ', 'Hanácké trhy Olomouc', 'Budeme na Horním náměstí! Přijďte se podívat na novinky z filcu a autorský textil.', 'trhy-olomouc.jpg')">
                     <div class="note-pin"></div>
                     <h3>Trhy v Olomouci 🐞</h3>
                     <p style="color: var(--moss-green); font-weight: 800; font-size: 1.2rem; margin-bottom: 10px;">1. června 2026</p>
                     <p>Stánek plný přírody a radosti. Přivezeme spoustu novinek z exotické zvířecí říše i zbrusu novou kolekci textilu.</p>
                 </div>
-                <div class="note" onclick="openModal('NOVINKA', 'Nová kolekce oblečení', 'Evina láska k přírodě se přesouvá i do šatníku. Představujeme autorský textil.', 'https://via.placeholder.com/800x500?text=Nová+Kolekce')">
+                <div class="note" onclick="openModal('NOVINKA', 'Nová kolekce oblečení', 'Má láska k přírodě se přesouvá i do šatníku. Představuji vám autorský textil.', 'nova-kolekce.jpg')">
                     <div class="note-pin"></div>
                     <h3>Autorský textil 👕</h3>
                     <p style="color: var(--burnt-orange); font-weight: 800; font-size: 1.2rem; margin-bottom: 10px;">Již v prodeji</p>
@@ -771,7 +720,7 @@
     <footer id="kontakt">
         <div class="footer-grid">
             <div class="footer-col">
-                <img src="logo.png" alt="Filcové království" class="footer-logo">
+                <img data-images="logo.png" alt="Filcové království" class="footer-logo">
                 <p>Tradice, poctivé řemeslo a láska k přírodě přímo z Hané. Vytváříme edukativní pomůcky pro generaci, které na naší planetě záleží.</p>
                 <div class="social-links">
                     <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -780,7 +729,7 @@
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Kontaktujte nás</h4>
+                <h4>Kontaktujte mě</h4>
                 <p><i class="fas fa-map-marker-alt" style="margin-right: 15px; color: var(--burnt-orange); font-size: 1.2rem;"></i> Mohelnice, Olomoucký kraj</p>
                 <p><i class="fas fa-phone" style="margin-right: 12px; color: var(--burnt-orange); font-size: 1.2rem;"></i> <a href="tel:+420123456789" class="contact-link">+420 123 456 789</a></p>
                 <p><i class="fas fa-envelope" style="margin-right: 12px; color: var(--burnt-orange); font-size: 1.2rem;"></i> <a href="mailto:info@filcovekralovstvi.cz" class="contact-link">info@filcovekralovstvi.cz</a></p>
@@ -788,7 +737,7 @@
             <div class="footer-col">
                 <h4>E-shop a Otevírací doba</h4>
                 <p>Osobní setkání je možné dle předchozí domluvy, nebo se můžeme potkat na našich akcích (viz Nástěnka).</p>
-                <p style="color: white; font-weight: 700; font-size: 1.1rem; margin-top: 15px;">Náš e-shop funguje nepřetržitě 24/7.</p>
+                <p style="color: white; font-weight: 700; font-size: 1.1rem; margin-top: 15px;">Můj e-shop funguje nepřetržitě 24/7.</p>
                 <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="margin-top: 20px; padding: 15px 35px; font-size: 1rem;">Vstoupit do e-shopu</a>
             </div>
         </div>
@@ -810,6 +759,33 @@
     <a href="https://wa.me/420123456789" class="wa-float" target="_blank" title="Napište mi na WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
     <script>
+        // --- LOGIKA PRO DYNAMICKÉ OBRÁZKY (1 nebo více s prolínáním) ---
+        const cycleIntervalTime = 3000;
+
+        document.querySelectorAll('[data-images]').forEach(el => {
+            const images = el.getAttribute('data-images').split(',').map(s => s.trim());
+            if (images.length === 0 || images[0] === "") return;
+
+            let currentIndex = 0;
+
+            const setImage = (index) => {
+                if (el.tagName.toLowerCase() === 'img') {
+                    el.src = images[index];
+                } else {
+                    el.style.backgroundImage = `url('${images[index]}')`;
+                }
+            };
+
+            setImage(0);
+
+            if (images.length > 1) {
+                setInterval(() => {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    setImage(currentIndex);
+                }, cycleIntervalTime);
+            }
+        });
+
         // Mobilní menu
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('active');
@@ -821,7 +797,7 @@
             });
         });
 
-        // Plynulé objevování prvků (Scroll Reveal Animace)
+        // Plynulé objevování prvků
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -834,9 +810,9 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Volání ihned po načtení
+        reveal();
 
-        // Navbar Scroll Efekt (zmenšení a přidání stínu)
+        // Navbar Scroll Efekt
         window.onscroll = function() {
             var nav = document.getElementById('navbar');
             if (window.pageYOffset > 50) {
@@ -847,27 +823,41 @@
             reveal();
         };
 
-        // Funkce pro vyskakovací okno (Modal)
-        function openModal(sub, title, desc, img) {
+        // Funkce pro vyskakovací okno
+        let modalInterval;
+        function openModal(sub, title, desc, imgString) {
             document.getElementById('modalSub').innerText = sub;
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('modalImg').src = img;
-            
+
+            const imgs = imgString.split(',').map(s => s.trim());
+            const modalImg = document.getElementById('modalImg');
+
+            modalImg.src = imgs[0];
+            clearInterval(modalInterval);
+
+            if(imgs.length > 1) {
+                let i = 0;
+                modalInterval = setInterval(() => {
+                    i = (i + 1) % imgs.length;
+                    modalImg.src = imgs[i];
+                }, cycleIntervalTime);
+            }
+
             var modal = document.getElementById('mainModal');
             modal.style.display = 'block';
             setTimeout(() => { modal.style.opacity = '1'; }, 10);
-            
-            document.body.style.overflow = 'hidden'; // Zamezí scrollování stránky na pozadí
+
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             var modal = document.getElementById('mainModal');
             modal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Povolí scrollování
+            document.body.style.overflow = 'auto';
+            clearInterval(modalInterval);
         }
 
-        // Zavření modalu při kliknutí mimo obsah
         window.onclick = function(e) {
             if (e.target == document.getElementById('mainModal')) {
                 closeModal();
@@ -876,3 +866,4 @@
     </script>
 </body>
 </html>
+
