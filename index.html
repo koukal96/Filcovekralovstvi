@@ -7,10 +7,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;600;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-    }
-  </style>
-
         /* --- DEFINICE BAREV A PROMĚNNÝCH --- */
         :root {
             --moss-dark: #1f2613;
@@ -414,6 +412,36 @@
         }
         .social-links a:hover { background: var(--burnt-orange); border-color: var(--burnt-orange); transform: translateY(-8px) rotate(360deg); box-shadow: 0 10px 20px var(--orange-glow); }
 
+        /* --- STYLY PRO TVŮJ PODPIS --- */
+        .proud-creator {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: #a0a0a0;
+            opacity: 0.8;
+            transition: opacity 0.4s ease;
+            position: relative; /* Důležité pro správné zobrazení přes pozadí */
+            z-index: 2;
+        }
+        .proud-creator:hover { opacity: 1; }
+        .proud-creator a {
+            color: #b59b6d; /* Tlumená zlatá/bronzová */
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+        }
+        .proud-creator a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #b59b6d;
+            transition: width 0.3s ease;
+        }
+        .proud-creator a:hover::after { width: 100%; }
+
         /* --- PLOVOUCÍ WHATSAPP --- */
         .wa-float {
             position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px;
@@ -788,9 +816,10 @@
         <div style="text-align: center; margin-top: 80px; font-size: 0.9rem; color: rgba(255,255,255,0.4); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; position: relative; z-index: 2;">
             &copy; 2026 Filcové království | Eva Nevrlá. Všechna práva vyhrazena.
         </div>
+        
         <div class="proud-creator">
-  S láskou k detailu vytvořil <a href="#">koukal96</a>
-</div>
+            S láskou k detailu vytvořil <a href="https://github.com/koukal96" target="_blank">koukal96</a>
+        </div>
     </footer>
 
     <div id="mainModal" class="modal">
