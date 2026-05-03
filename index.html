@@ -574,34 +574,6 @@
             opacity: 1;
         }
     </style>
-   <!-- 1. CSS STYL (Vlož ideálně do sekce <head>, nebo klidně těsně před HTML kód níže) -->
-<style>
-    .podpora-sekce {
-        margin-top: 20px;     /* Mezera pod ikonami FB/IG */
-        padding-left: 5px;    /* Zarovnání, aby to sedělo pod ikony */
-    }
-
-    .podpora-text {
-        color: #ffffff;       /* Bílá barva textu */
-        font-size: 14px;      /* Velikost textu */
-        margin-bottom: 8px;   /* Mezera mezi textem a logem */
-        font-family: sans-serif;
-        opacity: 0.8;
-    }
-
-    .podpora-logo {
-        max-width: 120px;     /* Velikost loga */
-        height: auto;
-        display: block;
-        /* Filtr, který udělá z loga bílou verzi, aby ladila k webu */
-        filter: brightness(0) invert(1);
-        transition: 0.3s;
-    }
-
-    .podpora-logo:hover {
-        opacity: 0.6;
-    }
-</style>
 </div>
 </head>
 <body>
@@ -894,6 +866,13 @@
                     <a href="https://www.instagram.com/p/DQbXndWjNaK/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.filcovekralovstvi.cz" target="_blank" title="Do e-shopu" style="background: var(--burnt-orange); border-color: var(--burnt-orange);"><i class="fas fa-shopping-basket"></i></a>
                 </div>
+                  <!-- Sekce Podpora -->
+                <div style="margin-top: 40px;">
+                    <p style="color: var(--burnt-orange); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700;">Podporuje mě:</p>
+                    <a href="https://www.olkraj.cz/" target="_blank" title="Přejít na oficiální web Olomouckého kraje" style="display: inline-block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <img src="olomouc logo.png" alt="Olomoucký kraj" style="max-height: 60px; width: auto; object-fit: contain; background: white; padding: 10px; border-radius: 8px;">
+                    </a>
+                </div>
             </div>
             <div class="footer-col">
                 <h4>Kontaktujte mě</h4>
@@ -903,16 +882,10 @@
             </div>
             <div class="footer-col">
                 <h4>E-shop a Otevírací doba</h4>
-                <p>Můžeme potkat na našich akcích (viz Nástěnka).</p>
+                <p>Můžeme se potkat na našich akcích, které jsou vedené na nástěnce.</p>
                 <p style="color: white; font-weight: 700; font-size: 1.1rem; margin-top: 15px;">Můj e-shop funguje nepřetržitě 24/7.</p>
                 <a href="https://www.filcovekralovstvi.cz" target="_blank" class="btn-primary" style="margin-top: 20px; padding: 15px 35px; font-size: 1rem;">Vstoupit do e-shopu</a>
             </div>
-<!-- 2. SAMOTNÉ LOGO (Vlož pod kód s ikonami FB, IG a košíkem) -->
-<div class="podpora-sekce">
-    <p class="podpora-text">Podporuje mě:</p>
-    <a href="https://www.olkraj.cz" target="_blank" rel="noopener">
-        <img src="olomouc logo.png" alt="Logo Olomoucký kraj" class="podpora-logo">
-    </a>
         </div>
         <div style="text-align: center; margin-top: 80px; font-size: 0.9rem; color: rgba(255,255,255,0.4); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; position: relative; z-index: 2;">
             &copy; 2026 Filcové království | Eva Nevrlá. Všechna práva vyhrazena.
